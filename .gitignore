@@ -1,0 +1,34 @@
+# .gitignore for WINDEV, WEBDEV and WINDEV Mobile projects
+#
+# WINDEV – WEBDEV – WINDEV Mobile
+Backup
+Bin
+cache.gestion de sources
+Corbeille
+Groupware
+Lastsave
+Sauvegarde
+*.cache
+*.cpl
+*.env
+*.rep
+*.waudit
+*.wdcoverage
+*.wpf
+HstDuree.log
+#
+#WEBDEV
+*\res
+*.awl
+*.awp
+#
+# WINDEV Mobile 
+android
+*.xcode.gen
+*.wxunit
+wxunit.txt
+Svg_*
+desktop.ini
+Folder.ico
+Exe/Composant/wxUnit.txt
+Svg_V27_20230424_1126

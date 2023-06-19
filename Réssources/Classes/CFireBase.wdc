@@ -1,0 +1,72 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CFireBase
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1490b429002edd55
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CFireBase est une Classe
+      	Auth		est un CAuth
+      	Firestore	est un CFirestore
+      	Storage		est un CStorage
+      	
+      prive
+      	m_sAPI_KEY			est une chaîne
+      	m_sPROJECT_ID		est une chaîne
+      	m_sSTORAGE_BUCKET	est une chaîne
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1481882365594688853
+     type_code : 27
+     code : |1-
+      procédure Constructeur(stConfig est STFirebaseConfi)
+      
+      m_sAPI_KEY			= stConfig.ApiKey
+      m_sPROJECT_ID		= stConfig.ProjetId
+      m_sSTORAGE_BUCKET	= stConfig.StorageBucket
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1481882365594754389
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+  properties :
+   -
+     name : GetApiKey
+     identifier : 0x1490c61a00c8f1e2
+     type_code : 103
+     p_codes :
+      -
+        code : |1-
+         procédure public GetApiKey() : chaîne
+         
+         renvoyer m_sAPI_KEY
+        type : 1966080
+     template_refs : []
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1490b41c0028aba6
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
