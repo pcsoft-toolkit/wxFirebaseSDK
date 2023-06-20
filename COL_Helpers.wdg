@@ -1,50 +1,41 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : COL_Declaration
+ name : COL_Helpers
  major_version : 25
  minor_version : 0
  type : 7
  description : ""
  subtype : 0
 procedure_set :
- identifier : 0x1490b61c003477ed
+ identifier : 0x149197d8003a3b5f
  internal_properties : BQAAAAUAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
  code_elements :
   type_code : 31
-  p_codes :
+  p_codes : []
+  procedures :
    -
-     code : |1-
-      constant
-       CONST_CONFIG_FIREBASE = "CONST_CONFIG_FIREBASE"
-      fin
+     name : SauveConfiguration
+     procedure_id : 1482138113718055286
+     type_code : 15
+     code : |1+
+      procédure privée SauveConfiguration(stUneConfig est STFirebaseConfig) <métier>
+      
+      bufContenu est un buffer
+      
+      Sérialise(stUneConfig, bufContenu, psdJSON)
       
       
-      STFirebaseConfig est une structure
-      	ApiKey			est une chaîne
-      	ProjetId		est une chaîne
-      	StorageBucket	est une chaîne
-      fin
-      
-      gstUneFirebaseConfigGlobale est STFirebaseConfig
-      
-      
-      STUserCredential est une structure
-      	email est chaine
-      	password est une chaîne
-      	returnSecureToken est un booléen
-      fin
-      
-      
-      gMaRequete est un httpRequête
-      gMaResponse est un httpRéponse
-     type : 720896
+      SauveParamètre(CONST_CONFIG_FIREBASE, bufContenu)
+     type : 458752
+  procedure_templates : []
+  property_templates : []
  code_parameters :
   internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
   original_name : COL_SansNom1
 resources :
  string_res :
-  identifier : 0x1490b61400325aff
+  identifier : 0x149197d2003823d0
   internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

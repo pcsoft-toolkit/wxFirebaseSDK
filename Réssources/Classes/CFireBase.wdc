@@ -19,11 +19,6 @@ class :
       	Auth		est un CAuth
       	Firestore	est un CFirestore
       	Storage		est un CStorage
-      	
-      prive
-      	m_sAPI_KEY			est une chaîne
-      	m_sPROJECT_ID		est une chaîne
-      	m_sSTORAGE_BUCKET	est une chaîne
       fin
      type : 131072
   procedures :
@@ -32,11 +27,11 @@ class :
      procedure_id : 1481882365594688853
      type_code : 27
      code : |1-
-      procédure Constructeur(stConfig est STFirebaseConfi)
+      procédure Constructeur()
       
-      m_sAPI_KEY			= stConfig.ApiKey
-      m_sPROJECT_ID		= stConfig.ProjetId
-      m_sSTORAGE_BUCKET	= stConfig.StorageBucket
+      si pas EstInitialisé() ALORS
+      	Ouvre(FEN_Configuration_projet)
+      FIN
      type : 589824
    -
      name : Destructeur
@@ -46,19 +41,21 @@ class :
       procédure Destructeur()
       
      type : 655360
-  properties :
    -
-     name : GetApiKey
-     identifier : 0x1490c61a00c8f1e2
-     type_code : 103
-     p_codes :
-      -
-        code : |1-
-         procédure public GetApiKey() : chaîne
-         
-         renvoyer m_sAPI_KEY
-        type : 1966080
-     template_refs : []
+     name : EstInitialisé
+     procedure_id : 1482119744142519981
+     type_code : 12
+     code : |1-
+      procédure privée EstInitialisé():booléen
+      
+      bInitialise est un booléen = vrai
+      
+      si ChargeParamètre(CONST_CONFIG_FIREBASE) = "" ALORS
+      	bInitialise = Faux
+      FIN
+      
+      renvoyer bInitialise
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :
