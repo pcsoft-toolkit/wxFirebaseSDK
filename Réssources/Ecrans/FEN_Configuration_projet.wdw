@@ -1,0 +1,141 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : FEN_Configuration_projet
+ major_version : 25
+ minor_version : 0
+ type : 2
+ description : ""
+ subtype : 0
+window :
+ name : FEN_Configuration_projet
+ identifier : 0x249182d000761131
+ internal_properties : BQAAAAUAAAACpUpsqzE2hQnMp1VPWLC93oNRqMZtWPzVJyYp0/lz1kDLccVHaFMiO7OnvnivHV6JdDzMeeqJdbgzE+oBM+AVAdOuxvo4Vew/VCn4uaXGRJiKcxGZcRGU/9KccEWDRWja8NYSZEExusARlM4LYZDNMrYiggpLT3DF34vZ9cXg1VOZCOUudoqKRfRYp09RLoB0WisTnySbwxm5Y8KhbtCjjn0QFKnCK91+eW07ikFXsEXxu8QZR1gfPQTOtX2CmtAKhJXNrJsdlkFxjYfV2AQ2ODwJiiSRUfz9VKnwwxPkX6L2/EDtbD8RMaU3T3rVHNnqmANBG5XxoxSsSrpogv77p3BnNc8b/FAM4C8Fp7fHAGP6gPeW50w3+D5zZAzgWO+zv+5rqTCc3qsZd6EJB2FkTXON25NjaFmTm9dvwDEp7T860BaBNuCZsAgbj02IByp3L/FGKxqabE9x8upr2peXE+KS3FcVcuayGgURh0iIrdnBSMipdOy9zKjjF2UwN9Hf6mHD+3/fw26Bo/nPDWZGafh1k4Uvt4dclBD+ylJp3fcWFflfLUqqbaeMi9K9QlipY4ySYpKDDWJxs7j0lLIMnQtd5ogG3+lpIIPbObWuB6rwZohsDQJqUqkx21eIheiLMtzMSBhrf93Nwc9STGslHhFX92VZZxbHsj4+gG8ZAHiDhBLg8nyvuGA=
+ controls :
+  -
+    name : SAI_GoogleServices
+    identifier : 0x249184fb015b8a71
+    internal_properties : BQAAAAUAAABshza64fr1VhNk9MFl+MB8MPeIf68XRtFZ18D5SHPWel14gToBpbySgNph9ZHczFj1+ExGFYOF00vb4QI7uIQjRSVq6bzVIsNEriXyvx3do2mav076U5ObMR7BvPvGjbAPecfMrqYvL1kUin/Q/Rpirv+IChhSJ+TYf4D1Q0EJgTOyqFEPcrO2fgHlZo1IwvI0h4x0pKaE8pHs9y6nTF0dsaejhTDa8NszM/9Nltvc91AL90gd/avgBvnojYlwmpxZjPPi52lm30nkbpYEr8jH5aGftsb09+Dcp6lhgi7V4JOCvn0DCiFNTw7soyyPwa83R7JycsNz4M2lQtGEVPSEECd0tTyxgMyqALDY3fDL6v1ufxf39hgU/LQ2cbpG2xq3fChwj2Nk/GVdG0nZrK8JPZvHOZEgCpBX7dffx1i4lpMATUiy8O1qo9+O46fOBL5cyHFmvjqWpMhIGv97cCHMJX8Cz9h/4TaxUUt1sO+MzdmGv052ORYe8DhNLFDiTcnG5Ln/9GRH/YJ/yJbxRUZ50CnGlMtXrDBLHQFV7O6ROfEdx0mrVz2iXUwH12p6mQCXUx2WzrPEVDkEeGH9Sr38lv7pjeJCMy6QVGJJsKNtLlyV6q7tRW72vqTcYYfwO9Af/yTlijftBt53jSjcQVkyRUQh2jYhHyhw7BpS7s7f+M5m2iKyR6DMh2Jjse9yTFjIyhjpL7D7WFzHh1b0MFrQCzxOoDS0zxOPh9VCLurOnPi4pO53EJPVaLuzF0ysOjW84iSv4zEcSvaFtQArkh7yFXUE9T0B134M7hUgBwfdZHBv5kQvCzWVFclEsZnihjj2u5xoN6rYfeipJtOkBGYvZ5VnrjmhgqTZ+otnaPaNagUBHp6qu+xl8pT2/ncpgqaeRBzgVjnUxB88Z2rCDf9WJQc19vjXV0s3xfe2XLJO1PtHsgl18pfTOnSbX0pvmrMIR33szNNxxD5BraAVtzGFBGzuRSmj0EEcxKrCIx4rK/oKtSPL3wW0/35vwp+ZRcVnIvF/kBEHNy2bfSpP0xBqQsqAd0kvKhO5eQBd/zd2d8ry7HByCQDy+rzuCvohz09gIJNQ4nXvGMqKK088iC1SnpLFFKAt1EtSmUtVcOE3J3vaEbswDG1uKmoksx06vnJfl6zZWbkMat2JrTeGhw20Cjk6U6ikuTnN2fs6gY61Becuzr7GoaWpsEbcXtMOz1IfvDumG4bnAOXa4fO1Vt89xCGyD7XHjCdrXY5C+W/zaFiGUHOqQmJkGAbSMTaeu88/7D5JAHCco6iE
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+  -
+    name : LIB_SansNom1
+    identifier : 0x249185b501ba5fb9
+    internal_properties : BQAAAAUAAACuAR5WwA8UGlx3vt1a1eLMpMAriFaaAKM7vJA4XDe/3wMYkSmVZNWSs9yfs5aMJ0YGDkIIn7T9AS3jCQ6j5/U0vNXUgPpZbRt/mZlb/aUfXt3vhk3BB5MKjzYVJKb7W1pAwS4ZF/RR8LK2Z4ASmkhza4HEodXa1aFs3B+IjGT9y/biCGfzdP+mfw0jnwhhuanU6ALz0aL7IprEmV/zTltGhRbzl0/Ov4PW4zolXvyQsQ8LESVFZWDTQx7hFRUz8I7kWS70D6xVGPs3WGSLlpwkpNHew/ao+o6+nc+hfvvBYhFYiN6ZuifhzPhfrHazBGFjGN6nk/+gSvRzUpHsNDXC/q3NKePrxqVXPBJ427f2vl9nLRxjCYka06Izh5GdG/KjQNspxT2sh+m/YboaUI+rYd4hou4Jx3xYusTX2bReMCgLp7FyvbakZnGth+TEhUM1+yWh1YF7ukt1yV8vHM9Vms+dyQ1z2HuomXU+qTC4N0pSRckbOBY57rJ2A2TccOl30/g+VZXG2Panrw==
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        type : 18
+        enabled : false
+  -
+    name : BTN_Explorateur
+    identifier : 0x2491864f01debaef
+    internal_properties : BQAAAAUAAAClYipvNolg61hfKFCJfZYH7U12Yl57hG38S5Jx3dBD5nMmCKyT2+sNRnO/uXBQUJrVfUvjsGLUte0DJOKz5uD3AT61j661gctMGxrzAmW5gbjDCOmkiaje1WsnXTEzJZWOKZDO+SIk4kEwvzqm1abHZZe2SM4rW4nK0mAZ1+ociGgrrMaPpCENOZ43PUsVB8az4BLq2NwdUBBgs/lCcuSi3sSiPxq5uaJul7XUkmGq4t0h1EpMHfLOLV8q6BdBurZGuhTbZKZqRNGl7oP4Ey+sXDrMRgnbxyR4PVI1Wh/uofd/P8qjRvOuTdssmv4hTj7OiG0mHKIb1F84e9nEjJuf1SFeF3zKEJuzB8UCX8+jJXrWgshnMjWsRKGK/29XfGyT7GOgQBXWYgN6F8vdm3xPSERbOjqdE50CkVBSnQ1pk7qxim35SYaS7y9TvOgJK7fsGOrOiO7qvET2H1y7ROTk3NwU+GgZzTL5HOYWAjr88f8Bi4UfNkdEApx1ZjHwMca8Vfo2suyQNolLkXL5XS0eBjlTN6BT1RwD+TZEyPLCkh08EBtyxKXw9EAmmJGh6Vhq6DrmA8LjC08yHBY6ttdlMI4A8jMP/QBqKshwW2lbM4P49cRxFPg02xiK/iKJBkLFKXqJxaf2BZ+BxzkCKFtA/gaFWbP7L1acIdRAQACVsyLJbJd22jyzOYMXlU/Exvwt+xzsIu3y2bCGLds9FHRHF1/HwW7eKhjxM3VrO0BuQhappoFiqomS9sv5En6zv7kawkSWgFsaDtZM/dWbDZ9bRTotEBSNOGsKiDgoqbP4RXwl5OJmgtCcx6W9A+lKwqUouAsLJU+BsijnMgk6fNxzmKw=
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         
+        type : 14
+      -
+        code : |1-
+         
+         sFichier est une chaîne
+         
+         // Ouvre le sélecteur de fichiers
+         sFichier = fSélecteur("", "", "Sélectionnez le fichier de configuration de Firebase...",  ".JSON" + TAB + "*.JSON", "*.*")
+         
+         si sFichier <> "" ALORS
+         	ConfigBrut		est json	= fChargeTexte(sFichier)
+         	
+         	COL_Declaration.gstUneFirebaseConfigGlobale.ProjetId			= ConfigBrut.project_info.project_id
+         	COL_Declaration.gstUneFirebaseConfigGlobale.ApiKey				= ConfigBrut.client[1].api_key[1].current_key
+         	COL_Declaration.gstUneFirebaseConfigGlobale.StorageBucket		= ConfigBrut.project_info.storage_bucket	
+         	
+         	COL_Helpers.SauveConfiguration(COL_Declaration.gstUneFirebaseConfigGlobale)
+         	
+         	info("Configuration effectuée avec succès")	
+         FIN
+         
+         Ferme()
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom1
+    identifier : 0x2491a4d5025af4f8
+    internal_properties : BQAAAAUAAAA7hN/rIFy2LPyKH99a6mvnP2tmY41MqBVDvpiUGOM8BuGXfmORr+svuEY9VSkVdlb3ZRR1YJdhRgPNBRSkhdk7Ld4fdQbGDi4J46T1Tq5FoSfsl6yxB+RVbQfnETgrAUotayQq4vraIrGhGwJ+KcxlMK72GJai1E+cdY68jYj3ZU88v11maoJ+KtE3a185B9wb7mNUfugU4rdA5hCoSfa5xVEODGegMn9o6z1V9ttKni8e/XGrO6xqlVmNjMMIa1GRWvu01u+9b7434IQDZC8kVJANBkkLVSaZ09tMNaLMMHEnITy7zZpexzCdheqXgwUrt7VQ+8PYlcIPcuSgGq/XlPHEtAIn/ojKEd35FtWIDG5EeulCEM1pj3CChmY8M58hEYtiFMOFc+00Cf1KFBUQI2PCJpobd67GSSC9BbkLBwvQgpqf/WWcgw5iJpXeEnLZYC1HAweilm8+RXXO+Qnwqzqz7HEihe9xu4QOsn3dsHHY7rnx5DEhqSoSZLI92IesH9pWd4kdHd8LBh67QpdU9ymMnWa4NX75QgFQUvxSt4JIy0HZwCxpAcoZVSOV1e0JT28nhGdKINbucHPysae/wv2X8F1e7ZqbOTEpN/h3rl+/ZuS2ve+3WoAXJrx3yiQfJ5mlHpG55j7RtbZEcW1bsutPqY5PPh2rjkvqtH3RSTVnjMyIwvYLMUKsK6DD6MB90rAmhUZx8SJQK6dINKh44Dmmw8Tf
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
+ menu :
+  name : _Menu
+  identifier : 0x292573e513b5f221
+  internal_properties : BQAAAAUAAABd4biPtdLQOwfUFiqrit8H4xfGqKyz9t6VLxCUnNZRQiLPVs82PZNE+UVdKRzjizyeuKyRur85gNMUfqplpmtNDnQWQla9zo+GH9+1EfUJ6w17Dn/egD/gv+Hhywk8c9unIdzEp7EHgaAqD28w7Agveg4u19PBcKGZtQ==
+  options : []
+ languages :
+  - fr-FR
+ popup_menus : []
+ message_bar :
+  internal_properties : BQAAAAUAAABqPQh6HC8RxAVkp2SqPYLuZrfVhd+1KX4lx22hIT8uqEpE6yP7Sbc2rmVqdmL816EWzXOkEe9ijOtYwchZKAfpy3B1cNqhpJgsnbUs
+ code_elements :
+  type_code : 1
+  p_codes :
+   -
+     code : |1+
+      PROCEDURE MaFenêtre()
+   -
+     type : 230
+     enabled : false
+ code_parameters :
+  internal_properties : BQAAAAUAAAAwjDLmDSZ0H1P68nJIeNfqR9EvRjU/K+sVcM1T6rhVNr+VTV1mZ/rmoweYbFDZUhBGcv8UsxlDxVCOnb2U/SQOvlGWzNby3/w/V+ppSymxv+Vh
+  original_name : Modele1
+resources :
+ string_res :
+  identifier : 0x149182ad000488c7
+  internal_properties : BQAAAAUAAAAa2Zm8J9E/zh+/WIrVvz1fER/So3PB0gjQuxc1xKQVWY4ZDm5lfg==
+  strings :
+   -
+     text :
+      fr-FR : "%1 non trouvé"
+     index : 0
+   -
+     text :
+      fr-FR : Attention le fichier %1 est en lecture seule.
+     index : 1
+   -
+     text :
+      fr-FR : Sélectionnez une image...
+     index : 2
+   -
+     text :
+      fr-FR : Fichier ou répertoire introuvable.
+     index : 3
+custom_note :
+ internal_properties : BQAAAAUAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : BQAAAAUAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe
