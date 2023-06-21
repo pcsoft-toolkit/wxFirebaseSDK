@@ -28,6 +28,17 @@ procedure_set :
       
       SauveParamètre(CONST_CONFIG_FIREBASE, bufContenu)
      type : 458752
+   -
+     name : RécupèreCleAPI
+     procedure_id : 1482547351084683721
+     type_code : 15
+     code : |1-
+      procédure privée RécupèreCleAPI() <métier>:chaine
+      
+      stContenuConfig est une STFirebaseConfig = ChargeParamètre(CONST_CONFIG_FIREBASE)
+      
+      renvoyer stContenuConfig.ApiKey
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :
