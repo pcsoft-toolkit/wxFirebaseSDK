@@ -57,6 +57,7 @@ window :
          
          sFichier est une chaîne
          ConfigBrut		est json
+         stUneConfig  est STFirebaseConfig
          
          // Ouvre le sélecteur de fichiers
          sFichier = fSélecteur("", "", "Sélectionnez un fichier...", "Fichiers JSON" + TAB + "*.json*", "*.json*")
@@ -73,11 +74,11 @@ window :
          	RETOUR
          FIN
          
-         COL_Declaration.gstUneFirebaseConfigGlobale.ProjetId			= ConfigBrut.project_info.project_id
-         COL_Declaration.gstUneFirebaseConfigGlobale.ApiKey				= ConfigBrut.client[1].api_key[1].current_key
-         COL_Declaration.gstUneFirebaseConfigGlobale.StorageBucket		= ConfigBrut.project_info.storage_bucket	
+         stUneConfig.ProjetId			= ConfigBrut.project_info.project_id
+         stUneConfig.ApiKey				= ConfigBrut.client[1].api_key[1].current_key
+         stUneConfig.StorageBucket		= ConfigBrut.project_info.storage_bucket	
          
-         COL_Helpers.SauveConfiguration(COL_Declaration.gstUneFirebaseConfigGlobale)
+         COL_Helpers.SauveConfiguration(stUneConfig)
          
          Info("Configuration effectuée avec succès")	
          

@@ -1,0 +1,106 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CAuth
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1490bb35003c6435
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CAuth est une Classe
+      	// URL de la documentation https://firebase.google.com/docs/reference/rest/auth?hl=fr
+      
+       constant
+        CONST_AUTH_BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:%1?key=2"
+       fin
+       
+       prive
+       	m_nCodeErreur est un entier = 0
+       	m_sMessageErreur est une chaîne = ""
+      	
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1481890113716577333
+     type_code : 27
+     code : |1+
+      procédure Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1481890113716642869
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : Inscription
+     procedure_id : 1481890470199797822
+     type_code : 12
+     code : |1-
+      procédure publique  Inscription(stUserCredential est STUserCredential):(Entier, chaine, STFirebaseAuthProfil)
+      
+      bufContenu est un buffer
+      stUnUserProfil est STFirebaseAuthProfil
+      
+      si stUserCredential.returnSecureToken = Faux  alors  stUserCredential.returnSecureToken = vrai
+      
+      COL_Declarations.gMaRequete.Méthode		= httpPost
+      COL_Declarations.gMaRequete.ContentType	= typeMimeJSON
+      COL_Declarations.gMaRequete.URL			= ConstruitAuthURL(InscriptionURI)
+      
+      Sérialise(stUserCredential, bufContenu, psdJSON)
+      
+      COL_Declarations.gMaRequete.Contenu		= bufContenu
+      
+      COL_Declarations.gMaResponse	 = HTTPEnvoie(COL_Declarations.gMaRequete)
+      
+      si ErreurDétectée() ALORS
+      	m_nCodeErreur = ErreurInfo(errCode)
+      	m_sMessageErreur = ErreurInfo(errMessage)
+      FIN
+      
+      SI COL_Declarations.gMaResponse.CodeEtat <> 200 ALORS
+      	vFireBaseErreur est un variant = COL_Declarations.gMaResponse.Contenu
+      	m_nCodeErreur = COL_Declarations.gMaResponse.CodeEtat
+      	m_sMessageErreur = vFireBaseErreur.error.message
+      FIN
+      
+      si m_nCodeErreur <> 0 ALORS
+      	Désérialise(stUnUserProfil,COL_Declarations.gMaResponse.Contenu, psdJSON)	
+      FIN
+      
+      renvoyer (m_nCodeErreur, m_sMessageErreur, stUnUserProfil)
+     type : 458752
+   -
+     name : ConstruitAuthURL
+     procedure_id : 1482545362514231679
+     type_code : 12
+     code : |1-
+      procédure privée ConstruitAuthURL(eURI est E_AuthUIR):chaîne
+      
+      renvoyer ChaîneConstruit(CONST_AUTH_BASE_URL, eURI..Valeur, COL_Helpers.RécupèreCleAPI())
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1490bb2d003644f5
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
