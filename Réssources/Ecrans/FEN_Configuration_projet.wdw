@@ -56,38 +56,33 @@ window :
         code : |1-
          
          sFichier est une chaîne
+         ConfigBrut		est json
          
          // Ouvre le sélecteur de fichiers
-         sFichier = fSélecteur("", "", "Sélectionnez le fichier de configuration de Firebase...",  ".JSON" + TAB + "*.JSON", "*.*")
+         sFichier = fSélecteur("", "", "Sélectionnez un fichier...", "Fichiers JSON" + TAB + "*.json*", "*.json*")
          
-         si sFichier <> "" ALORS
-         	ConfigBrut		est json	= fChargeTexte(sFichier)
-         	
-         	COL_Declaration.gstUneFirebaseConfigGlobale.ProjetId			= ConfigBrut.project_info.project_id
-         	COL_Declaration.gstUneFirebaseConfigGlobale.ApiKey				= ConfigBrut.client[1].api_key[1].current_key
-         	COL_Declaration.gstUneFirebaseConfigGlobale.StorageBucket		= ConfigBrut.project_info.storage_bucket	
-         	
-         	COL_Helpers.SauveConfiguration(COL_Declaration.gstUneFirebaseConfigGlobale)
-         	
-         	info("Configuration effectuée avec succès")	
+         si sFichier = "" ALORS
+         	Erreur("Veuillez importer le fichier de configuration de Firebase, s'il vous plaît.")
+         	retour
          FIN
          
-         Ferme()
-        type : 18
-      -
-        type : 161
-        enabled : false
-  -
-    name : BTN_SansNom1
-    identifier : 0x2491a4d5025af4f8
-    internal_properties : BQAAAAUAAAA7hN/rIFy2LPyKH99a6mvnP2tmY41MqBVDvpiUGOM8BuGXfmORr+svuEY9VSkVdlb3ZRR1YJdhRgPNBRSkhdk7Ld4fdQbGDi4J46T1Tq5FoSfsl6yxB+RVbQfnETgrAUotayQq4vraIrGhGwJ+KcxlMK72GJai1E+cdY68jYj3ZU88v11maoJ+KtE3a185B9wb7mNUfugU4rdA5hCoSfa5xVEODGegMn9o6z1V9ttKni8e/XGrO6xqlVmNjMMIa1GRWvu01u+9b7434IQDZC8kVJANBkkLVSaZ09tMNaLMMHEnITy7zZpexzCdheqXgwUrt7VQ+8PYlcIPcuSgGq/XlPHEtAIn/ojKEd35FtWIDG5EeulCEM1pj3CChmY8M58hEYtiFMOFc+00Cf1KFBUQI2PCJpobd67GSSC9BbkLBwvQgpqf/WWcgw5iJpXeEnLZYC1HAweilm8+RXXO+Qnwqzqz7HEihe9xu4QOsn3dsHHY7rnx5DEhqSoSZLI92IesH9pWd4kdHd8LBh67QpdU9ymMnWa4NX75QgFQUvxSt4JIy0HZwCxpAcoZVSOV1e0JT28nhGdKINbucHPysae/wv2X8F1e7ZqbOTEpN/h3rl+/ZuS2ve+3WoAXJrx3yiQfJ5mlHpG55j7RtbZEcW1bsutPqY5PPh2rjkvqtH3RSTVnjMyIwvYLMUKsK6DD6MB90rAmhUZx8SJQK6dINKh44Dmmw8Tf
-    type : 4
-    code_elements :
-     type_code : 4
-     p_codes :
-      -
-        code : |1-
+         ConfigBrut	= fChargeTexte(sFichier)
          
+         si ConfigBrut.project_info.project_id = "" _ou_ ConfigBrut.client[1].api_key[1].current_key = "" _ou_ ConfigBrut.project_info.storage_bucket ALORS
+         	Erreur("Une ou plusieurs clés de configuration ne sont pas valides. Veuillez vérifier les clés de configuration.")
+         	RETOUR
+         FIN
+         
+         COL_Declaration.gstUneFirebaseConfigGlobale.ProjetId			= ConfigBrut.project_info.project_id
+         COL_Declaration.gstUneFirebaseConfigGlobale.ApiKey				= ConfigBrut.client[1].api_key[1].current_key
+         COL_Declaration.gstUneFirebaseConfigGlobale.StorageBucket		= ConfigBrut.project_info.storage_bucket	
+         
+         COL_Helpers.SauveConfiguration(COL_Declaration.gstUneFirebaseConfigGlobale)
+         
+         Info("Configuration effectuée avec succès")	
+         
+         
+         Ferme()
         type : 18
       -
         type : 161

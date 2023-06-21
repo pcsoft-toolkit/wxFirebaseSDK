@@ -28,32 +28,6 @@ procedure_set :
       
       SauveParamètre(CONST_CONFIG_FIREBASE, bufContenu)
      type : 458752
-   -
-     name : RécupèreCléAPI
-     procedure_id : 1482152677952532507
-     type_code : 15
-     code : |1-
-      procédure RécupèreCléAPI()
-      
-      jsonContenu est json = ChargeParamètre(CONST_CONFIG_FIREBASE)
-      
-      renvoyer jsonContenu.ApiKey
-     type : 458752
-   -
-     name : GestionnaireErreur
-     procedure_id : 1482185585992472191
-     type_code : 15
-     code : |1-
-      procédure GestionnaireErreur()
-      
-      selon ErreurInfo(errMessage)
-      	
-      	CAS "EMAIL_NOT_FOUND", "INVALID_PASSWORD"
-      		erreur("L’émail ou le mot de passe est incorrecte")
-      		
-      FIN
-       
-     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :
