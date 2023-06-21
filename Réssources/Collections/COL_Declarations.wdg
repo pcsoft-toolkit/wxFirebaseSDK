@@ -52,6 +52,24 @@ procedure_set :
       	dateLimiteValide	est une dateheure
       FIN
       
+      STStorageFileMetaData est une Structure
+      	name				est une chaîne
+      	bucket				est une chaîne
+      	generation			est une chaîne
+      	metageneration		est une chaîne
+      	contentType			est une chaîne
+      	timeCreated			est une DateHeure
+      	updated				est une DateHeure
+      	storageClass		est une chaîne
+      	size				est une chaîne
+      	md5Hash				est une chaîne
+      	contentEncoding		est une chaîne
+      	contentDisposition	est une chaîne
+      	crc32c				est une chaîne
+      	etag				est une chaîne
+      	downloadTokens		est une chaîne
+      	sUrlFichier          est une chaîne
+      FIN
       
       gMaRequete				est un httpRequête
       gMaResponse				est un httpRéponse

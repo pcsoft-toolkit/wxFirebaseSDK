@@ -18,9 +18,13 @@ class :
       CStorage est une Classe
       	CONSTANT
       		CONST_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/%1.appspot.com/o/"
+      		CONST_BASE_LIRE_FICHIER = "%1?alt=media&token=%2"
       	FIN
       	
-      	
+      PRIVÉ
+      	m_nCodeErreur		est un entier
+      	m_sMessageErreur	est une chaîne
+      	m_stMetaData		est STStorageFileMetaData
       fin
      type : 131072
   procedures :
@@ -30,7 +34,7 @@ class :
      type_code : 27
      code : |1+
       procédure Constructeur()
-      
+      m_nCodeErreur = 0
      type : 589824
    -
      name : Destructeur
@@ -41,13 +45,41 @@ class :
       
      type : 655360
    -
-     name : Televersé
+     name : StorageBucket
      procedure_id : 1481920908644959551
      type_code : 12
      code : |1+
-      procédure Televersé()
+      procédure privée StorageBucket(sChemainFichier est une chaîne):(entier, chaîne, STStorageFileMetaData)
       
-      info(ConstruitStorageURL())
+      COL_Declarations.gMaRequete.Méthode		= httpPost
+      COL_Declarations.gMaRequete.ContentType	= typeMimeJPEG
+      COL_Declarations.gMaRequete.URL			= ConstruitStorageURL()+fExtraitChemin(sChemainFichier,fExtension+fFichier)
+      
+      COL_Declarations.gMaRequete.Contenu		= fChargeBuffer(sChemainFichier)
+      
+      COL_Declarations.gMaResponse			= HTTPEnvoie(COL_Declarations.gMaRequete)
+      
+      SI ErreurDétectée() ALORS
+      	m_nCodeErreur		= ErreurInfo(errCode)
+      	m_sMessageErreur	= ErreurInfo(errMessage)
+      FIN
+      
+      SI COL_Declarations.gMaResponse.CodeEtat <> 200 ALORS
+      	FirebaseStorageErreur est un JSON = COL_Declarations.gMaResponse.Contenu
+      	m_nCodeErreur		= COL_Declarations.gMaResponse.CodeEtat
+      	m_sMessageErreur	= FirebaseStorageErreur.error.message
+      FIN
+      
+      SI m_nCodeErreur = 0 ALORS
+      	
+      	Désérialise(m_stMetaData, COL_Declarations.gMaResponse.Contenu, psdJSON)
+      	
+      	m_stMetaData.sUrlFichier = ConstruitUrlFichier(m_stMetaData.name, m_stMetaData.downloadTokens)	
+      FIN
+      
+      RENVOYER (m_nCodeErreur, m_sMessageErreur, m_stMetaData)
+      
+      
      type : 458752
    -
      name : ConstruitStorageURL
@@ -57,6 +89,24 @@ class :
       procédure privée ConstruitStorageURL():chaîne
       
       renvoyer ChaîneConstruit(CONST_STORAGE_BASE_URL, COL_Helpers.RécupèreProjectID())
+     type : 458752
+   -
+     name : ConstruitUrlFichier
+     procedure_id : 1482624523058773352
+     type_code : 12
+     code : |1-
+      procédure privée ConstruitUrlFichier(sNomFichier est une chaîne, sToken est une chaîne)
+      
+      RENVOYER  ConstruitStorageURL()+ChaîneConstruit("%1?alt=media&token=%2", sNomFichier, sToken)
+     type : 458752
+   -
+     name : Upload
+     procedure_id : 1482628216730721355
+     type_code : 12
+     code : |1-
+      procédure Upload(sChemainFichier est une chaîne):(entier, chaîne, STStorageFileMetaData)
+      
+      renvoyer StorageBucket(sChemainFichier)
      type : 458752
   procedure_templates : []
   property_templates : []
