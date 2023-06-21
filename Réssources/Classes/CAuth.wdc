@@ -25,6 +25,8 @@ class :
        prive
        	m_nCodeErreur est un entier = 0
        	m_sMessageErreur est une chaîne = ""
+      	m_bufContenu		est un buffer
+      	m_stUnUserProfil	est STFirebaseAuthProfil
       	
       fin
      type : 131072
@@ -52,18 +54,15 @@ class :
      code : |1-
       procédure publique  Inscription(stUserCredential est STUserCredential):(Entier, chaine, STFirebaseAuthProfil)
       
-      bufContenu est un buffer
-      stUnUserProfil est STFirebaseAuthProfil
-      
       si stUserCredential.returnSecureToken = Faux  alors  stUserCredential.returnSecureToken = vrai
       
       COL_Declarations.gMaRequete.Méthode		= httpPost
       COL_Declarations.gMaRequete.ContentType	= typeMimeJSON
       COL_Declarations.gMaRequete.URL			= ConstruitAuthURL(InscriptionURI)
       
-      Sérialise(stUserCredential, bufContenu, psdJSON)
+      Sérialise(stUserCredential, m_bufContenu, psdJSON)
       
-      COL_Declarations.gMaRequete.Contenu		= bufContenu
+      COL_Declarations.gMaRequete.Contenu		= m_bufContenu
       
       COL_Declarations.gMaResponse	 = HTTPEnvoie(COL_Declarations.gMaRequete)
       
@@ -79,10 +78,10 @@ class :
       FIN
       
       si m_nCodeErreur <> 0 ALORS
-      	Désérialise(stUnUserProfil,COL_Declarations.gMaResponse.Contenu, psdJSON)	
+      	Désérialise(m_stUnUserProfil,COL_Declarations.gMaResponse.Contenu, psdJSON)	
       FIN
       
-      renvoyer (m_nCodeErreur, m_sMessageErreur, stUnUserProfil)
+      renvoyer (m_nCodeErreur, m_sMessageErreur, m_stUnUserProfil)
      type : 458752
    -
      name : ConstruitAuthURL
@@ -92,6 +91,42 @@ class :
       procédure privée ConstruitAuthURL(eURI est E_AuthUIR):chaîne
       
       renvoyer ChaîneConstruit(CONST_AUTH_BASE_URL, eURI..Valeur, COL_Helpers.RécupèreCleAPI())
+     type : 458752
+   -
+     name : Connexion
+     procedure_id : 1482560201626089801
+     type_code : 12
+     code : |1-
+      procédure publique  Connexion(stUserCredential est STUserCredential):(Entier, chaine, STFirebaseAuthProfil)
+      
+      si stUserCredential.returnSecureToken = Faux  alors  stUserCredential.returnSecureToken = vrai
+      
+      COL_Declarations.gMaRequete.Méthode		= httpPost
+      COL_Declarations.gMaRequete.ContentType	= typeMimeJSON
+      COL_Declarations.gMaRequete.URL			= ConstruitAuthURL(ConnexionURI)
+      
+      Sérialise(stUserCredential, m_bufContenu, psdJSON)
+      
+      COL_Declarations.gMaRequete.Contenu		= m_bufContenu
+      
+      COL_Declarations.gMaResponse	 = HTTPEnvoie(COL_Declarations.gMaRequete)
+      
+      si ErreurDétectée() ALORS
+      	m_nCodeErreur = ErreurInfo(errCode)
+      	m_sMessageErreur = ErreurInfo(errMessage)
+      FIN
+      
+      SI COL_Declarations.gMaResponse.CodeEtat <> 200 ALORS
+      	vFireBaseErreur est un variant = COL_Declarations.gMaResponse.Contenu
+      	m_nCodeErreur = COL_Declarations.gMaResponse.CodeEtat
+      	m_sMessageErreur = vFireBaseErreur.error.message
+      FIN
+      
+      si m_nCodeErreur <> 0 ALORS
+      	Désérialise(m_stUnUserProfil,COL_Declarations.gMaResponse.Contenu, psdJSON)	
+      FIN
+      
+      renvoyer (m_nCodeErreur, m_sMessageErreur, m_stUnUserProfil)
      type : 458752
   procedure_templates : []
   property_templates : []
