@@ -17,17 +17,18 @@ class :
      code : |1+
       CAuth est une Classe
       	// URL de la documentation https://firebase.google.com/docs/reference/rest/auth?hl=fr
+      	
       
-       constant
-        CONST_AUTH_BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:%1?key=2"
-       fin
-       
-       prive
-       	m_nCodeErreur est un entier = 0
-       	m_sMessageErreur est une chaîne = ""
+      	constant
+      		CONST_AUTH_BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:%1?key=%2"
+      	fin	
+      	
+      PRIVÉ			
+      	m_nCodeErreur		est un entier
+      	m_sMessageErreur	est une chaîne
       	m_bufContenu		est un buffer
       	m_stUnUserProfil	est STFirebaseAuthProfil
-      	
+      	m_sProfilUserEnCache	est une chaîne	
       fin
      type : 131072
   procedures :
@@ -35,9 +36,14 @@ class :
      name : Constructeur
      procedure_id : 1481890113716577333
      type_code : 27
-     code : |1+
+     code : |1-
       procédure Constructeur()
+      m_nCodeErreur	= 0
+      m_sMessageErreur = ""
       
+      VariableRAZ(m_stUnUserProfil)
+      
+      m_sProfilUserEnCache		= fRepDonnées()+[fSep]+"user_profil.json"
      type : 589824
    -
      name : Destructeur
@@ -72,12 +78,12 @@ class :
       FIN
       
       SI COL_Declarations.gMaResponse.CodeEtat <> 200 ALORS
-      	vFireBaseErreur est un variant = COL_Declarations.gMaResponse.Contenu
+      	FireBaseErreur est un json = COL_Declarations.gMaResponse.Contenu
       	m_nCodeErreur = COL_Declarations.gMaResponse.CodeEtat
-      	m_sMessageErreur = vFireBaseErreur.error.message
+      	m_sMessageErreur = FireBaseErreur.error.message
       FIN
       
-      si m_nCodeErreur <> 0 ALORS
+      si m_nCodeErreur = 0 ALORS
       	Désérialise(m_stUnUserProfil,COL_Declarations.gMaResponse.Contenu, psdJSON)	
       FIN
       
@@ -117,16 +123,54 @@ class :
       FIN
       
       SI COL_Declarations.gMaResponse.CodeEtat <> 200 ALORS
-      	vFireBaseErreur est un variant = COL_Declarations.gMaResponse.Contenu
+      	FireBaseErreur est un Json = COL_Declarations.gMaResponse.Contenu
       	m_nCodeErreur = COL_Declarations.gMaResponse.CodeEtat
-      	m_sMessageErreur = vFireBaseErreur.error.message
+      	m_sMessageErreur = FireBaseErreur.error.message
       FIN
       
-      si m_nCodeErreur <> 0 ALORS
+      si m_nCodeErreur = 0 ALORS
       	Désérialise(m_stUnUserProfil,COL_Declarations.gMaResponse.Contenu, psdJSON)	
+      	SauveProfilUtilisateur()
       FIN
       
       renvoyer (m_nCodeErreur, m_sMessageErreur, m_stUnUserProfil)
+     type : 458752
+   -
+     name : SauveProfilUtilisateur
+     procedure_id : 1482591980093759346
+     type_code : 12
+     code : |1+
+      procédure privée SauveProfilUtilisateur()
+      
+      sDonnéesUtilisateur est un chaine
+      
+      m_stUnUserProfil.dateLimiteValide = DateHeureSys()
+      m_stUnUserProfil.dateLimiteValide.Minute += 50
+      
+      Sérialise(m_stUnUserProfil, sDonnéesUtilisateur, psdJSON)
+      
+      fSauveTexte(m_sProfilUserEnCache, sDonnéesUtilisateur)
+      
+     type : 458752
+   -
+     name : InfoUtilisateurConnecté
+     procedure_id : 1482596657313250306
+     type_code : 12
+     code : |1-
+      procédure InfoUtilisateurConnecté():STFirebaseAuthProfil
+      
+      sUserData est une chaîne 
+      
+      si fFichierExiste(m_sProfilUserEnCache) ALORS
+      	sUserData = fChargeTexte(m_sProfilUserEnCache)
+      FIN
+      
+      si sUserData <> "" ALORS
+      	Désérialise(m_stUnUserProfil, sUserData,psdJSON)
+      FIN
+      
+      
+      renvoyer m_stUnUserProfil
      type : 458752
   procedure_templates : []
   property_templates : []

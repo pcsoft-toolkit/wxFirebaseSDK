@@ -1,66 +1,62 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : CFireBase
+ name : CStorage
  major_version : 25
  minor_version : 0
  type : 4
  description : ""
  subtype : 0
 class :
- identifier : 0x14930422008c3441
+ identifier : 0x1490d71100f53042
  internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
  code_elements :
   type_code : 10
   p_codes :
    -
      code : |1+
-      CFireBase est une Classe
-      	Auth est CAuth
-      	Storage est CStorage
+      CStorage est une Classe
+      	CONSTANT
+      		CONST_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/%1.appspot.com/o/"
+      	FIN
+      	
+      	
       fin
      type : 131072
   procedures :
    -
      name : Constructeur
-     procedure_id : 1482533246419678273
+     procedure_id : 1481920745435443266
      type_code : 27
-     code : |1-
+     code : |1+
       procédure Constructeur()
       
-      si pas InitialiserSDK() ALORS
-      	Ouvre(FEN_Configuration_projet)
-      FIN
      type : 589824
    -
      name : Destructeur
-     procedure_id : 1482533246419743809
+     procedure_id : 1481920745435508802
      type_code : 28
      code : |1+
       procédure Destructeur()
       
      type : 655360
    -
-     name : InitialiserSDK
-     procedure_id : 1482533602902112565
+     name : Televersé
+     procedure_id : 1481920908644959551
+     type_code : 12
+     code : |1+
+      procédure Televersé()
+      
+      info(ConstruitStorageURL())
+     type : 458752
+   -
+     name : ConstruitStorageURL
+     procedure_id : 1482565493028734081
      type_code : 12
      code : |1-
-      procédure privée InitialiserSDK():booléen
+      procédure privée ConstruitStorageURL():chaîne
       
-      bEstInitilisé est un booléen = Vrai
-      
-      sContenu est une chaîne = ChargeParamètre(CONST_CONFIG_FIREBASE)
-      
-      si sContenu = "" ALORS
-      	bEstInitilisé = Faux
-      	
-      sinon
-      	Désérialise(COL_Declarations.gstUneConfigFirebaseGlobale, sContenu, psdJSON)
-      FIN
-      
-      
-      
-      renvoyer bEstInitilisé
+      renvoyer ChaîneConstruit(CONST_STORAGE_BASE_URL, COL_Helpers.RécupèreProjectID())
      type : 458752
   procedure_templates : []
   property_templates : []
@@ -69,7 +65,7 @@ class :
   original_name : Classe1
 resources :
  string_res :
-  identifier : 0x149303f000867324
+  identifier : 0x1490d70700ef0a0d
   internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

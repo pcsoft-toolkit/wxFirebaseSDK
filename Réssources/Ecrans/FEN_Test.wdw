@@ -55,14 +55,22 @@ window :
      type_code : 4
      p_codes :
       -
-        internal_properties : BQAAAAUAAACKLrQbpLzakxIdeD3ZvnvCEUDmhBdSP+NDHxXRgGSsUbl5klhOxtsuETahQfataVU59/WdYgllo8oFQ7cewYk54pywJ+0DGPzh7/VY/vg20bvAiCjwlav5LDvIc+qC9K1X0kS7hSvrOElisBrahZXUp3oX3FikGKiXXIMQl5/UdqNBKsltVNYgaRSuW/Y5PCYGOTizOUSy59tJjEv/bcrc6K/v+00eKR63V/r8+CWPF/y3Z1A=
+        internal_properties : BQAAAAUAAACEUGsw0OgwG1NB2nSvXJVzCPYE3DO7ibTK7OF6qt8bveyEhKNMF151WZ9O2FZzcaro0faPfUY41MmZtCuPZF0hOeAliIGiADljmjk/JMrPbWxjqjn/Dj/jBfFe0m2l1RbiY3J6KkGqFYYkv0MLxc52WoIRRw5r/vrvskcob8YQk5YfnFh2seKHT7mLolx54w==
         code : |1+
          
-         EcranVersSource()
          
-         //si gclFirebase.Auth.Connexion(stCredential) ALORS
-         //	info("connexion effectuée avec succès")
-         //FIN
+         stCredential.email = SAI_Email
+         stCredential.password = SAI_Mdp
+         
+         (nCodeErreur, sMessageErreur, stUnProfil) = gclInstanceFirebase.Auth.Connexion(stCredential) 
+         
+         si nCodeErreur <> 0 ALORS
+         	Info(sMessageErreur)
+         	retour
+         FIN
+         
+         info("connexion effectuée avec succès", stUnProfil.localId)
+         
          
         type : 18
       -
@@ -77,10 +85,10 @@ window :
      type_code : 4
      p_codes :
       -
-        internal_properties : BQAAAAUAAACKLrQbpLzakxIdeD3ZvnvCEUDmhBdSP+NDHxXRgGSsUbl5klhOxtsuETahQfataVU59/WdYgllo8oFQ7cewYk54pywJ+0DGPzh7/VY/vg20bvAiCjwlav5LDvIc+qC9K1X0kS7hSvrOElisBrahZXUp3oX3FikGKiXXIMQl5/UdqNBKsltVNYgaRSuW/Y5PCYGOTizOUSy59tJjEv/bcrc6K/v+00eKR63V/r8+CWPF/y3Z1A=
+        internal_properties : BQAAAAUAAACEUGsw0OgwG1NB2nSvXJVzCPYE3DO7ibTK7OF6qt8bveyEhKNMF151WZ9O2FZzcaro0faPfUY41MmZtCuPZF0hOeAliIGiADljmjk/JMrPbWxjqjn/Dj/jBfFe0m2l1RbiY3J6KkGqFYYkv0MLxc52WoIRRw5r/vrvskcob8YQk5YfnFh2seKHT7mLolx54w==
         code : |1-
          
-         stUnprofil est STAuthUser = gclFirebase.Auth.UtilisateurCourant()
+         stUnProfil = gclInstanceFirebase.Auth.InfoUtilisateurConnecté()
          
          info(stUnprofil.email)
         type : 18
@@ -130,15 +138,18 @@ window :
      type_code : 4
      p_codes :
       -
-        internal_properties : BQAAAAUAAACKLrQbpLzakxIdeD3ZvnvCEUDmhBdSP+NDHxXRgGSsUbl5klhOxtsuETahQfataVU59/WdYgllo8oFQ7cewYk54pywJ+0DGPzh7/VY/vg20bvAiCjwlav5LDvIc+qC9K1X0kS7hSvrOElisBrahZXUp3oX3FikGKiXXIMQl5/UdqNBKsltVNYgaRSuW/Y5PCYGOTizOUSy59tJjEv/bcrc6K/v+00eKR63V/r8+CWPF/y3Z1A=
-        code : |1+
+        internal_properties : BQAAAAUAAACEUGsw0OgwG1NB2nSvXJVzCPYE3DO7ibTK7OF6qt8bveyEhKNMF151WZ9O2FZzcaro0faPfUY41MmZtCuPZF0hOeAliIGiADljmjk/JMrPbWxjqjn/Dj/jBfFe0m2l1RbiY3J6KkGqFYYkv0MLxc52WoIRRw5r/vrvskcob8YQk5YfnFh2seKHT7mLolx54w==
+        code : |1-
          
          EcranVersSource()
+         (nCodeErreur, sMessageErreur, stUnProfil) = gclInstanceFirebase.Auth.Inscription(stCredential)
          
-         //si gclFirebase.Auth.Inscription(stCredential) ALORS
-         //	info("Inscription effectuée avec succès")
-         //FIN
+         si nCodeErreur <> 0 ALORS
+         	info(sMessageErreur)
+         	retour
+         FIN
          
+         Info("Inscription effectuée avec succès", stUnProfil.kind)
         type : 18
       -
         type : 161
@@ -159,14 +170,22 @@ window :
    -
      code : |1-
       PROCEDURE MaFenêtre()
+      
+      
+      
       stCredential est STUserCredential
+      
+      nCodeErreur		est un entier
+      sMessageErreur	est une chaîne
+      stUnProfil		est STFirebaseAuthProfil
    -
-     code : |1-
+     code : |1+
       
       SAI_Email	= "firebase@exemple.com"
       SAI_Mdp		= "test1234"
       
       FEN_Test..Plan = 1
+      
      type : 34
    -
      type : 230

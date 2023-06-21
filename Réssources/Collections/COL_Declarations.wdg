@@ -14,9 +14,9 @@ procedure_set :
   type_code : 31
   p_codes :
    -
-     code : |1-
+     code : |1+
       constant
-       CONST_CONFIG_FIREBASE = "CONST_CONFIG_FIREBASE"
+      	CONST_CONFIG_FIREBASE = "CONST_CONFIG_FIREBASE"
       fin
       
       
@@ -26,11 +26,12 @@ procedure_set :
       	StorageBucket	est une chaîne
       fin
       
+      gstUneConfigFirebaseGlobale	est STFirebaseConfig
       
-      STUserCredential est une structure
-      	email est chaine
-      	password est une chaîne
-      	returnSecureToken est un booléen
+      STUserCredential			est une structure
+      	email				est chaine
+      	password			est une chaîne
+      	returnSecureToken	est un booléen
       fin
       
       
@@ -41,17 +42,20 @@ procedure_set :
       FIN
       
       STFirebaseAuthProfil est une structure
-      	kind		est une chaîne
-      	localId		est une chaîne
-      	email		est une chaîne
-      	displayName	est une chaîne
-      	idToken		est une chaîne
-      	registered	est un booléen
+      	kind				est une chaîne
+      	localId				est une chaîne
+      	email				est une chaîne
+      	displayName			est une chaîne
+      	idToken				est une chaîne
+      	registered			est un booléen
+      	expiresIn			est une chaîne
+      	dateLimiteValide	est une dateheure
       FIN
       
       
-      gMaRequete est un httpRequête
-      gMaResponse est un httpRéponse
+      gMaRequete				est un httpRequête
+      gMaResponse				est un httpRéponse
+      
      type : 720896
  code_parameters :
   internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=

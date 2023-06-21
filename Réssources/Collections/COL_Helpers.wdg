@@ -35,9 +35,16 @@ procedure_set :
      code : |1-
       procédure privée RécupèreCleAPI() <métier>:chaine
       
-      stContenuConfig est une STFirebaseConfig = ChargeParamètre(CONST_CONFIG_FIREBASE)
+      renvoyer COL_Declarations.gstUneConfigFirebaseGlobale.ApiKey
+     type : 458752
+   -
+     name : RécupèreProjectID
+     procedure_id : 1482567228195663724
+     type_code : 15
+     code : |1-
+      procédure privée RécupèreProjectID() <métier>:chaine
       
-      renvoyer stContenuConfig.ApiKey
+      renvoyer COL_Declarations.gstUneConfigFirebaseGlobale.ProjetId
      type : 458752
   procedure_templates : []
   property_templates : []
