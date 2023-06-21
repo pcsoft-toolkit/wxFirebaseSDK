@@ -16,7 +16,7 @@ class :
    -
      code : |1+
       CFireBase est une Classe
-      
+      	Auth est CAuth
       fin
      type : 131072
   procedures :
