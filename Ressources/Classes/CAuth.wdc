@@ -1,0 +1,264 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CAuth
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1490bb35003c6435
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      // URL de la documentation https://firebase.google.com/docs/reference/rest/auth?hl=fr	
+      CONSTANT
+      	CONST_AUTH_BASE_URL	= "https://identitytoolkit.googleapis.com/v1/accounts:%1?key=%2"
+      FIN	
+      
+      I_AuthProviderService est une Interface
+      	procédure Connexion():CAuthReponse
+      FIN
+      
+      E_wxProvider est une énumération
+      	Google		= "google.com"
+      	Facebook	= "facebook.com"
+      	GitHub		= "github.com"
+      fin
+      
+      CAuth est une Classe
+       	prive
+       		m_sFirebaseAPI est une chaîne
+       		m_HttpClientReponse est un restRéponse
+       		m_sIDToken  est une chaîne
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1481890113716577333
+     type_code : 27
+     code : |1+
+      procédure Constructeur(sFirebaApiKey est une chaîne)
+      
+      m_sFirebaseAPI = sFirebaApiKey
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1481890113716642869
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+     type : 655360
+   -
+     name : ConnexionViaMotDePasse
+     procedure_id : 1482560201626089801
+     type_code : 12
+     code : |1-
+      procédure publique ConnexionViaMotDePasse(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
+      
+      bufCredentialPayload	est un buffer = [
+      {
+          "email": "[%sEmail%]",
+          "password": "[%sMdp%]",
+          "returnSecureToken": true
+        }
+      ]
+      
+      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("signInWithPassword"), bufCredentialPayload)
+      
+      
+      si ErreurDétectée() _ou_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      _DefinirIdToken(m_HttpClientReponse)
+      
+      RENVOYER _RecupereInfoUtilisateur()
+     type : 458752
+   -
+     name : ConnexionViaProvider
+     procedure_id : 1658860710682631666
+     type_code : 12
+     code : |1-
+      procédure ConnexionViaProvider(eUnProvider est E_wxProvider):CAuthReponse
+      
+      sUrl				est une chaîne	= ConstruitURL("signInWithIdp")
+      
+      clProviderInstance	est I_AuthProviderService
+      
+      selon eUnProvider
+      	CAS Google   : clProviderInstance <- allouer un CGoogleProvider(sUrl)
+      		
+      	CAS Facebook : clProviderInstance <- allouer un CFacebookProvider(sUrl)
+      		
+      	CAS GitHub   : clProviderInstance <- allouer un CGitHubProvider(sUrl)		
+      FIN
+      
+      renvoyer clProviderInstance.Connexion()
+     type : 458752
+   -
+     name : InscriptionViaMotDePasse
+     procedure_id : 1658862634828101156
+     type_code : 12
+     code : |1-
+      procédure InscriptionViaMotDePasse(sEmail est une chaîne, sMdp est une chaîne,sDisplayName est une chaîne, bVerifieEmail est un booléen = Faux):CAuthReponse
+      
+      bufCredentialPayload	est un buffer = [
+      {
+          "email": "[%sEmail%]",
+          "password": "[%sMdp%]",
+          "displayName": "[%sDisplayName%]",
+          "returnSecureToken": true
+        }
+      ]
+      
+      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("signUp"), bufCredentialPayload)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      _DefinirIdToken(m_HttpClientReponse)
+      
+      si bVerifieEmail ALORS
+      	renvoyer _EnvoyerEmailVerification()
+      FIN
+      
+      RENVOYER _RecupereInfoUtilisateur()
+     type : 458752
+   -
+     name : DemandeRéinitialisationMotDePasseParEmail
+     procedure_id : 1658863120159452365
+     type_code : 12
+     code : |1-
+      procédure DemandeRéinitialisationMotDePasseParEmail(sEmail est une chaîne):CAuthReponse
+      
+      bufContenu		est un buffer	= [
+      	{
+      		"requestType": "PASSWORD_RESET",
+      		"email": "[%sEmail%]"
+      	}
+      ]
+      
+      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("sendOobCode"), bufContenu)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	renvoyer new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER  new CAuthReponse(m_HttpClientReponse)
+     type : 458752
+   -
+     name : SupprimerCompte
+     procedure_id : 1658864004922921638
+     type_code : 12
+     code : |1-
+      procédure SupprimerCompte()
+      
+      bufContenu est un buffer = [
+      	{"idToken":"[%m_sIDToken%]"}
+      ]
+      
+      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("delete"), bufContenu)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER  new CAuthReponse(m_HttpClientReponse)
+     type : 458752
+   -
+     name : _RecupereInfoUtilisateur
+     procedure_id : 1658864288390829190
+     type_code : 12
+     code : |1+
+      procédure prive _RecupereInfoUtilisateur():CAuthReponse
+      
+      bufContenu			est un buffer			= [
+      	{"idToken":"[%m_sIDToken%]"}
+      ]
+      
+      m_HttpClientReponse	= CHttpClient.POST(ConstruitURL("lookup"), bufContenu)
+      
+      SI ErreurDétectée() ALORS
+      	RENVOYER  NEW CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER  NEW CAuthReponse(m_HttpClientReponse)
+      
+     type : 458752
+   -
+     name : ConnexionAnonyme
+     procedure_id : 1658864576153704522
+     type_code : 12
+     code : |1-
+      procédure ConnexionAnonyme()
+      
+      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("signUp"))
+      
+      
+      SI ErreurDétectée() _ou_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER _RecupereInfoUtilisateur()
+     type : 458752
+   -
+     name : ConstruitURL
+     procedure_id : 1658870954180182977
+     type_code : 12
+     code : |1+
+      procédure privée ConstruitURL(AuthUri est une chaîne):chaine
+      
+      renvoyer ChaîneConstruit(CONST_AUTH_BASE_URL, AuthUri, m_sFirebaseAPI)
+     type : 458752
+   -
+     name : _EnvoyerEmailVerification
+     procedure_id : 1664307815841109200
+     type_code : 12
+     code : |1+
+      procédure privée _EnvoyerEmailVerification():CAuthReponse
+      
+      bufContenu est un buffer = [
+      	{
+      		"requestType": "VERIFY_EMAIL",
+      		"idToken": "[%m_sIDToken%]"
+      	}
+      ]
+      
+      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("sendOobCode"), bufContenu)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      renvoyer new CAuthReponse(m_HttpClientReponse)
+      
+     type : 458752
+   -
+     name : _DefinirIdToken
+     procedure_id : 1667373318685306736
+     type_code : 12
+     code : |1-
+      procédure privée _DefinirIdToken(oRestReponse est un httpRéponse) <métier>
+      
+      vJsonResultat est un Variant = JSONVersVariant(oRestReponse.Contenu)
+      
+      m_sIDToken = vJsonResultat.idToken
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1490bb2d003644f5
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

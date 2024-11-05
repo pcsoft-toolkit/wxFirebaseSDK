@@ -1,0 +1,61 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CGoogleProvider
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1723d1230074a0ff
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CGoogleProvider est une Classe hérite CAbstractProvider
+      	
+      	CONSTANT 
+      		CONST_GOOGLE_ID		= ""
+      		CONST_GOOGLE_SECRET	= ""
+      	FIN
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1667406235318984959
+     type_code : 27
+     code : |1-
+      procédure Constructeur(sUrl est une chaîne)
+      
+      m_sUrl = sUrl
+      m_eProviderId =  CAuth.Google
+      
+      m_ProviderOAuthParamètres..ClientID						=  CONST_GOOGLE_ID
+      m_ProviderOAuthParamètres..ClientSecret					=  CONST_GOOGLE_SECRET
+      m_ProviderOAuthParamètres..Scope						= "email"
+      m_ProviderOAuthParamètres..URLAuth						= "https://accounts.google.com/o/oauth2/auth"
+      m_ProviderOAuthParamètres..URLToken						= "https://accounts.google.com/o/oauth2/token"
+      m_ProviderOAuthParamètres..URLRedirection				= "http://localhost:5000/auth/google/callback"
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1667406235319050495
+     type_code : 28
+     code : |1-
+      procédure Destructeur()
+     type : 655360
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1723d107006e3296
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

@@ -19,40 +19,57 @@ procedure_set :
       	CONST_CONFIG_FIREBASE = "CONST_CONFIG_FIREBASE"
       fin
       
-      
-      STFirebaseConfig est une structure
-      	ApiKey			est une chaîne
-      	ProjetId		est une chaîne
-      	StorageBucket	est une chaîne
-      fin
-      
-      gstUneConfigFirebaseGlobale	est STFirebaseConfig
-      
-      STUserCredential			est une structure
-      	email				est chaine
-      	password			est une chaîne
-      	returnSecureToken	est un booléen
-      fin
-      
-      
-      
-      E_AuthUIR est une Enumération
-      	InscriptionURI		= "signUp"
-      	ConnexionURI		= "signInWithPassword"
+      E_TypeErreur est une énumération
+      	errAucune
+      	errFirebase
+      	errWindev	
       FIN
       
-      STFirebaseAuthProfil est une structure
-      	kind				est une chaîne
+      ST_wxFirebaseConfig est une structure
+      	sApiKey			est une chaîne
+      	sProjetId		est une chaîne
+      	sStorageBucket	est une chaîne
+      	sOAuthClientID  est une chaîne
+      	sOAuthSecret    est une chaîne
+      	sURLRedirection est une chaîne
+      fin
+      
+      
+      ST_ProviderUserInfo est une structure
+      	providerId	est une chaîne
+      	federatedId	est une chaîne
+      	email		est une chaîne
+      	rawId		est une chaîne
+      FIN
+      
+      ST_DonneesUtilisateur est une structure
       	localId				est une chaîne
       	email				est une chaîne
-      	displayName			est une chaîne
-      	idToken				est une chaîne
-      	registered			est un booléen
-      	expiresIn			est une chaîne
-      	dateLimiteValide	est une dateheure
+      	passwordHash		est une chaîne
+      	emailVerified		est un booléen
+      	passwordUpdatedAt	est un numérique
+      	providerUserInfo	est un tableau de ST_ProviderUserInfo
+      	validSince			est une chaîne
+      	disabled			est un booléen
+      	lastLoginAt			est une chaîne
+      	createdAt			est une chaîne
+      	lastRefreshAt		est une DateHeure
       FIN
       
-      STStorageFileMetaData est une Structure
+      ST_DonneesConnexion est une structure
+      	kind	est une chaîne
+      	Utilisateur	est un tableau de ST_DonneesUtilisateur
+      FIN
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      ST_wxStorageFileMetaData est une Structure
       	name				est une chaîne
       	bucket				est une chaîne
       	generation			est une chaîne
@@ -71,8 +88,6 @@ procedure_set :
       	sUrlFichier          est une chaîne
       FIN
       
-      gMaRequete				est un httpRequête
-      gMaResponse				est un httpRéponse
       
      type : 720896
  code_parameters :

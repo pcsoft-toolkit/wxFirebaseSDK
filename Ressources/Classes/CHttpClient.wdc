@@ -1,0 +1,115 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CHttpClient
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x170979340009eda0
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CHttpClient est une Classe
+      
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1659991201908714912
+     type_code : 27
+     code : |1+
+      procédure Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1659991201908780448
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : POST
+     internal_properties : BQAAAAUAAABUHz8hVhFi02/J7EhBrMlSNO0MeAqWBppfCjnxm/4kgJdm7XWgB5T6wjMexC1lxpG0E9/miOIxDqpCyq3t86PoLtBkATH/1oB8x09XjEnNP/qUDpwcbSPg0NLupmnY36w8JgJ/5axk6CsPJRVV4Ib+UFiKlFTTIkF739C1c2Up+mtV1Q==
+     procedure_id : 1659991309282987848
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] POST (<sUrl> est chaîne [, <bufContenu> est buffer])
+      //
+      // Paramètres :
+      //	sUrl (chaîne ANSI) : <indiquez ici le rôle de sUrl>
+      //	bufContenu (buffer - valeur par défaut="") : <indiquez ici le rôle de bufContenu>
+      // Valeur de retour :
+      // 	httpRéponse : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //// Traitement automatique des erreurs :   exécuter le bloc de code CAS ERREUR
+      //
+      
+      procédure publique globale POST(sUrl est une chaîne, bufContenu est un buffer = ""):httpRéponse
+      
+      FirebaseRequête est une httpRequête
+      FirebaseRéponse est une httpRéponse
+      
+      FirebaseRequête.Méthode		= httpPost
+      FirebaseRequête.ContentType	= typeMimeJSON
+      FirebaseRequête.URL			= sUrl
+      FirebaseRequête.Contenu		= bufContenu
+      
+      FirebaseRéponse = RESTEnvoie(FirebaseRequête)
+      
+      renvoyer FirebaseRéponse
+      
+      CAS ERREUR:
+      	ErreurPropage()
+      	RENVOYER FirebaseRéponse
+     type : 458752
+   -
+     name : GET
+     procedure_id : 1659991403772355990
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //GET ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure publique globale GET(sUrl est une chaîne):httpRéponse
+      
+      FirebaseRequête est une httpRequête
+      
+      FirebaseRequête.Méthode		= httpGet
+      FirebaseRequête.ContentType	= typeMimeJSON
+      FirebaseRequête.URL			= sUrl
+      
+      RENVOYER RESTEnvoie(FirebaseRequête)
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1709791500037738
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
