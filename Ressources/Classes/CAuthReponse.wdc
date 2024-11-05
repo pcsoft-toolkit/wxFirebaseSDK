@@ -29,7 +29,7 @@ class :
       
       CAuthReponse est une Classe
       	prive 
-      	m_eErreurType					est une E_TypeErreur
+      	m_eErreurType					est une ETypeErreur
       	m_bErreurWindevMessage			est une booleen	= faux
       	m_bErrEmailNotFound				est une booleen	= faux
       	m_bErrEmailExist				est une booleen	= faux
@@ -39,7 +39,7 @@ class :
       	m_bErrCnxAnonymeDesactié		est une booleen	= faux
       	m_bErrIdTokenInvalide			est une booleen	= faux
       	m_bErrIdTokenProviderExpire		est une booleen	= faux
-      	m_stDonneesUtilisateurConnecté	est ST_DonneesConnexion
+      	m_stDonneesUtilisateurConnecté	est STDonneesConnexion
       fin
      type : 131072
   procedures :
@@ -151,7 +151,7 @@ class :
      p_codes :
       -
         code : |1-
-         procédure publique Données():ST_DonneesConnexion
+         procédure publique Données():STDonneesConnexion
          
          renvoyer m_stDonneesUtilisateurConnecté
         type : 1966080
@@ -199,7 +199,7 @@ class :
      p_codes :
       -
         code : |1-
-         procédure publique errType():E_TypeErreur 
+         procédure publique errType():ETypeErreur 
          
          renvoyer m_eErreurType
         type : 1966080

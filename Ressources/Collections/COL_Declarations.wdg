@@ -19,13 +19,22 @@ procedure_set :
       	CONST_CONFIG_FIREBASE = "CONST_CONFIG_FIREBASE"
       fin
       
-      E_TypeErreur est une énumération
+      ETypeErreur est une énumération
       	errAucune
       	errFirebase
       	errWindev	
       FIN
       
-      ST_wxFirebaseConfig est une structure
+      STAuthPayload est une structure
+      	sEmail est une chaîne
+      	sMdp est une chaîne
+      	sNomAffichage est une chaîne
+      	sNuméroTéléphone est une chaîne
+      	sPhotoURL est une chaîne
+      	bVerifieEmail est un booléen 
+      fin
+      
+      STFirebaseConfig est une structure
       	sApiKey			est une chaîne
       	sProjetId		est une chaîne
       	sStorageBucket	est une chaîne
@@ -35,20 +44,20 @@ procedure_set :
       fin
       
       
-      ST_ProviderUserInfo est une structure
+      STProviderUserInfo est une structure
       	providerId	est une chaîne
       	federatedId	est une chaîne
       	email		est une chaîne
       	rawId		est une chaîne
       FIN
       
-      ST_DonneesUtilisateur est une structure
+      STDonneesUtilisateur est une structure
       	localId				est une chaîne
       	email				est une chaîne
       	passwordHash		est une chaîne
       	emailVerified		est un booléen
       	passwordUpdatedAt	est un numérique
-      	providerUserInfo	est un tableau de ST_ProviderUserInfo
+      	tabProviderUserInfo	est un tableau de STProviderUserInfo
       	validSince			est une chaîne
       	disabled			est un booléen
       	lastLoginAt			est une chaîne
@@ -56,9 +65,9 @@ procedure_set :
       	lastRefreshAt		est une DateHeure
       FIN
       
-      ST_DonneesConnexion est une structure
+      STDonneesConnexion est une structure
       	kind	est une chaîne
-      	Utilisateur	est un tableau de ST_DonneesUtilisateur
+      	tabUtilisateur	est un tableau de STDonneesUtilisateur
       FIN
       
       

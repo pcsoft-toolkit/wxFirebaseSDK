@@ -25,7 +25,7 @@ class :
      procedure_id : 1482533246419678273
      type_code : 27
      code : |1-
-      procédure Constructeur(stUneConfig est ST_wxFirebaseConfig)
+      procédure Constructeur(stUneConfig est STFirebaseConfig)
       
       Constructeur Auth(stUneConfig.sApiKey)
        

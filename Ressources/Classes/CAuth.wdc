@@ -55,11 +55,11 @@ class :
       procédure Destructeur()
      type : 655360
    -
-     name : ConnexionViaMotDePasse
+     name : SeConnecter
      procedure_id : 1482560201626089801
      type_code : 12
      code : |1-
-      procédure publique ConnexionViaMotDePasse(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
+      procédure publique SeConnecter(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
       
       bufCredentialPayload	est un buffer = [
       {
@@ -81,11 +81,11 @@ class :
       RENVOYER _RecupereInfoUtilisateur()
      type : 458752
    -
-     name : ConnexionViaProvider
+     name : SeConnecterProvider
      procedure_id : 1658860710682631666
      type_code : 12
      code : |1-
-      procédure ConnexionViaProvider(eUnProvider est E_wxProvider):CAuthReponse
+      procédure SeConnecterProvider(eUnProvider est E_wxProvider):CAuthReponse
       
       sUrl				est une chaîne	= ConstruitURL("signInWithIdp")
       
@@ -102,17 +102,19 @@ class :
       renvoyer clProviderInstance.Connexion()
      type : 458752
    -
-     name : InscriptionViaMotDePasse
+     name : CréerUtilisateur
      procedure_id : 1658862634828101156
      type_code : 12
      code : |1-
-      procédure InscriptionViaMotDePasse(sEmail est une chaîne, sMdp est une chaîne,sDisplayName est une chaîne, bVerifieEmail est un booléen = Faux):CAuthReponse
+      procédure CréerUtilisateur(stAuthPayload est STAuthPayload):CAuthReponse
       
       bufCredentialPayload	est un buffer = [
       {
-          "email": "[%sEmail%]",
-          "password": "[%sMdp%]",
-          "displayName": "[%sDisplayName%]",
+          "email": "[%stAuthPayload.sEmail%]",
+          "password": "[%stAuthPayload.sMdp%]",
+          "displayName": "[%stAuthPayload.sNomAffichage%]",
+          "phoneNumber": "[%stAuthPayload.sNuméroTéléphone%]",
+          "photoUrl": "[%stAuthPayload.sPhotoURL%]",
           "returnSecureToken": true
         }
       ]
@@ -125,18 +127,18 @@ class :
       
       _DefinirIdToken(m_HttpClientReponse)
       
-      si bVerifieEmail ALORS
+      si stAuthPayload.bVerifieEmail ALORS
       	renvoyer _EnvoyerEmailVerification()
       FIN
       
       RENVOYER _RecupereInfoUtilisateur()
      type : 458752
    -
-     name : DemandeRéinitialisationMotDePasseParEmail
+     name : RéinitialiserMotDePasse
      procedure_id : 1658863120159452365
      type_code : 12
      code : |1-
-      procédure DemandeRéinitialisationMotDePasseParEmail(sEmail est une chaîne):CAuthReponse
+      procédure RéinitialiserMotDePasse(sEmail est une chaîne):CAuthReponse
       
       bufContenu		est un buffer	= [
       	{
@@ -154,11 +156,11 @@ class :
       RENVOYER  new CAuthReponse(m_HttpClientReponse)
      type : 458752
    -
-     name : SupprimerCompte
+     name : SupprimerUtilisateur
      procedure_id : 1658864004922921638
      type_code : 12
      code : |1-
-      procédure SupprimerCompte()
+      procédure SupprimerUtilisateur()
       
       bufContenu est un buffer = [
       	{"idToken":"[%m_sIDToken%]"}
