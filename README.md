@@ -44,7 +44,7 @@ gclInstanceFirebase est CFireBase(gstFirebaseConfig)
 L’authentification permet aux utilisateurs de s'authentifier via les API REST de Firebase. Cette fonctionnalité peut inclure la connexion par email et mot de passe, l'inscription de nouveaux utilisateurs.
 
 Chacune des méthodes documentées ci-dessous renverra une instance de `CAuthReponse` avec les accesseurs suivants :
-```bash
+
 | accesseurs | Type | description |
 | --- | :-: | --- |
 | gclAuthReponse.errType | ETypeErreur (errAucune, errFirebase, errWindev)|
@@ -56,7 +56,7 @@ Chacune des méthodes documentées ci-dessous renverra une instance de `CAuthRep
 | gclAuthReponse.errConnexionParMotDePasseDesactive | Booleen |
 | gclAuthReponse.errConnexionAnonymeDesactive | Booleen |
 | gclAuthReponse.errTokenInvalide  | Booleen |
-```	
+
 
 ### Créer un utilisateur
 ```bash
