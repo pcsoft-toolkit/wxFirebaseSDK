@@ -32,7 +32,7 @@ Pour que le composant puisse accéder à un projet Firebase, vous devez au préa
 
 Une fois le fichier de clé privée obtenu, initialisez la configuration Firebase dans votre projet avec le code suivant :
 
-```bash
+```WLangage
 gstFirebaseConfig est STFirebaseConfig = [CONST_API_KEY, CONST_PROJET_ID, CONST_STORAGE_BUCKET]
 gclInstanceFirebase est CFireBase(gstFirebaseConfig)
 ```
@@ -47,19 +47,25 @@ Chacune des méthodes documentées ci-dessous renverra une instance de `CAuthRep
 
 | accesseurs | Type | description |
 | --- | :-: | --- |
-| gclAuthReponse.errType | ETypeErreur (errAucune, errFirebase, errWindev)|
-| gclAuthReponse.Données  | Buffer |
-| gclAuthReponse.errEmailExistant | Booleen |
-| gclAuthReponse.errEmailIntrouvable | Booleen |
-| gclAuthReponse.errMotDePasseInvalide | Booleen |
-| gclAuthReponse.errUtilisateurDesactivé | Booleen |
-| gclAuthReponse.errConnexionParMotDePasseDesactive | Booleen |
-| gclAuthReponse.errConnexionAnonymeDesactive | Booleen |
-| gclAuthReponse.errTokenInvalide  | Booleen |
-
+| gclAuthReponse.errType | ETypeErreur | Determine qu'une erreur est presente ou pas.
+| gclAuthReponse.Données  | Buffer | Retourne les informations utilisateur
+| gclAuthReponse.errEmailExistant | Booleen | L'adresse e-mail fournie est déjà utilisée par un utilisateur.
+| gclAuthReponse.errEmailIntrouvable | Booleen | Il n'existe aucun utilisateur correspondant à cet identifiant. L'utilisateur a peut-être été supprimé.
+| gclAuthReponse.errMotDePasseInvalide | Booleen | La valeur fournie pour la propriété utilisateur password n'est pas valide. Il doit s'agir d'une chaîne d'au moins six caractères.
+| gclAuthReponse.errUtilisateurDesactivé | Booleen | Le compte utilisateur a été désactivé par un administrateur.
+| gclAuthReponse.errConnexionParMotDePasseDesactive | Booleen | La connexion par mot de passe est désactivée pour ce projet.
+| gclAuthReponse.errConnexionAnonymeDesactive | Booleen | La connexion anonyme est désactivée pour ce projet.
+| gclAuthReponse.errWindevMessage | Chaine | Retourne le message d'erreur wwindev correspondant.
+| gclAuthReponse.errTokenInvalide  | Booleen | Identifiant de l'utilisateur ne sont plus valides. L'utilisateur doit se reconnecter.
+| gclAuthReponse.errTokenProviderExpire  | Booleen | Identifiant d'authentification fournies sont mal formées ou ont expiré
+> [!NOTE]
+> `ETypeErreur` est une enumeration comprenant trois valeurs : 
+> errAucune   : Aucune erreur n'as ete detectée.
+> errFirebase : Une erreur `Firebase` à été detectée.
+> errWindev   : Une erreur `Windev` à été detectée.
 
 ### Créer un utilisateur
-```bash
+```WLangage
 gstInfoUtilisateur est STAuthPayload
 
 gstInfoUtilisateur.sEmail = "wx@firebase.com"
@@ -73,19 +79,19 @@ gclAuthReponse  = gclInstanceFirebase.Auth.CréerUtilisateur(gstInfoUtilisateur)
 ```
 ### Connexion anonyme
 Cette méthode créera un nouvel utilisateur dans la base de données du service d'authentification Firebase à chaque fois qu'elle est invoquée
-```bash
+```WLangage
 gclAuthReponse  = gclInstanceFirebase.Auth.ConnexionAnonyme()
 ```
 ### Connexion par e-mail et mot de passe
-```bash
+```WLangage
 gclAuthReponse  = gclInstanceFirebase.Auth.SeConnecter("wx@firebase.com", "test1234")
 ```
 ### Demande de réinitialisation de mot de passe
-```bash
+```WLangage
 gclAuthReponse  = gclInstanceFirebase.Auth.RéinitialiserMotDePasse("wx@firebase.com")
 ```
 ### Supprimer un utilisateur
-```bash
+```WLangage
 gclAuthReponse  = gclInstanceFirebase.Auth.SupprimerUtilisateur()
 ```
 ### Connexion via providers
@@ -95,7 +101,7 @@ Les `Providers` sont des fournisseurs d'authentification autres que Firebase, pa
 - Github
 - Google
 
-```bash
+```WLangage
 gclAuthReponse  = gclInstanceFirebase.Auth.SeConnecterProvider(CAuth.Facebook)
 ```
 
