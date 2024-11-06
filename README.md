@@ -60,9 +60,9 @@ Chacune des méthodes documentées ci-dessous renverra une instance de `CAuthRep
 | gclAuthReponse.errTokenProviderExpire  | Booleen | Identifiant d'authentification fournies sont mal formées ou ont expiré
 > [!NOTE]
 > `ETypeErreur` est une enumeration comprenant trois valeurs : 
-> errAucune   : Aucune erreur n'as ete detectée.
-> errFirebase : Une erreur `Firebase` à été detectée.
-> errWindev   : Une erreur `Windev` à été detectée.
+> - errAucune   : Aucune erreur n'as ete detectée.
+> - errFirebase : Une erreur `Firebase` à été detectée.
+> - errWindev   : Une erreur `Windev` à été detectée.
 
 ### Créer un utilisateur
 ```WLangage
@@ -104,15 +104,32 @@ Les `Providers` sont des fournisseurs d'authentification autres que Firebase, pa
 ```WLangage
 gclAuthReponse  = gclInstanceFirebase.Auth.SeConnecterProvider(CAuth.Facebook)
 ```
+### Gestion de la réponse
+```WLangage
+gclAuthReponse est CAuthReponse = gclInstanceFirebase.Auth.SeConnecter("wx@firebase.com", "test1234")
+
+SELON gclAuthReponse.errType
+	CAS errAucune
+		
+		gbufDonnéesUtilisateur est un Buffer = gclAuthReponse.Données
+		
+	CAS errFirebase
+		SI gclAuthReponse.errEmailExistant ALORS Info("Email Existant")
+		SI gclAuthReponse.errEmailIntrouvable ALORS Info("Email Introuvable")
+		SI gclAuthReponse.errMotDePasseInvalide ALORS Info("Mot De Passe Invalide")
+	
+	CAS errWindev
+		Info(gclAuthReponse.errWindevMessage)
+FIN
+```
 
 ## II - Firestore
 
-Firestore est la base de données NoSQL de Firebase, permettant de stocker et de synchroniser des données entre l'application et Firebase. Les opérations incluent l'ajout, la récupération, la mise à jour et la suppression de documents.
+
 
 ## III - Storage
 
-Le service Storage permet de gérer le stockage et la récupération de fichiers. Cette fonctionnalité est idéale pour stocker des fichiers multimédias (images, vidéos, etc.) associés aux utilisateurs ou à des fonctionnalités spécifiques.
+
 
 ## Contributions
 
-Les contributions sont les bienvenues.
