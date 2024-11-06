@@ -20,11 +20,11 @@ class :
       	CONST_AUTH_BASE_URL	= "https://identitytoolkit.googleapis.com/v1/accounts:%1?key=%2"
       FIN	
       
-      I_AuthProviderService est une Interface
+      IAuthProviderService est une Interface
       	procédure Connexion():CAuthReponse
       FIN
       
-      E_wxProvider est une énumération
+      EProvider est une énumération
       	Google		= "google.com"
       	Facebook	= "facebook.com"
       	GitHub		= "github.com"
@@ -85,11 +85,11 @@ class :
      procedure_id : 1658860710682631666
      type_code : 12
      code : |1-
-      procédure SeConnecterProvider(eUnProvider est E_wxProvider):CAuthReponse
+      procédure SeConnecterProvider(eUnProvider est EProvider):CAuthReponse
       
       sUrl				est une chaîne	= ConstruitURL("signInWithIdp")
       
-      clProviderInstance	est I_AuthProviderService
+      clProviderInstance	est IAuthProviderService
       
       selon eUnProvider
       	CAS Google   : clProviderInstance <- allouer un CGoogleProvider(sUrl)

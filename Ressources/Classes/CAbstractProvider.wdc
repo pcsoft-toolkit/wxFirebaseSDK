@@ -18,7 +18,7 @@ class :
       CAbstractProvider est une Classe, abstraite
       	protege
       		m_sUrl 					  est une chaîne
-      		m_eProviderId             est un CAuth.E_wxProvider
+      		m_eProviderId             est un CAuth.EProvider
       		m_ProviderOAuthParamètres est un OAuth2Paramètres
       fin
      type : 131072

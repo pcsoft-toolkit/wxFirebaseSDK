@@ -15,10 +15,6 @@ procedure_set :
   p_codes :
    -
      code : |1+
-      constant
-      	CONST_CONFIG_FIREBASE = "CONST_CONFIG_FIREBASE"
-      fin
-      
       ETypeErreur est une énumération
       	errAucune
       	errFirebase
@@ -42,63 +38,11 @@ procedure_set :
       	sOAuthSecret    est une chaîne
       	sURLRedirection est une chaîne
       fin
-      
-      
-      STProviderUserInfo est une structure
-      	providerId	est une chaîne
-      	federatedId	est une chaîne
-      	email		est une chaîne
-      	rawId		est une chaîne
-      FIN
-      
-      STDonneesUtilisateur est une structure
-      	localId				est une chaîne
-      	email				est une chaîne
-      	passwordHash		est une chaîne
-      	emailVerified		est un booléen
-      	passwordUpdatedAt	est un numérique
-      	tabProviderUserInfo	est un tableau de STProviderUserInfo
-      	validSince			est une chaîne
-      	disabled			est un booléen
-      	lastLoginAt			est une chaîne
-      	createdAt			est une chaîne
-      	lastRefreshAt		est une DateHeure
-      FIN
-      
-      STDonneesConnexion est une structure
-      	kind	est une chaîne
-      	tabUtilisateur	est un tableau de STDonneesUtilisateur
-      FIN
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      ST_wxStorageFileMetaData est une Structure
-      	name				est une chaîne
-      	bucket				est une chaîne
-      	generation			est une chaîne
-      	metageneration		est une chaîne
-      	contentType			est une chaîne
-      	timeCreated			est une DateHeure
-      	updated				est une DateHeure
-      	storageClass		est une chaîne
-      	size				est une chaîne
-      	md5Hash				est une chaîne
-      	contentEncoding		est une chaîne
-      	contentDisposition	est une chaîne
-      	crc32c				est une chaîne
-      	etag				est une chaîne
-      	downloadTokens		est une chaîne
-      	sUrlFichier          est une chaîne
-      FIN
-      
-      
      type : 720896
+   -
+     code : |1-
+      
+     type : 720898
  code_parameters :
   internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
   original_name : COL_SansNom1

@@ -39,7 +39,7 @@ class :
       	m_bErrCnxAnonymeDesactié		est une booleen	= faux
       	m_bErrIdTokenInvalide			est une booleen	= faux
       	m_bErrIdTokenProviderExpire		est une booleen	= faux
-      	m_stDonneesUtilisateurConnecté	est STDonneesConnexion
+      	m_bufDonneesUtilisateurConnecté	est un buffer
       fin
      type : 131072
   procedures :
@@ -60,7 +60,7 @@ class :
       		
       	cas 200
       		m_eErreurType = errAucune
-      		Désérialise(m_stDonneesUtilisateurConnecté, oResultat.Contenu, psdJSON)		
+      		m_bufDonneesUtilisateurConnecté = oResultat.Contenu	
       		
       	cas 400 
       		m_eErreurType = errFirebase
@@ -151,9 +151,9 @@ class :
      p_codes :
       -
         code : |1-
-         procédure publique Données():STDonneesConnexion
+         procédure publique Données():buffer
          
-         renvoyer m_stDonneesUtilisateurConnecté
+         renvoyer m_bufDonneesUtilisateurConnecté
         type : 1966080
      template_refs : []
    -
