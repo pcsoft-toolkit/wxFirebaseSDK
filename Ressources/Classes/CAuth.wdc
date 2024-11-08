@@ -35,6 +35,8 @@ class :
        		m_sFirebaseAPI est une chaîne
        		m_HttpClientReponse est un restRéponse
        		m_stOption est STHttpOption
+       		
+       		global prive
        		m_sIDToken  est une chaîne
       fin
      type : 131072
@@ -266,6 +268,18 @@ class :
       
       m_sIDToken = vJsonResultat.idToken
      type : 458752
+  properties :
+   -
+     name : ExposeToken
+     identifier : 0x172e2da20083e744
+     type_code : 103
+     p_codes :
+      -
+        code : |1+
+         procédure publique global ExposeToken():chaîne
+         renvoyer  m_sIDToken
+        type : 1966080
+     template_refs : []
   procedure_templates : []
   property_templates : []
  code_parameters :

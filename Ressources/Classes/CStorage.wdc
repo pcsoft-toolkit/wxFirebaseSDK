@@ -42,11 +42,11 @@ class :
       
      type : 655360
    -
-     name : Uploader
+     name : TéléchargerFichier
      procedure_id : 1669606912135461174
      type_code : 12
      code : |1+
-      procédure Uploader(sChemainFichier est une chaîne)
+      procédure TéléchargerFichier(sChemainFichier est une chaîne)
       
       m_sStorageUrl += fExtraitChemin(sChemainFichier,fExtension+fFichier)
       
@@ -54,6 +54,7 @@ class :
       
       stoption.sContentType				= "application/octet-stream"
       stoption.bufContenu					= fChargeBuffer(sChemainFichier)
+      stoption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
       
       
       m_HttpClientReponse est un restRéponse = CHttpClient.Envoie(m_sStorageUrl, stoption)

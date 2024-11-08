@@ -33,9 +33,6 @@ class :
       	downloadTokens		est une chaîne
       FIN
       
-      
-      
-      
       CStorageReponse est une Classe
       	prive
       		m_sUrl est une chaîne
@@ -88,25 +85,25 @@ class :
      type : 655360
   properties :
    -
-     name : ObtenirUrl
+     name : RécupérerUrlFichier
      identifier : 0x172bb72400800bcf
      type_code : 103
      p_codes :
       -
         code : |1-
-         procédure ObtenirUrl():chaîne
+         procédure RécupérerUrlFichier():chaîne
          
          renvoyer URLEncode("[%m_sUrl%]?alt=media&token=[%m_stStorageMetaData.downloadTokens%]")
         type : 1966080
      template_refs : []
    -
-     name : errAutorisationRefusée
+     name : errAccèsRefusé
      identifier : 0x172bd746000f9041
      type_code : 103
      p_codes :
       -
         code : |1-
-         procédure publique errAutorisationRefusée():booléen
+         procédure publique errAccèsRefusé():booléen
          
          renvoyer m_bAutorisationRefusée
         type : 1966080
@@ -121,6 +118,18 @@ class :
          procédure publique errType():ETypeErreur 
          
          RENVOYER m_eErreurType
+        type : 1966080
+     template_refs : []
+   -
+     name : errWindevMessage
+     identifier : 0x172e34c60097cd1c
+     type_code : 103
+     p_codes :
+      -
+        code : |1-
+         procédure publique errWindevMessage():chaine
+         
+         renvoyer "Impossible de contacter le serveur"
         type : 1966080
      template_refs : []
   procedure_templates : []

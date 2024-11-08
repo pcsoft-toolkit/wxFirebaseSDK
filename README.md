@@ -113,7 +113,7 @@ gclProvider est CGoogleProvider(stOptionProvider)
 
 gclAuthReponse  est CAuthReponse = gclInstanceFirebase.Auth.SeConnecterProvider(gclProvider)
 ```
-### Gestion de la réponse
+### Gestion de CAuthReponse
 ```WLangage
 gclAuthReponse est CAuthReponse = gclInstanceFirebase.Auth.SeConnecter("wx@firebase.com", "test1234")
 
@@ -137,6 +137,27 @@ FIN
 
 
 ## III - Storage
+
+Le **service Firebase Storage** permet de stocker et de récupérer des fichiers de manière sécurisée et évolutive. Ce service est idéal pour gérer des fichiers tels que des images, des vidéos, des documents, et bien plus encore.
+
+### Téléchargement d'un fichier
+```WLangage
+sCheminFichier est chaine = "C:/chemin_vers_le_fichier/image.png"
+
+gclStorageReponse est CStorageReponse  = gclInstanceFirebase.Storage.TéléchargerFichier(sCheminFichier)
+
+// Gestion de CStorageReponse 
+ SELON gclStorageReponse.errType
+	CAS errAucune
+		Info(gclStorageReponse.RécupérerUrlFichier)		
+	CAS errFirebase
+		SI gclAuthReponse.errAccèsRefusé ALORS Info("L'accès au fichier a été refusé en raison des règles de sécurité.")
+			
+	CAS errWindev
+		Info(gclStorageReponse.errWindevMessage)
+FIN
+```
+
 
 
 
