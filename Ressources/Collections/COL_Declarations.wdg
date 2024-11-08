@@ -28,6 +28,12 @@ procedure_set :
       	sURLRedirection	est une chaîne
       FIN
       
+      STHttpOption est une structure
+      	bufContenu est un buffer
+      	sContentType est une chaîne
+      	taEntête est un tableau associatif de chaînes
+      fin
+      
       STAuthPayload est une structure
       	sEmail est une chaîne
       	sMdp est une chaîne

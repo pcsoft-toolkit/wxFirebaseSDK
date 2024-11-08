@@ -37,55 +37,43 @@ class :
       
      type : 655360
    -
-     name : POST
+     name : Envoie
      internal_properties : BQAAAAUAAABUHz8hVhFi02/J7EhBrMlSNO0MeAqWBppfCjnxm/4kgJdm7XWgB5T6wjMexC1lxpG0E9/miOIxDqpCyq3t86PoLtBkATH/1oB8x09XjEnNP/qUDpwcbSPg0NLupmnY36w8JgJ/5axk6CsPJRVV4Ib+UFiKlFTTIkF739C1c2Up+mtV1Q==
-     procedure_id : 1659991309282987848
+     procedure_id : 1670276858310366717
      type_code : 12
      code : |1-
-      procédure publique globale POST(sUrl est une chaîne, bufContenu est un buffer = "", sContentType est une chaîne =""):httpRéponse
+      // Traitement automatique des erreurs :   exécuter le bloc de code CAS ERREUR
+      //
+      procédure publique globale Envoie(sUrl est une chaîne, stHttpClientOption est STHttpOption = null):httpRéponse
       
-      FirebaseRequête est une httpRequête
-      FirebaseRéponse est une httpRéponse
+      wxFirebaseRequête est une httpRequête
+      wxFirebaseRéponse est une httpRéponse
       
-      FirebaseRequête.Méthode		= httpPost
-      FirebaseRequête.ContentType	=  sContentType = ""? typeMimeJSON SINON sContentType
-      FirebaseRequête.URL			= URLEncode(sUrl)
-      FirebaseRequête.Contenu		= bufContenu
+      wxFirebaseRequête.URL			= URLEncode(sUrl)
       
-      FirebaseRéponse = RESTEnvoie(FirebaseRequête)
+      si stHttpClientOption = null
+      	wxFirebaseRequête.Méthode		= httpGet
+      sinon
+      	wxFirebaseRequête.Méthode		= httpPost 
+      fin
       
-      renvoyer FirebaseRéponse
+      wxFirebaseRequête.ContentType	= stHttpClientOption.sContentType = "" ? typeMimeJSON sinon stHttpClientOption.sContentType
+      wxFirebaseRequête.Contenu		= stHttpClientOption.bufContenu = "" ? "" sinon stHttpClientOption.bufContenu
+      
+      si stHttpClientOption.taEntête..Occurrence <> 0 ALORS
+      	
+      	POUR TOUT ÉLÉMENT sEntêteValeur, sEntêteClé DE stHttpClientOption.taEntête
+      		wxFirebaseRequête.Entête[sEntêteClé] = sEntêteValeur
+      	FIN	
+      FIN
+      
+      wxFirebaseRéponse = wxFirebaseRequête.Envoie()
+      
+      renvoyer wxFirebaseRéponse 
       
       CAS ERREUR:
       	ErreurPropage()
-      	RENVOYER FirebaseRéponse
-     type : 458752
-   -
-     name : GET
-     procedure_id : 1659991403772355990
-     type_code : 12
-     code : |1-
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      //GET ()
-      //
-      // Paramètres :
-      //	Aucun
-      // Valeur de retour :
-      // 	Aucune
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
-      procédure publique globale GET(sUrl est une chaîne):httpRéponse
-      
-      FirebaseRequête est une httpRequête
-      
-      FirebaseRequête.Méthode		= httpGet
-      FirebaseRequête.ContentType	= typeMimeJSON
-      FirebaseRequête.URL			= sUrl
-      
-      RENVOYER RESTEnvoie(FirebaseRequête)
+      	RENVOYER wxFirebaseRéponse
      type : 458752
   procedure_templates : []
   property_templates : []

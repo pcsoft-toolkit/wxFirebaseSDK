@@ -50,7 +50,13 @@ class :
       
       m_sStorageUrl += fExtraitChemin(sChemainFichier,fExtension+fFichier)
       
-      m_HttpClientReponse est un restRéponse = CHttpClient.POST(m_sStorageUrl, fChargeBuffer(sChemainFichier), "application/octet-stream")
+      stoption est STHttpOption
+      
+      stoption.sContentType				= "application/octet-stream"
+      stoption.bufContenu					= fChargeBuffer(sChemainFichier)
+      
+      
+      m_HttpClientReponse est un restRéponse = CHttpClient.Envoie(m_sStorageUrl, stoption)
       
       RENVOYER  new CStorageReponse(m_HttpClientReponse, m_sStorageUrl)
       

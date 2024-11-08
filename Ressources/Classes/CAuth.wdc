@@ -34,6 +34,7 @@ class :
        	prive
        		m_sFirebaseAPI est une chaîne
        		m_HttpClientReponse est un restRéponse
+       		m_stOption est STHttpOption
        		m_sIDToken  est une chaîne
       fin
      type : 131072
@@ -61,7 +62,10 @@ class :
      code : |1-
       procédure publique SeConnecter(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
       
-      bufCredentialPayload	est un buffer = [
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType						= "application/json"
+      m_stOption.bufContenu						= [
       {
           "email": "[%sEmail%]",
           "password": "[%sMdp%]",
@@ -69,7 +73,7 @@ class :
         }
       ]
       
-      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("signInWithPassword"), bufCredentialPayload)
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("signInWithPassword"), m_stOption)
       
       
       si ErreurDétectée() _ou_ m_HttpClientReponse.CodeEtat <> 200 ALORS
@@ -98,7 +102,10 @@ class :
      code : |1-
       procédure CréerUtilisateur(stAuthPayload est STAuthPayload):CAuthReponse
       
-      bufCredentialPayload	est un buffer = [
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType						= "application/json"
+      m_stOption.bufContenu						= [
       {
           "email": "[%stAuthPayload.sEmail%]",
           "password": "[%stAuthPayload.sMdp%]",
@@ -109,7 +116,7 @@ class :
         }
       ]
       
-      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("signUp"), bufCredentialPayload)
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("signUp"), m_stOption)
       
       SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
       	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
@@ -130,14 +137,17 @@ class :
      code : |1-
       procédure RéinitialiserMotDePasse(sEmail est une chaîne):CAuthReponse
       
-      bufContenu		est un buffer	= [
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType					= "application/json"
+      m_stOption.bufContenu						= [
       	{
       		"requestType": "PASSWORD_RESET",
       		"email": "[%sEmail%]"
       	}
       ]
       
-      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("sendOobCode"), bufContenu)
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("sendOobCode"), m_stOption)
       
       SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
       	renvoyer new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
@@ -152,11 +162,14 @@ class :
      code : |1-
       procédure SupprimerUtilisateur()
       
-      bufContenu est un buffer = [
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType					= "application/json"
+      m_stOption.bufContenu					= [
       	{"idToken":"[%m_sIDToken%]"}
       ]
       
-      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("delete"), bufContenu)
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("delete"), m_stOption)
       
       SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
       	RENVOYER new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
@@ -171,11 +184,14 @@ class :
      code : |1+
       procédure prive _RecupereInfoUtilisateur():CAuthReponse
       
-      bufContenu			est un buffer			= [
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType					= "application/json"
+      m_stOption.bufContenu					= [
       	{"idToken":"[%m_sIDToken%]"}
       ]
       
-      m_HttpClientReponse	= CHttpClient.POST(ConstruitURL("lookup"), bufContenu)
+      m_HttpClientReponse	= CHttpClient.Envoie(ConstruitURL("lookup"), m_stOption)
       
       SI ErreurDétectée() ALORS
       	RENVOYER  NEW CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
@@ -191,7 +207,11 @@ class :
      code : |1-
       procédure ConnexionAnonyme()
       
-      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("signUp"))
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType						= "application/json"
+      
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("signUp"))
       
       
       SI ErreurDétectée() _ou_ m_HttpClientReponse.CodeEtat <> 200 ALORS
@@ -216,14 +236,17 @@ class :
      code : |1+
       procédure privée _EnvoyerEmailVerification():CAuthReponse
       
-      bufContenu est un buffer = [
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType				= "application/json"
+      m_stOption.bufContenu					= [
       	{
       		"requestType": "VERIFY_EMAIL",
       		"idToken": "[%m_sIDToken%]"
       	}
       ]
       
-      m_HttpClientReponse = CHttpClient.POST(ConstruitURL("sendOobCode"), bufContenu)
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("sendOobCode"), m_stOption)
       
       SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
       	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))

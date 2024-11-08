@@ -49,16 +49,19 @@ class :
       
       sPostBodyTokenLibelle est une chaîne  = m_eIDFournisseur = CAuth.Google ? "id_token" SINON "access_token"
       
-      bufPayload	est une Buffer	= [
-      {
-        "postBody":"[%sPostBodyTokenLibelle%]=[%sId_token%]&providerId=[%m_eIDFournisseur..Valeur%]",
-        "requestUri":"[%m_ProviderOAuthParamètres.URLRedirection%]",
-        "returnIdpCredential":true,
-        "returnSecureToken":true
-      }
+      stOption est STHttpOption
+      
+      stOption.sContentType					= "application/json"
+      stOption.bufContenu					= [
+      	{
+      	"postBody":"[%sPostBodyTokenLibelle%]=[%sId_token%]&providerId=[%m_eIDFournisseur..Valeur%]",
+      	"requestUri":"[%m_ProviderOAuthParamètres.URLRedirection%]",
+      	"returnIdpCredential":true,
+      	"returnSecureToken":true
+      	}
       ]
       
-      mg_HttpClientReponse est un restRéponse = CHttpClient.POST(sUrl, bufPayload)
+      mg_HttpClientReponse est un restRéponse = CHttpClient.Envoie(sUrl, stOption)
       
       SI ErreurDétectée() _OU_ mg_HttpClientReponse.CodeEtat <> 200 ALORS
       	RENVOYER  new CAuthReponse(mg_HttpClientReponse, ErreurInfo(errMessage))
@@ -77,7 +80,7 @@ class :
       vJsonAuthResultat	est un variant
       Auth				est un AuthToken	= AuthIdentifie(m_ProviderOAuthParamètres)
       
-      selon  m_sIDFournisseur 
+      selon  m_eIDFournisseur 
       	cas CAuth.Google 
       		vJsonAuthResultat	= JSONVersVariant(Auth.RéponseServeur)
       		sValeurToken		= vJsonAuthResultat.id_token

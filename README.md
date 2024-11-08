@@ -104,10 +104,10 @@ Les `Providers` sont des fournisseurs d'authentification autres que Firebase, pa
 ```WLangage
 stOptionProvider est STProviderOauthOptions
 
-stOptionProvider.sClientID					=  CONST_CLIENT_ID
-stOptionProvider.sClientSecret				=  CONST_CLIENT_SECRET
-stOptionProvider.sScope						= "email"
-stOptionProvider.sURLRedirection			= "http://localhost:5000/auth/google/callback"
+stOptionProvider.sClientID		=  CONST_CLIENT_ID
+stOptionProvider.sClientSecret	=  CONST_CLIENT_SECRET
+stOptionProvider.sScope			= "email"
+stOptionProvider.sURLRedirection= "http://localhost:5000/auth/google/callback"
 
 gclProvider est CGoogleProvider(stOptionProvider)
 
