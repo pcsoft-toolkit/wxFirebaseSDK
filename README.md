@@ -157,9 +157,18 @@ gclStorageReponse est CStorageReponse  = gclInstanceFirebase.Storage.Télécharg
 		Info(gclStorageReponse.errWindevMessage)
 FIN
 ```
-
-
-
+### Activation de la gestion des rôles
+Pour garantir la sécurité de vos fichiers stockés dans Firebase Storage, il est essentiel d'activer et de configurer les règles de sécurité. Voici un exemple de règles de sécurité pour Firebase Storage :
+```WLangage
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+        allow read, write: if request.auth !=null;
+    }
+  }
+}
+```
+Ces règles permettent uniquement aux utilisateurs authentifiés de lire et d'écrire des fichiers dans Firebase Storage. Vous pouvez ajuster ces règles en fonction de vos besoins spécifiques.
 
 ## Contributions
 
