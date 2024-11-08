@@ -203,6 +203,10 @@ class :
          
          renvoyer m_eErreurType
         type : 1966080
+      -
+        code : |1-
+         
+        type : 2031616
      template_refs : []
    -
      name : errWindevMessage

@@ -42,29 +42,14 @@ class :
      procedure_id : 1659991309282987848
      type_code : 12
      code : |1-
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      //[ <Résultat> = ] POST (<sUrl> est chaîne [, <bufContenu> est buffer])
-      //
-      // Paramètres :
-      //	sUrl (chaîne ANSI) : <indiquez ici le rôle de sUrl>
-      //	bufContenu (buffer - valeur par défaut="") : <indiquez ici le rôle de bufContenu>
-      // Valeur de retour :
-      // 	httpRéponse : // 	Aucune
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //// Traitement automatique des erreurs :   exécuter le bloc de code CAS ERREUR
-      //
-      
-      procédure publique globale POST(sUrl est une chaîne, bufContenu est un buffer = ""):httpRéponse
+      procédure publique globale POST(sUrl est une chaîne, bufContenu est un buffer = "", sContentType est une chaîne =""):httpRéponse
       
       FirebaseRequête est une httpRequête
       FirebaseRéponse est une httpRéponse
       
       FirebaseRequête.Méthode		= httpPost
-      FirebaseRequête.ContentType	= typeMimeJSON
-      FirebaseRequête.URL			= sUrl
+      FirebaseRequête.ContentType	=  sContentType = ""? typeMimeJSON SINON sContentType
+      FirebaseRequête.URL			= URLEncode(sUrl)
       FirebaseRequête.Contenu		= bufContenu
       
       FirebaseRéponse = RESTEnvoie(FirebaseRequête)

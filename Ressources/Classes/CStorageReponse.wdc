@@ -1,0 +1,136 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CStorageReponse
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x172baa7500788150
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      STFirebaseStorageReponse est une structure
+      	name				est une chaîne
+      	bucket				est une chaîne
+      	generation			est une chaîne
+      	metageneration		est une chaîne
+      	contentType			est une chaîne
+      	timeCreated			est une DateHeure
+      	updated				est une DateHeure
+      	storageClass		est une chaîne
+      	size				est une chaîne
+      	md5Hash				est une chaîne
+      	contentEncoding		est une chaîne
+      	contentDisposition	est une chaîne
+      	crc32c				est une chaîne
+      	etag				est une chaîne
+      	downloadTokens		est une chaîne
+      FIN
+      
+      
+      
+      
+      CStorageReponse est une Classe
+      	prive
+      		m_sUrl est une chaîne
+      		m_eErreurType					est une ETypeErreur	
+      		m_bAutorisationRefusée est une booleen = Faux
+      		m_stStorageMetaData est STFirebaseStorageReponse
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1669615506366759248
+     type_code : 27
+     code : |1+
+      procédure Constructeur(oResultat est un httpRéponse = Null, sUrl est une chaîne = "")
+      
+      m_sUrl = sUrl
+      
+      SI oResultat = Null ALORS RETOUR
+      
+      SELON oResultat.CodeEtat 
+      
+      	CAS  0   
+      		m_eErreurType = errWindev
+      		
+      	CAS 200
+      		m_eErreurType = errAucune
+      		Désérialise(m_stStorageMetaData, oResultat.Contenu, psdJSON)
+      		
+      	CAS 400 
+      		m_eErreurType = errFirebase
+      		info(oResultat.Contenu)
+      		
+      	CAS 403
+      		m_eErreurType = errFirebase
+      		m_bAutorisationRefusée = Vrai
+      		
+      FIN
+      
+      
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1669615506366824784
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+  properties :
+   -
+     name : ObtenirUrl
+     identifier : 0x172bb72400800bcf
+     type_code : 103
+     p_codes :
+      -
+        code : |1-
+         procédure ObtenirUrl():chaîne
+         
+         renvoyer URLEncode("[%m_sUrl%]?alt=media&token=[%m_stStorageMetaData.downloadTokens%]")
+        type : 1966080
+     template_refs : []
+   -
+     name : errAutorisationRefusée
+     identifier : 0x172bd746000f9041
+     type_code : 103
+     p_codes :
+      -
+        code : |1-
+         procédure publique errAutorisationRefusée():booléen
+         
+         renvoyer m_bAutorisationRefusée
+        type : 1966080
+     template_refs : []
+   -
+     name : errType
+     identifier : 0x172bd801001a6971
+     type_code : 103
+     p_codes :
+      -
+        code : |1-
+         procédure publique errType():ETypeErreur 
+         
+         RENVOYER m_eErreurType
+        type : 1966080
+     template_refs : []
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x172baa6500724292
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

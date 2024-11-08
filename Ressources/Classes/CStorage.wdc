@@ -8,7 +8,7 @@ info :
  description : ""
  subtype : 0
 class :
- identifier : 0x172b8c81003d7dbf
+ identifier : 0x172b9655005ae412
  internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
  code_elements :
   type_code : 10
@@ -16,26 +16,45 @@ class :
    -
      code : |1+
       CStorage est une Classe
-      
+      	CONSTANT
+      		CONST_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/%1.appspot.com/o/"
+      	FIN
+      	prive
+      		m_sStorageUrl est une chaîne
       fin
      type : 131072
   procedures :
    -
      name : Constructeur
-     procedure_id : 1669582572553665983
+     procedure_id : 1669593378693309458
      type_code : 27
-     code : |1+
-      procédure Constructeur()
+     code : |1-
+      procédure Constructeur(sIdProjet est une chaîne)
       
+      m_sStorageUrl = ChaîneConstruit(CONST_STORAGE_BASE_URL, sIdProjet)
      type : 589824
    -
      name : Destructeur
-     procedure_id : 1669582572553731519
+     procedure_id : 1669593378693374994
      type_code : 28
      code : |1+
       procédure Destructeur()
       
      type : 655360
+   -
+     name : Uploader
+     procedure_id : 1669606912135461174
+     type_code : 12
+     code : |1+
+      procédure Uploader(sChemainFichier est une chaîne)
+      
+      m_sStorageUrl += fExtraitChemin(sChemainFichier,fExtension+fFichier)
+      
+      m_HttpClientReponse est un restRéponse = CHttpClient.POST(m_sStorageUrl, fChargeBuffer(sChemainFichier), "application/octet-stream")
+      
+      RENVOYER  new CStorageReponse(m_HttpClientReponse, m_sStorageUrl)
+      
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :
@@ -43,7 +62,7 @@ class :
   original_name : Classe1
 resources :
  string_res :
-  identifier : 0x172b8c2e00363a14
+  identifier : 0x172b963b00537e91
   internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

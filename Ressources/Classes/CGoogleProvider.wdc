@@ -16,11 +16,7 @@ class :
    -
      code : |1+
       CGoogleProvider est une Classe hérite CAbstractProvider
-      	
-      	CONSTANT 
-      		CONST_GOOGLE_ID		= ""
-      		CONST_GOOGLE_SECRET	= ""
-      	FIN
+      
       fin
      type : 131072
   procedures :
@@ -29,17 +25,16 @@ class :
      procedure_id : 1667406235318984959
      type_code : 27
      code : |1-
-      procédure Constructeur(sUrl est une chaîne)
+      procédure Constructeur(stAuthOption est STProviderOauthOptions)
       
-      m_sUrl = sUrl
-      m_eProviderId =  CAuth.Google
+      m_eIDFournisseur =  CAuth.Google
       
-      m_ProviderOAuthParamètres..ClientID						=  CONST_GOOGLE_ID
-      m_ProviderOAuthParamètres..ClientSecret					=  CONST_GOOGLE_SECRET
-      m_ProviderOAuthParamètres..Scope						= "email"
+      m_ProviderOAuthParamètres..ClientID						= stAuthOption.sClientID
+      m_ProviderOAuthParamètres..ClientSecret					= stAuthOption.sClientSecret
+      m_ProviderOAuthParamètres..Scope						= stAuthOption.sScope
       m_ProviderOAuthParamètres..URLAuth						= "https://accounts.google.com/o/oauth2/auth"
       m_ProviderOAuthParamètres..URLToken						= "https://accounts.google.com/o/oauth2/token"
-      m_ProviderOAuthParamètres..URLRedirection				= "http://localhost:5000/auth/google/callback"
+      m_ProviderOAuthParamètres..URLRedirection				= stAuthOption.sURLRedirection
      type : 589824
    -
      name : Destructeur

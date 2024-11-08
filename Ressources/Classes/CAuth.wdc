@@ -21,7 +21,7 @@ class :
       FIN	
       
       IAuthProviderService est une Interface
-      	procédure Connexion():CAuthReponse
+      	procédure Connexion(sUrl est une chaîne):CAuthReponse
       FIN
       
       EProvider est une énumération
@@ -85,21 +85,11 @@ class :
      procedure_id : 1658860710682631666
      type_code : 12
      code : |1-
-      procédure SeConnecterProvider(eUnProvider est EProvider):CAuthReponse
+      procédure SeConnecterProvider(clProviderInstance	est IAuthProviderService):CAuthReponse
       
       sUrl				est une chaîne	= ConstruitURL("signInWithIdp")
       
-      clProviderInstance	est IAuthProviderService
-      
-      selon eUnProvider
-      	CAS Google   : clProviderInstance <- allouer un CGoogleProvider(sUrl)
-      		
-      	CAS Facebook : clProviderInstance <- allouer un CFacebookProvider(sUrl)
-      		
-      	CAS GitHub   : clProviderInstance <- allouer un CGitHubProvider(sUrl)		
-      FIN
-      
-      renvoyer clProviderInstance.Connexion()
+      renvoyer clProviderInstance.Connexion(sUrl)
      type : 458752
    -
      name : CréerUtilisateur

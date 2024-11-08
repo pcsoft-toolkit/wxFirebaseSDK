@@ -16,10 +16,7 @@ class :
    -
      code : |1+
       CGitHubProvider est une Classe hérite CAbstractProvider
-      	CONSTANT 
-      		CONST_GITHUB_ID		= ""
-      		CONST_GITHUB_SECRET	= ""
-      	FIN
+      
       fin
      type : 131072
   procedures :
@@ -28,18 +25,16 @@ class :
      procedure_id : 1658876121027633092
      type_code : 27
      code : |1+
-      procédure Constructeur(sUrl est une chaîne)
+      procédure Constructeur(stAuthOption est STProviderOauthOptions)
       
-      m_sUrl = sUrl
+      m_eIDFournisseur											=   CAuth.GitHub
       
-      m_eProviderId											=   CAuth.GitHub
-      
-      m_ProviderOAuthParamètres..ClientID						=  CONST_GITHUB_ID
-      m_ProviderOAuthParamètres..ClientSecret					=  CONST_GITHUB_SECRET
-      m_ProviderOAuthParamètres..Scope						= "user"
+      m_ProviderOAuthParamètres..ClientID						=  stAuthOption.sClientID
+      m_ProviderOAuthParamètres..ClientSecret					=  stAuthOption.sClientSecret
+      m_ProviderOAuthParamètres..Scope						= stAuthOption.sScope
       m_ProviderOAuthParamètres..URLAuth						= "https://github.com/login/oauth/authorize"
       m_ProviderOAuthParamètres..URLToken						= "https://github.com/login/oauth/access_token"
-      m_ProviderOAuthParamètres..URLRedirection				= "http://localhost:5000/auth/github/callback"
+      m_ProviderOAuthParamètres..URLRedirection				= stAuthOption.sURLRedirection
      type : 589824
    -
      name : Destructeur

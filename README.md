@@ -95,14 +95,23 @@ gclAuthReponse  = gclInstanceFirebase.Auth.RéinitialiserMotDePasse("wx@firebase
 gclAuthReponse  = gclInstanceFirebase.Auth.SupprimerUtilisateur()
 ```
 ### Connexion via providers
-Les `Providers` sont des fournisseurs d'authentification autres que Firebase, par exemple Facebook, Github, Google ou Twitter. Vous pouvez trouver les fournisseurs d'authentification actuellement pris en charge dans la [documentation officielle de Firebase](https://firebase.google.com/docs/projects/provisioning/configure-oauth?hl=fr#add-idp). A l'heure actuelle le composant prends en compte les providres suivant : 
+Les `Providers` sont des fournisseurs d'authentification autres que Firebase, par exemple Facebook, Github, Google ou Twitter. Vous pouvez trouver les fournisseurs d'authentification actuellement pris en charge dans la [documentation officielle de Firebase](https://firebase.google.com/docs/projects/provisioning/configure-oauth?hl=fr#add-idp). A l'heure actuelle le composant prends en compte les fournisseurs suivants : 
 
 - Facebook
 - Github
 - Google
 
 ```WLangage
-gclAuthReponse  = gclInstanceFirebase.Auth.SeConnecterProvider(CAuth.Facebook)
+stOptionProvider est STProviderOauthOptions
+
+stOptionProvider.sClientID					=  CONST_CLIENT_ID
+stOptionProvider.sClientSecret				=  CONST_CLIENT_SECRET
+stOptionProvider.sScope						= "email"
+stOptionProvider.sURLRedirection			= "http://localhost:5000/auth/google/callback"
+
+gclProvider est CGoogleProvider(stOptionProvider)
+
+gclAuthReponse  est CAuthReponse = gclInstanceFirebase.Auth.SeConnecterProvider(gclProvider)
 ```
 ### Gestion de la réponse
 ```WLangage

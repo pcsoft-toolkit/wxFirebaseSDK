@@ -21,6 +21,13 @@ procedure_set :
       	errWindev	
       FIN
       
+      STProviderOauthOptions est une structure
+      	sClientID		est une chaîne
+      	sClientSecret	est une chaîne
+      	sScope			est une chaîne
+      	sURLRedirection	est une chaîne
+      FIN
+      
       STAuthPayload est une structure
       	sEmail est une chaîne
       	sMdp est une chaîne

@@ -17,8 +17,7 @@ class :
      code : |1+
       CAbstractProvider est une Classe, abstraite
       	protege
-      		m_sUrl 					  est une chaîne
-      		m_eProviderId             est un CAuth.EProvider
+      		m_eIDFournisseur             est un CAuth.EProvider
       		m_ProviderOAuthParamètres est un OAuth2Paramètres
       fin
      type : 131072
@@ -44,22 +43,22 @@ class :
      procedure_id : 1658878234152361514
      type_code : 12
      code : |1+
-      procédure protege Connexion():CAuthReponse
+      procédure protege Connexion(sUrl est une chaîne):CAuthReponse
       
       sId_token est une chaîne = _AuthObtientToken()
       
-      sPostBodyTokenLibelle est une chaîne  = m_eProviderId = CAuth.Google ? "id_token" SINON "access_token"
+      sPostBodyTokenLibelle est une chaîne  = m_eIDFournisseur = CAuth.Google ? "id_token" SINON "access_token"
       
       bufPayload	est une Buffer	= [
       {
-        "postBody":"[%sPostBodyTokenLibelle%]=[%sId_token%]&providerId=[%m_eProviderId..Valeur%]",
+        "postBody":"[%sPostBodyTokenLibelle%]=[%sId_token%]&providerId=[%m_eIDFournisseur..Valeur%]",
         "requestUri":"[%m_ProviderOAuthParamètres.URLRedirection%]",
         "returnIdpCredential":true,
         "returnSecureToken":true
       }
       ]
       
-      mg_HttpClientReponse est un restRéponse = CHttpClient.POST(m_sUrl, bufPayload)
+      mg_HttpClientReponse est un restRéponse = CHttpClient.POST(sUrl, bufPayload)
       
       SI ErreurDétectée() _OU_ mg_HttpClientReponse.CodeEtat <> 200 ALORS
       	RENVOYER  new CAuthReponse(mg_HttpClientReponse, ErreurInfo(errMessage))
@@ -74,17 +73,17 @@ class :
      code : |1+
       procédure prive _AuthObtientToken():chaine
       
-      sValeurToken est une chaîne
+      sValeurToken		est une chaîne
       vJsonAuthResultat	est un variant
       Auth				est un AuthToken	= AuthIdentifie(m_ProviderOAuthParamètres)
       
-      selon  m_eProviderId 
+      selon  m_sIDFournisseur 
       	cas CAuth.Google 
-      	vJsonAuthResultat	= JSONVersVariant(Auth.RéponseServeur)
-      	sValeurToken = vJsonAuthResultat.id_token
-       cas CAuth.GitHub
-      	sValeurToken = ExtraitChaîne(Auth.RéponseServeur,2,"=")
-       cas CAuth.Facebook
+      		vJsonAuthResultat	= JSONVersVariant(Auth.RéponseServeur)
+      		sValeurToken		= vJsonAuthResultat.id_token
+      	cas CAuth.GitHub
+      		sValeurToken = ExtraitChaîne(Auth.RéponseServeur,2,"=")
+      	cas CAuth.Facebook
       		vJsonAuthResultat	= JSONVersVariant(Auth.RéponseServeur)
       		sValeurToken		= vJsonAuthResultat.access_token
       FIN

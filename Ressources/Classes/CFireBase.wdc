@@ -29,6 +29,7 @@ class :
       procédure Constructeur(stUneConfig est STFirebaseConfig)
       
       Constructeur Auth(stUneConfig.sApiKey)
+      Constructeur Storage(stUneConfig.sProjetId)
        
      type : 589824
    -
