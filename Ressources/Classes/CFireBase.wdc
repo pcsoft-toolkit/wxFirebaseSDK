@@ -16,8 +16,11 @@ class :
    -
      code : |1+
       CFireBase est une Classe
-      	Auth est CAuth
-      	Storage est Cstorage
+      
+      prive
+      	mg_clAuth		est CAuth
+      	mg_clStorage	est CStorage
+      	mg_clFiretore	est CFiretore
       fin
      type : 131072
   procedures :
@@ -28,8 +31,10 @@ class :
      code : |1-
       procédure Constructeur(stUneConfig est STFirebaseConfig)
       
-      Constructeur Auth(stUneConfig.sApiKey)
-      Constructeur Storage(stUneConfig.sProjetId)
+      Constructeur mg_clAuth(stUneConfig.sApiKey)
+      Constructeur mg_clStorage(stUneConfig.sProjetId)
+      Constructeur mg_clFiretore(stUneConfig.sProjetId)
+      
        
      type : 589824
    -
@@ -39,6 +44,45 @@ class :
      code : |1-
       procédure Destructeur()
      type : 655360
+   -
+     name : Firetore
+     procedure_id : 1671106547226229794
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] Firetore ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CFiretore : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Firetore():CFiretore
+      
+      renvoyer mg_clFiretore
+     type : 458752
+   -
+     name : Auth
+     procedure_id : 1671149660120278880
+     type_code : 12
+     code : |1-
+      procédure Auth():CAuth
+      
+      RENVOYER mg_clAuth
+     type : 458752
+   -
+     name : Storage
+     procedure_id : 1671149831919010517
+     type_code : 12
+     code : |1-
+      procédure Storage():CStorage
+      
+      RENVOYER mg_clStorage
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :

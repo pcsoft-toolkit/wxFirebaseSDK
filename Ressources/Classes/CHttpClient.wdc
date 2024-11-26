@@ -46,19 +46,13 @@ class :
       //
       procédure publique globale Envoie(sUrl est une chaîne, stHttpClientOption est STHttpOption = null):httpRéponse
       
-      wxFirebaseRequête est une httpRequête
-      wxFirebaseRéponse est une httpRéponse
+      wxFirebaseRequête	est une httpRequête
+      wxFirebaseRéponse	est une httpRéponse
       
       wxFirebaseRequête.URL			= URLEncode(sUrl)
-      
-      si stHttpClientOption = null
-      	wxFirebaseRequête.Méthode		= httpGet
-      sinon
-      	wxFirebaseRequête.Méthode		= httpPost 
-      fin
-      
+      wxFirebaseRequête.Méthode		= stHttpClientOption.bufContenu   = "" ? httpGet      sinon stHttpClientOption.eMethode..Valeur
       wxFirebaseRequête.ContentType	= stHttpClientOption.sContentType = "" ? typeMimeJSON sinon stHttpClientOption.sContentType
-      wxFirebaseRequête.Contenu		= stHttpClientOption.bufContenu = "" ? "" sinon stHttpClientOption.bufContenu
+      wxFirebaseRequête.Contenu		= stHttpClientOption.bufContenu   = "" ? ""           sinon stHttpClientOption.bufContenu
       
       si stHttpClientOption.taEntête..Occurrence <> 0 ALORS
       	
@@ -72,8 +66,8 @@ class :
       renvoyer wxFirebaseRéponse 
       
       CAS ERREUR:
-      	ErreurPropage()
-      	RENVOYER wxFirebaseRéponse
+      ErreurPropage()
+      RENVOYER wxFirebaseRéponse
      type : 458752
   procedure_templates : []
   property_templates : []

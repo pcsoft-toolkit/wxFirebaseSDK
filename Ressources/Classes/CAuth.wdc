@@ -46,7 +46,7 @@ class :
      procedure_id : 1481890113716577333
      type_code : 27
      code : |1+
-      procédure Constructeur(sFirebaApiKey est une chaîne)
+      procédure Constructeur(sFirebaApiKey est une chaîne = "")
       
       m_sFirebaseAPI = sFirebaApiKey
      type : 589824

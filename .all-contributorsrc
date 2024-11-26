@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "fabnguess",
+      "name": "Kouadio Fabrice Nguessan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72697416?v=4",
+      "profile": "https://github.com/fabnguess",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "wxFirebaseSDK",
+  "projectOwner": "fabnguess",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true,
+  "commitConvention": "angular",
+  "commitType": "docs"
+}

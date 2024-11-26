@@ -1,0 +1,112 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CCollection
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1730cc22002c0a98
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      
+      CCollection est une Classe
+      	prive
+      	m_sUrl			est une chaîne
+      	m_sCollectionID	est une chaîne
+      	m_stHttpOption	est STHttpOption
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1671059908158360216
+     type_code : 27
+     code : |1-
+      procédure Constructeur(sUrl est une chaîne)
+      
+      m_sCollectionID = ExtraitChaîne(sUrl, rangDernier, "/")
+      
+      m_sUrl = sUrl
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1671059908158425752
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : Obtenir
+     procedure_id : 1671061608965674578
+     type_code : 12
+     code : |1-
+      procédure Obtenir(sDocumentId est une chaîne)
+      
+      m_sUrl+= "/"+sDocumentId
+      
+      m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
+      
+      res est un httpRéponse = CHttpClient.Envoie(m_sUrl)
+      
+      si res.CodeEtat = 200 ALORS
+      	info(res.Contenu)
+      sinon
+      	Info(res.Contenu)
+      FIN
+     type : 458752
+   -
+     name : Creer
+     procedure_id : 1671061608965740349
+     type_code : 12
+     code : |1+
+      procédure Creer()
+      
+      info(This.m_sCollectionID)
+      
+     type : 458752
+   -
+     name : MettreAJour
+     procedure_id : 1671061608965805979
+     type_code : 12
+     code : |1-
+      procédure MettreAJour()
+      
+      info("modifier")
+     type : 458752
+   -
+     name : Supprimer
+     procedure_id : 1671061608965871624
+     type_code : 12
+     code : |1-
+      procédure Supprimer()
+      
+      info("Supprimer")
+     type : 458752
+   -
+     name : Lister
+     procedure_id : 1671101964494141146
+     type_code : 12
+     code : |1-
+      procédure Lister():CGenerateurRequeteFirestore
+      
+      renvoyer new CGenerateurRequeteFirestore(m_sCollectionID)
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1730cbfc0026753d
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

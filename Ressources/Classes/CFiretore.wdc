@@ -1,66 +1,56 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : CStorage
+ name : CFiretore
  major_version : 25
  minor_version : 0
  type : 4
  description : ""
  subtype : 0
 class :
- identifier : 0x172b9655005ae412
+ identifier : 0x172e3c6d00d2b23f
  internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
  code_elements :
   type_code : 10
   p_codes :
    -
      code : |1+
-      CStorage est une Classe
-      	CONSTANT
-      		CONST_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/%1.appspot.com/o/"
-      	FIN
+      
+      constant CONST_FIRESTORE_BASE_URL = "https://firestore.googleapis.com/v1/projects/%1/databases/(default)/documents/"
+      
+      CFiretore est une Classe  
       	prive
-      		m_sStorageUrl est une chaîne
+      		 m_sFirestoreUrl est une chaîne
       fin
      type : 131072
   procedures :
    -
      name : Constructeur
-     procedure_id : 1669593378693309458
+     procedure_id : 1670338950664008255
      type_code : 27
-     code : |1-
+     code : |1+
       procédure Constructeur(sIdProjet est une chaîne = "")
       
-      m_sStorageUrl = ChaîneConstruit(CONST_STORAGE_BASE_URL, sIdProjet)
+      m_sFirestoreUrl = ChaîneConstruit(CONST_FIRESTORE_BASE_URL, sIdProjet)
      type : 589824
    -
      name : Destructeur
-     procedure_id : 1669593378693374994
+     procedure_id : 1670338950664073791
      type_code : 28
      code : |1+
       procédure Destructeur()
       
      type : 655360
    -
-     name : TéléchargerFichier
-     procedure_id : 1669606912135461174
+     name : Collection
+     procedure_id : 1670345423181033110
      type_code : 12
      code : |1+
-      procédure TéléchargerFichier(sChemainFichier est une chaîne)
+      procédure Collection(sCollectionID est une chaîne):CCollection
       
-      m_sStorageUrl += fExtraitChemin(sChemainFichier,fExtension+fFichier)
+      m_sFirestoreUrl += sCollectionID
       
-      stoption est STHttpOption
-      
-      stoption.sContentType				= "application/octet-stream"
-      stoption.bufContenu					= fChargeBuffer(sChemainFichier)
-      stoption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
-      
-      
-      m_HttpClientReponse est un restRéponse = CHttpClient.Envoie(m_sStorageUrl, stoption)
-      
-      RENVOYER  new CStorageReponse(m_HttpClientReponse, m_sStorageUrl)
-      
+      RENVOYER new CCollection(m_sFirestoreUrl)
      type : 458752
   procedure_templates : []
   property_templates : []
@@ -69,7 +59,7 @@ class :
   original_name : Classe1
 resources :
  string_res :
-  identifier : 0x172b963b00537e91
+  identifier : 0x172e3c5700cc59cf
   internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

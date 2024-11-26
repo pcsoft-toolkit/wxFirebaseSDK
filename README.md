@@ -13,12 +13,12 @@
 
 ## Prérequis
 
-- **Windev version 25 ou supérieure** ([lien vers PCSoft](https://pcsoft.fr/))
+- **Windev version 25 ou supérieure** ([lien de téléchargeent officiel](https://pcsoft.fr/st/telec/index.html))
 - **Un projet Firebase** : vous pouvez en créer un nouveau via la [console Firebase](https://console.firebase.google.com/u/0/) si vous n'en avez pas déjà un.
 
 ## Installation
 
-1. Téléchargez la dernière version de `wxFirebase` dans la [page de Releases de ce projet](https://github.com/fabnguess/wxFirebase/releases).
+1. Téléchargez la dernière version de `wxFirebase` dans la [page de Releases de ce projet](https://github.com/fabnguess/wxFirebaseSDK/releases).
 2. Ajoutez le composant à votre projet WINDEV® en suivant la [documentation officielle](https://doc.pcsoft.fr/?2014006).
 
 ## Configuration projet
@@ -33,17 +33,34 @@ Pour que le composant puisse accéder à un projet Firebase, vous devez au préa
 Une fois le fichier de clé privée obtenu, initialisez la configuration Firebase dans votre projet avec le code suivant :
 
 ```WLangage
-gstFirebaseConfig est STFirebaseConfig = [CONST_API_KEY, CONST_PROJET_ID, CONST_STORAGE_BUCKET]
+sAPIKey			est une chaîne		= INILit("FIREBASECONFIG", "API_KEY"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
+sStorageBucket	est une chaîne	= INILit("FIREBASECONFIG", "STORAGE_BUCKET", "", fRepExe() + fSep() + "firebaseConfig.INI")
+sPojetID		est une chaîne		= INILit("FIREBASECONFIG", "PROJET_ID"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
+
+// Approche 1 : Initialisation par tableau
+gstFirebaseConfig est STFirebaseConfig	= [sAPIKey, sPojetID, sStorageBucket]
+
+// Approche 2 : Initialisation explicite par membres 
+gstFirebaseConfig.sApiKey        = sAPIKey
+gstFirebaseConfig.sProjetId      = sPojetID
+gstFirebaseConfig.sStorageBucket = sStorageBucket
+
+// Création de l'instance Firebase
 gclInstanceFirebase est CFireBase(gstFirebaseConfig)
 ```
 > [!NOTE]
-> Initialisez la configuration Firebase en remplaçant CONST_API_KEY, CONST_PROJET_ID, et CONST_STORAGE_BUCKET par vos propres identifiants, puis instanciez CFireBase pour commencer à utiliser les services Firebase.
+>  Dans cette documentation, nous partirons du principe que tous vos paramètres de configuration sont stockés dans un fichier `.INI`.
 
 ## I - Authentification
 
 L’authentification permet aux utilisateurs de s'authentifier via les API REST de Firebase. Cette fonctionnalité peut inclure la connexion par email et mot de passe, l'inscription de nouveaux utilisateurs.
 
-Chacune des méthodes documentées ci-dessous renverra une instance de `CAuthReponse` avec les accesseurs suivants :
+### Initialisation du service d'authentification
+```WLangage
+	gclAuth	est CAuth = gclInstanceFirebase.Auth()
+```
+
+Chacune des méthodes du service d'authentification documentées ci-dessous renverra une instance de `CAuthReponse` avec les accesseurs suivants :
 
 | accesseurs | Type | description |
 | --- | :-: | --- |
@@ -75,27 +92,28 @@ gstInfoUtilisateur.sNuméroTéléphone = "+2250000000000"
 gstInfoUtilisateur.sPhotoURL = "https://lorempicture.point-sys.com/400/300/"
 gstInfoUtilisateur.bVerifieEmail = Faux
 
-gclAuthReponse  = gclInstanceFirebase.Auth.CréerUtilisateur(gstInfoUtilisateur)
+gclAuthReponse  = gclAuth.CréerUtilisateur(gstInfoUtilisateur)
 ```
 ### Connexion anonyme
 Cette méthode créera un nouvel utilisateur dans la base de données du service d'authentification Firebase à chaque fois qu'elle est invoquée
 ```WLangage
-gclAuthReponse  = gclInstanceFirebase.Auth.ConnexionAnonyme()
+gclAuthReponse  = gclAuth.ConnexionAnonyme()
 ```
 ### Connexion par e-mail et mot de passe
 ```WLangage
-gclAuthReponse  = gclInstanceFirebase.Auth.SeConnecter("wx@firebase.com", "test1234")
+gclAuthReponse  = gclAuth.SeConnecter("wx@firebase.com", "test1234")
 ```
 ### Demande de réinitialisation de mot de passe
 ```WLangage
-gclAuthReponse  = gclInstanceFirebase.Auth.RéinitialiserMotDePasse("wx@firebase.com")
+gclAuthReponse  = gclAuth.RéinitialiserMotDePasse("wx@firebase.com")
 ```
 ### Supprimer un utilisateur
 ```WLangage
-gclAuthReponse  = gclInstanceFirebase.Auth.SupprimerUtilisateur()
+gclAuthReponse  = gclAuth.SupprimerUtilisateur()
 ```
 ### Connexion via providers
-Les `Providers` sont des fournisseurs d'authentification autres que Firebase, par exemple Facebook, Github, Google ou Twitter. Vous pouvez trouver les fournisseurs d'authentification actuellement pris en charge dans la [documentation officielle de Firebase](https://firebase.google.com/docs/projects/provisioning/configure-oauth?hl=fr#add-idp). A l'heure actuelle le composant prends en compte les fournisseurs suivants : 
+Les `Providers` sont des fournisseurs d'authentification autres que Firebase, par exemple Facebook, Github, Google ou Twitter. Vous pouvez trouver les fournisseurs d'authentification actuellement pris en charge par `Firebase` dans la [documentation officielle de Firebase](https://firebase.google.com/docs/projects/provisioning/configure-oauth?hl=fr#add-idp).
+A l'heure actuelle le composant prends en compte les fournisseurs suivants : 
 
 - Facebook
 - Github
@@ -111,11 +129,11 @@ stOptionProvider.sURLRedirection= "http://localhost:5000/auth/google/callback"
 
 gclProvider est CGoogleProvider(stOptionProvider)
 
-gclAuthReponse  est CAuthReponse = gclInstanceFirebase.Auth.SeConnecterProvider(gclProvider)
+gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
 ```
-### Gestion de CAuthReponse
+### Exemple d'utilisation de CAuthReponse
 ```WLangage
-gclAuthReponse est CAuthReponse = gclInstanceFirebase.Auth.SeConnecter("wx@firebase.com", "test1234")
+gclAuthReponse est CAuthReponse = gclAuth.SeConnecter("wx@firebase.com", "test1234")
 
 SELON gclAuthReponse.errType
 	CAS errAucune
@@ -140,11 +158,16 @@ FIN
 
 Le **service Firebase Storage** permet de stocker et de récupérer des fichiers de manière sécurisée et évolutive. Ce service est idéal pour gérer des fichiers tels que des images, des vidéos, des documents, et bien plus encore.
 
+### Initialisation du service de stockage
+```WLangage
+	gclStorage	est CStorage = gclInstanceFirebase.Storage()
+```
+
 ### Téléchargement d'un fichier
 ```WLangage
 sCheminFichier est chaine = "C:/chemin_vers_le_fichier/image.png"
 
-gclStorageReponse est CStorageReponse  = gclInstanceFirebase.Storage.TéléchargerFichier(sCheminFichier)
+gclStorageReponse est CStorageReponse  = gclStorage.TéléchargerFichier(sCheminFichier)
 
 // Gestion de CStorageReponse 
  SELON gclStorageReponse.errType
@@ -172,3 +195,18 @@ Ces règles permettent uniquement aux utilisateurs authentifiés de lire et d'é
 
 ## Contributions
 
+Les contributions sont les bienvenues ! Pour signaler un bug ou proposer des fonctionnalités, veuillez soumettre une issue ou une pull request. [Plus sur comment contributer](./CONTRIBUTING.md).
+
+## Contributeurs
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fabnguess"><img src="https://avatars.githubusercontent.com/u/72697416?v=4?s=100" width="100px;" alt="Kouadio Fabrice Nguessan"/><br /><sub><b>Kouadio Fabrice Nguessan</b></sub></a><br /><a href="https://github.com/NodeSecure/i18n/commits?author=fabnguess" title="Code">💻</a> <a href="https://github.com/fabnguess/wxFirebaseSDK/commits?author=fabnguess" title="Documentation">📖</a> </td>
+    </tr>
+  
+  </tbody>
+</table>
+
+## License
+MIT

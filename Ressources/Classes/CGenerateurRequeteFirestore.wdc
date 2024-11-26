@@ -1,0 +1,161 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CGenerateurRequeteFirestore
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x17324c840016df71
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      
+      STTri est une structure
+      	sChamp est une chaine
+      	eDirection est une EDirectionTriFirestore
+      fin
+      
+      STFiltre est une structure
+      	sChamp est une chaine
+      	eOperateur est une EOperateurFirestore
+      	sValeur est une chaine
+      fin
+      
+      CGenerateurRequeteFirestore est une Classe
+      	prive
+      		m_sIDCollection est une string
+      		m_nValeurLimite est un entier
+      		m_tabListeChampsTrier est un tableau de STTri
+      		m_tabListeDesFiltres est un tableau de STFiltre
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1671482541528833905
+     type_code : 27
+     code : |1-
+      procédure Constructeur(sIDCollection est une string)
+      
+      m_sIDCollection = sIDCollection
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1671482541528899441
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : TrierPar
+     procedure_id : 1671482764867251115
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // TrierPar (<sChamp> est chaîne, <eOrdre> est COL_Declarations.EOrdreTrie)
+      //
+      // Paramètres :
+      //	sChamp (chaîne ANSI) : <indiquez ici le rôle de sChamp>
+      //	eOrdre (COL_Declarations.EOrdreTrie) : <indiquez ici le rôle de eOrdre>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure TrierPar(sChamp est une chaîne, eDirection est EDirectionTriFirestore):CGenerateurRequeteFirestore
+      
+      m_tabListeChampsTrier.Ajoute([sChamp, eDirection])
+      
+      RENVOYER This
+     type : 458752
+   -
+     name : Filtrer
+     procedure_id : 1671482812111967922
+     type_code : 12
+     code : |1+
+      procédure Filtrer(sChamp est une chaîne, eOp est EOperateurFirestore, sValeur est une chaîne):CGenerateurRequeteFirestore
+      
+      m_tabListeDesFiltres.Ajoute([sChamp, eOp, sValeur])
+      
+      renvoyer this
+      
+     type : 458752
+   -
+     name : Limiter
+     procedure_id : 1671485462106816762
+     type_code : 12
+     code : |1-
+      procédure Limiter(nValeurDeLaLimite est un entier):CGenerateurRequeteFirestore
+      
+      m_nValeurLimite = nValeurDeLaLimite
+      
+      RENVOYER This
+     type : 458752
+   -
+     name : Executer
+     procedure_id : 1671485676855231671
+     type_code : 12
+     code : |1-
+      procédure Executer()
+      
+      sUrlGenerateur est une chaîne = "https://firestore.googleapis.com/v1/projects/[%m_sIDCollection%]/databases/(default)/documents:runQuery"
+      
+      //monJSON			est une JSON
+      //maChaine		est une chaîne		= "var2"
+      //
+      //monJSON.var1.nom                        = "Test 1"
+      //{"monJSON.[%maChaine%].nom",indVariable} = "Test 2"
+      
+      jsonContenu est un json 
+      
+      
+      jsonContenu.structuredQuery = [
+      { 
+      "from": [{"collectionId": "[%m_sIDCollection%]"}] 
+      }
+      ]
+      Trace(jsonContenu)
+      Info(jsonContenu)
+     type : 458752
+   -
+     name : ConstruireRequete
+     procedure_id : 1671486497194110515
+     type_code : 12
+     code : |1-
+      procédure ConstruireRequete():chaine
+      
+      
+      //bufContenu est Buffer = [
+      //{
+      //  "structuredQuery": {
+      //    "from": [{ "collectionId": "[%m_sCollectionID%]" }],
+      //    "orderBy": [
+      //      {
+      //        "field": { "fieldPath": "[%sChamp%]" },
+      //        "direction": "[%eDirection..Valeur%]"
+      //      }]}}
+      //]
+      
+      
+      renvoyer ""
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x17324c7200109a0c
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

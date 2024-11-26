@@ -21,6 +21,24 @@ procedure_set :
       	errWindev	
       FIN
       
+      EDirectionTriFirestore est une Enumération
+      	Croissant		= "ASCENDING"	
+      	Décroissant		= "DESCENDING"
+      FIN
+      
+      EOperateurFirestore est une Enumération
+      	EGAL					= "EQUAL"
+      	DIFFERENT				= "NOT_EQUAL"
+      	SUPERIEUR				= "GREATER_THAN"
+      	SUPERIEUR_OU_EGAL		= "GREATER_THAN_OR_EQUAL"
+      	INFERIEUR				= "LESS_THAN"
+      	INFERIEUR_OU_EGAL		= "LESS_THAN_OR_EQUAL"
+      	CONTIENTS				= "ARRAY_CONTAINS"
+      	CONTIENT_AU_MOINS_UN	= "ARRAY_CONTAINS_ANY"
+      	EST_DANS				= "IN"
+      	PAS_DANS 				= "NOT_IN"
+      FIN
+      
       STProviderOauthOptions est une structure
       	sClientID		est une chaîne
       	sClientSecret	est une chaîne
@@ -28,7 +46,15 @@ procedure_set :
       	sURLRedirection	est une chaîne
       FIN
       
+      EMethodeAutorisée est une énumération
+      	eHTTPPost		= 2
+      	eHTTPPut		= 3
+      	eHTTPPatch		= 4
+      	eHTTPDelete		= 5
+      fin
+      
       STHttpOption est une structure
+      	eMethode est EMethodeAutorisée
       	bufContenu est un buffer
       	sContentType est une chaîne
       	taEntête est un tableau associatif de chaînes
@@ -47,9 +73,6 @@ procedure_set :
       	sApiKey			est une chaîne
       	sProjetId		est une chaîne
       	sStorageBucket	est une chaîne
-      	sOAuthClientID  est une chaîne
-      	sOAuthSecret    est une chaîne
-      	sURLRedirection est une chaîne
       fin
      type : 720896
    -
