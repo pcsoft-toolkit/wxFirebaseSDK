@@ -90,12 +90,12 @@ Chacune des méthodes du service d'authentification documentées ci-dessous renv
 ```WLangage
 gstInfoUtilisateur est STAuthPayload
 
-gstInfoUtilisateur.sEmail = "wx@firebase.com"
-gstInfoUtilisateur.sMdp = "test1234"
-gstInfoUtilisateur.sNomAffichage = "wxFirebase"
+gstInfoUtilisateur.sEmail           = "wx@firebase.com"
+gstInfoUtilisateur.sMdp             = "test1234"
+gstInfoUtilisateur.sNomAffichage    = "wxFirebase"
 gstInfoUtilisateur.sNuméroTéléphone = "+2250000000000"
-gstInfoUtilisateur.sPhotoURL = "https://lorempicture.point-sys.com/400/300/"
-gstInfoUtilisateur.bVerifieEmail = Faux
+gstInfoUtilisateur.sPhotoURL        = "https://lorempicture.point-sys.com/400/300/"
+gstInfoUtilisateur.bVerifieEmail    = Faux
 
 gclAuthReponse  = gclAuth.CréerUtilisateur(gstInfoUtilisateur)
 ```
@@ -143,10 +143,10 @@ A l'heure actuelle le composant prends en compte les fournisseurs suivants :
 ```WLangage
 stOptionProvider est STProviderOauthOptions
 
-stOptionProvider.sClientID		=  CONST_CLIENT_ID
-stOptionProvider.sClientSecret	=  CONST_CLIENT_SECRET
-stOptionProvider.sScope			= "email"
-stOptionProvider.sURLRedirection= "http://localhost:5000/auth/facebook/callback"
+stOptionProvider.sClientID	 =  CONST_CLIENT_ID
+stOptionProvider.sClientSecret	 =  CONST_CLIENT_SECRET
+stOptionProvider.sScope		 = "email"
+stOptionProvider.sURLRedirection = "http://localhost:5000/auth/facebook/callback"
 
 gclProvider est CFacebookProvider(stOptionProvider)
 
@@ -163,10 +163,10 @@ gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
 ```WLangage
 stOptionProvider est STProviderOauthOptions
 
-stOptionProvider.sClientID		=  CONST_CLIENT_ID
-stOptionProvider.sClientSecret	=  CONST_CLIENT_SECRET
-stOptionProvider.sScope			= "user"
-stOptionProvider.sURLRedirection= "http://localhost:5000/auth/github/callback"
+stOptionProvider.sClientID	 =  CONST_CLIENT_ID
+stOptionProvider.sClientSecret	 =  CONST_CLIENT_SECRET
+stOptionProvider.sScope		 = "user"
+stOptionProvider.sURLRedirection = "http://localhost:5000/auth/github/callback"
 
 gclProvider est CGithubProvider(stOptionProvider)
 
@@ -182,10 +182,10 @@ gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
 ```WLangage
 stOptionProvider est STProviderOauthOptions
 
-stOptionProvider.sClientID		=  CONST_CLIENT_ID
-stOptionProvider.sClientSecret	=  CONST_CLIENT_SECRET
-stOptionProvider.sScope			= "email"
-stOptionProvider.sURLRedirection= "http://localhost:5000/auth/github/callback"
+stOptionProvider.sClientID	 =  CONST_CLIENT_ID
+stOptionProvider.sClientSecret	 =  CONST_CLIENT_SECRET
+stOptionProvider.sScope		 = "email"
+stOptionProvider.sURLRedirection = "http://localhost:5000/auth/github/callback"
 
 gclProvider est CGoogleProvider(stOptionProvider)
 
