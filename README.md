@@ -33,9 +33,9 @@ Pour que le composant puisse accéder à un projet Firebase, vous devez au préa
 Une fois le fichier de clé privée obtenu, initialisez la configuration Firebase dans votre projet avec le code suivant :
 
 ```WLangage
-sAPIKey			est une chaîne		= INILit("FIREBASECONFIG", "API_KEY"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
+sAPIKey		est une chaîne	= INILit("FIREBASECONFIG", "API_KEY"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
 sStorageBucket	est une chaîne	= INILit("FIREBASECONFIG", "STORAGE_BUCKET", "", fRepExe() + fSep() + "firebaseConfig.INI")
-sPojetID		est une chaîne		= INILit("FIREBASECONFIG", "PROJET_ID"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
+sPojetID	est une chaîne	= INILit("FIREBASECONFIG", "PROJET_ID"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
 
 // Approche 1 : Initialisation par tableau
 gstFirebaseConfig est STFirebaseConfig	= [sAPIKey, sPojetID, sStorageBucket]
@@ -62,7 +62,7 @@ L’authentification permet aux utilisateurs de s'authentifier via les API REST 
 
 ### Initialisation du service d'authentification
 ```WLangage
-	gclAuth	est CAuth = gclInstanceFirebase.Auth()
+gclAuth	est CAuth = gclInstanceFirebase.Auth()
 ```
 
 Chacune des méthodes du service d'authentification documentées ci-dessous renverra une instance de `CAuthReponse` avec les accesseurs suivants :
@@ -226,7 +226,7 @@ Le **service Firebase Storage** permet de stocker et de récupérer des fichiers
 
 ### Initialisation du service de stockage
 ```WLangage
-	gclStorage	est CStorage = gclInstanceFirebase.Storage()
+gclStorage est CStorage = gclInstanceFirebase.Storage()
 ```
 
 ### Téléchargement d'un fichier
