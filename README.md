@@ -51,6 +51,11 @@ gclInstanceFirebase est CFireBase(gstFirebaseConfig)
 > [!NOTE]
 >  Dans cette documentation, nous partirons du principe que tous vos paramètres de configuration sont stockés dans un fichier `.INI`.
 
+#### Paramètres :
+- `sApiKey` : La clé API Web de votre projet Firebase (`chaine`).
+- `sProjetId` : L'dentifiant du projet Firebase (`chaine`).
+- `sStorageBucket` : L'URL du bucket de stockage du projet Firebase (`chaine`).
+
 ## I - Authentification
 
 L’authentification permet aux utilisateurs de s'authentifier via les API REST de Firebase. Cette fonctionnalité peut inclure la connexion par email et mot de passe, l'inscription de nouveaux utilisateurs.
@@ -94,6 +99,14 @@ gstInfoUtilisateur.bVerifieEmail = Faux
 
 gclAuthReponse  = gclAuth.CréerUtilisateur(gstInfoUtilisateur)
 ```
+#### Paramètres :
+- `sEmail` : L'adresse e-mail de l'utilisateur (`chaine`).
+- `sMdp` : Le mot de passe de l'utilisateur (`chaine`).
+- `sNomAffichage` : Le nom d'affichage de l'utilisateur (`chaine`).
+- `sNuméroTéléphone` : Le numéro de téléphone de l'utilisateur (`chaine`).
+- `sPhotoURL` : L'URL de la photo de profil de l'utilisateur (`chaine`).
+- `bVerifieEmail` : Indique si l'adresse e-mail de l'utilisateur doit être vérifiée (`booléen`).
+
 ### Connexion anonyme
 Cette méthode créera un nouvel utilisateur dans la base de données du service d'authentification Firebase à chaque fois qu'elle est invoquée
 ```WLangage
@@ -103,10 +116,17 @@ gclAuthReponse  = gclAuth.ConnexionAnonyme()
 ```WLangage
 gclAuthReponse  = gclAuth.SeConnecter("wx@firebase.com", "test1234")
 ```
+#### Paramètres :
+- `sEmail` : L'adresse e-mail de l'utilisateur (`chaine`).
+- `sMdp` : Le mot de passe de l'utilisateur (`chaine`).
+
 ### Demande de réinitialisation de mot de passe
 ```WLangage
 gclAuthReponse  = gclAuth.RéinitialiserMotDePasse("wx@firebase.com")
 ```
+#### Paramètres :
+- `sEmail` : L'adresse e-mail de l'utilisateur (`chaine`).
+
 ### Supprimer un utilisateur
 ```WLangage
 gclAuthReponse  = gclAuth.SupprimerUtilisateur()
@@ -119,18 +139,64 @@ A l'heure actuelle le composant prends en compte les fournisseurs suivants :
 - Github
 - Google
 
+#### 1. Connexion via Facebook
 ```WLangage
 stOptionProvider est STProviderOauthOptions
 
 stOptionProvider.sClientID		=  CONST_CLIENT_ID
 stOptionProvider.sClientSecret	=  CONST_CLIENT_SECRET
 stOptionProvider.sScope			= "email"
-stOptionProvider.sURLRedirection= "http://localhost:5000/auth/google/callback"
+stOptionProvider.sURLRedirection= "http://localhost:5000/auth/facebook/callback"
+
+gclProvider est CFacebookProvider(stOptionProvider)
+
+gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
+```
+##### Paramètres :
+- `sClientID` : L'identifiant client de l'application Facebook (`chaine`).
+- `sClientSecret` : Le secret client de l'application Facebook (`chaine`).
+- `sScope` : La portée des autorisations demandées (`chaine`).
+- `sURLRedirection` : L'URL de redirection après l'authentification (`chaine`).
+- `gclProvider` : Une instance de `CGoogleProvider` initialisée avec les options d'authentification (`STProviderOauthOptions`).
+
+#### 2. Connexion via Github
+```WLangage
+stOptionProvider est STProviderOauthOptions
+
+stOptionProvider.sClientID		=  CONST_CLIENT_ID
+stOptionProvider.sClientSecret	=  CONST_CLIENT_SECRET
+stOptionProvider.sScope			= "user"
+stOptionProvider.sURLRedirection= "http://localhost:5000/auth/github/callback"
+
+gclProvider est CGithubProvider(stOptionProvider)
+
+gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
+```
+##### Paramètres :
+- `sClientID` : L'identifiant client de l'application Github (`chaine`).
+- `sClientSecret` : Le secret client de l'application Github (`chaine`).
+- `sScope` : La portée des autorisations demandées (`chaine`).
+- `sURLRedirection` : L'URL de redirection après l'authentification (`chaine`).
+
+#### 3. Connexion via Google
+```WLangage
+stOptionProvider est STProviderOauthOptions
+
+stOptionProvider.sClientID		=  CONST_CLIENT_ID
+stOptionProvider.sClientSecret	=  CONST_CLIENT_SECRET
+stOptionProvider.sScope			= "email"
+stOptionProvider.sURLRedirection= "http://localhost:5000/auth/github/callback"
 
 gclProvider est CGoogleProvider(stOptionProvider)
 
 gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
 ```
+##### Paramètres :
+- `sClientID` : L'identifiant client de l'application Google (`chaine`).
+- `sClientSecret` : Le secret client de l'application Google (`chaine`).
+- `sScope` : La portée des autorisations demandées (`chaine`).
+- `sURLRedirection` : L'URL de redirection après l'authentification (`chaine`).
+
 ### Exemple d'utilisation de CAuthReponse
 ```WLangage
 gclAuthReponse est CAuthReponse = gclAuth.SeConnecter("wx@firebase.com", "test1234")
@@ -180,6 +246,9 @@ gclStorageReponse est CStorageReponse  = gclStorage.TéléchargerFichier(sChemin
 		Info(gclStorageReponse.errWindevMessage)
 FIN
 ```
+#### Paramètres :
+- `sCheminFichier` : Le chemin du fichier à télécharger (`chaine`).
+
 ### Activation de la gestion des rôles
 Pour garantir la sécurité de vos fichiers stockés dans Firebase Storage, il est essentiel d'activer et de configurer les règles de sécurité. Voici un exemple de règles de sécurité pour Firebase Storage :
 ```WLangage

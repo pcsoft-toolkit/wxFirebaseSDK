@@ -44,11 +44,11 @@ class :
       
      type : 655360
    -
-     name : Obtenir
+     name : Afficher
      procedure_id : 1671061608965674578
      type_code : 12
-     code : |1-
-      procédure Obtenir(sDocumentId est une chaîne)
+     code : |1+
+      procédure Afficher(sDocumentId est une chaîne)
       
       m_sUrl+= "/"+sDocumentId
       
@@ -56,11 +56,6 @@ class :
       
       res est un httpRéponse = CHttpClient.Envoie(m_sUrl)
       
-      si res.CodeEtat = 200 ALORS
-      	info(res.Contenu)
-      sinon
-      	Info(res.Contenu)
-      FIN
      type : 458752
    -
      name : Creer
@@ -69,7 +64,7 @@ class :
      code : |1+
       procédure Creer()
       
-      info(This.m_sCollectionID)
+      info("créer un document")
       
      type : 458752
    -
@@ -79,7 +74,7 @@ class :
      code : |1-
       procédure MettreAJour()
       
-      info("modifier")
+      info("modifier un document")
      type : 458752
    -
      name : Supprimer
@@ -88,7 +83,7 @@ class :
      code : |1-
       procédure Supprimer()
       
-      info("Supprimer")
+      info("Supprimer un document")
      type : 458752
    -
      name : Lister

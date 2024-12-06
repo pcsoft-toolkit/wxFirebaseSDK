@@ -58,19 +58,6 @@ class :
      procedure_id : 1671482764867251115
      type_code : 12
      code : |1-
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      // TrierPar (<sChamp> est chaîne, <eOrdre> est COL_Declarations.EOrdreTrie)
-      //
-      // Paramètres :
-      //	sChamp (chaîne ANSI) : <indiquez ici le rôle de sChamp>
-      //	eOrdre (COL_Declarations.EOrdreTrie) : <indiquez ici le rôle de eOrdre>
-      // Valeur de retour :
-      // 	Aucune
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
       procédure TrierPar(sChamp est une chaîne, eDirection est EDirectionTriFirestore):CGenerateurRequeteFirestore
       
       m_tabListeChampsTrier.Ajoute([sChamp, eDirection])
@@ -109,41 +96,14 @@ class :
       
       sUrlGenerateur est une chaîne = "https://firestore.googleapis.com/v1/projects/[%m_sIDCollection%]/databases/(default)/documents:runQuery"
       
-      //monJSON			est une JSON
-      //maChaine		est une chaîne		= "var2"
-      //
-      //monJSON.var1.nom                        = "Test 1"
-      //{"monJSON.[%maChaine%].nom",indVariable} = "Test 2"
-      
-      jsonContenu est un json 
-      
-      
-      jsonContenu.structuredQuery = [
-      { 
-      "from": [{"collectionId": "[%m_sIDCollection%]"}] 
-      }
-      ]
-      Trace(jsonContenu)
-      Info(jsonContenu)
+      renvoyer _ConstruireRequete()
      type : 458752
    -
-     name : ConstruireRequete
+     name : _ConstruireRequete
      procedure_id : 1671486497194110515
      type_code : 12
      code : |1-
-      procédure ConstruireRequete():chaine
-      
-      
-      //bufContenu est Buffer = [
-      //{
-      //  "structuredQuery": {
-      //    "from": [{ "collectionId": "[%m_sCollectionID%]" }],
-      //    "orderBy": [
-      //      {
-      //        "field": { "fieldPath": "[%sChamp%]" },
-      //        "direction": "[%eDirection..Valeur%]"
-      //      }]}}
-      //]
+      procédure prive _ConstruireRequete():chaine
       
       
       renvoyer ""
