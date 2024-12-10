@@ -64,9 +64,9 @@ class :
      procedure_id : 1671061608965674578
      type_code : 12
      code : |1-
-      procédure Afficher(sDocumentId est une chaîne):CFireStoreReponse
+      procédure Afficher(sDocumentID est une chaîne):CFireStoreReponse
       
-      m_sUrl+= "/"+sDocumentId
+      m_sUrl+= "/"+sDocumentID
       
       m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
       
@@ -111,9 +111,20 @@ class :
      procedure_id : 1671061608965871624
      type_code : 12
      code : |1-
-      procédure Supprimer()
+      procédure Supprimer(sDocumentID est une chaîne):CFireStoreReponse
       
-      info("Supprimer un document")
+      m_sUrl+= "/"+sDocumentID
+      
+      m_stHttpOption.eMethode = eHTTPDelete
+      m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
+      
+      m_HttpClientReponse							= CHttpClient.Envoie(m_sUrl, m_stHttpOption)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CFireStoreReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER new CFireStoreReponse(m_HttpClientReponse)
      type : 458752
    -
      name : Lister

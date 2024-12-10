@@ -217,10 +217,10 @@ FIN
 ```
 
 ## II - Firestore
-Firestore est une base de données NoSQL flexible et évolutive.
+Firestore est une base de données NoSQL flexible et évolutive. Elle permet de stocker et de synchroniser des données pour les applications mobiles, web et serveur.
 
-#### Configuration de la Sécurité
-Avant de commencer, configure tes règles de sécurité Firestore pour protéger tes données.
+### Configuration de la Sécurité
+Avant de commencer, il est fortement conseillé de configurer les règles de sécurité Firestore pour protéger vos données. Voici un exemple de règles de sécurité de base :
 ```WLangage
 rules_version = '2';
 
@@ -233,22 +233,31 @@ service cloud.firestore {
   }
 }
 ```
+> [!NOTE]
+>Cette règle permet uniquement aux utilisateurs authentifiés de lire et d'écrire des données dans Firestore.
+
 ### Initialisation de Firestore
+Pour initialiser Firestore, utilise le code suivant :
 ```WLangage
 gclFiretoreDB est CFiretore	= gclInstanceFirebase.Firetore()
 ```
 
-### Fonctionnalités
+### Fonctionnalités de **CFiretore**
+`CFirestore` expose la méthode `Collection`, qui à son tour expose les méthodes presentes dans le tableau des fonctionnalités générales suivantes :
+
 #### Fonctionnalités générales
 | Méthode   | Description                                                                               |
 |-----------|-------------------------------------------------------------------------------------------|
+| Collection| Accède à une collection Firestore.                                                        |
 | Creer     | Ajoute un nouveau document dans une collection Firestore.                                 |
 | Modifier  | Modifie un document existant dans Firestore.                                              |
 | Afficher  | Récupère les données d'un document Firestore.                                             |
 | Supprimer | Supprime un document spécifique de Firestore.                                             |
 | Lister    | Initialise une requête pour lister les documents d'une collection avec des options avancées. |
 
-#### Fonctionnalités avancées : accessibles via `CGenerateurRequeteFirestore` après un appel à `Lister`
+#### Fonctionnalités avancées
+Les fonctionnalités avancées sont accessibles via `CGenerateurRequeteFirestore` après un appel à `Lister` :
+
 | Méthode   | Description                                                                 |
 |-----------|-----------------------------------------------------------------------------|
 | TrierPar  | Trie les résultats retournés selon un champ spécifique.                     |
@@ -256,6 +265,169 @@ gclFiretoreDB est CFiretore	= gclInstanceFirebase.Firetore()
 | Limiter   | Limite le nombre de documents retournés par la requête.                     |
 | Executer  | Exécute la requête construite et retourne les résultats.                    |
 
+### Fonctionnalités de **CFirestoreDocument**
+La classe `CFirestoreDocument` est conçue pour simplifier la construction de documents Firestore au format requis par l'API REST. Elle fournit des méthodes pour définir des champs de différents types et génère un document formaté prêt à être envoyé à Firestore.
+
+#### Méthodes disponibles
+| Méthode          | Description                                      |                     
+|------------------|--------------------------------------------------|
+| DefinirChaîne    | Définit un champ de type chaîne de caractères.   |
+| DefinirEntier    | Définit un champ de type entier.                 |
+| DefinirBooleen   | Définit un champ de type booléen.                |
+| DefinirReel      | Définit un champ de type réel.                   |
+| DefinirTableau   | Définit un champ de type tableau.                |
+| DefinirObjet     | Définit un champ de type objet (`JSON`).         |
+| Executer         | Génère le document Firestore prêt à être envoyé à l'API REST.         |
+
+#### Description des méthodes
+##### Declaration
+```WLangage
+	gclDocument est un CFirestoreDocument
+```
+- **Paramètres (DefinirChaîne)** :
+	- `sNomDuchamp` : Nom du champ (`chaine`).
+	- `sValeurDuchamp` : Valeur du champ (`chaine`).
+- **Exemple** :
+	```WLangage
+	gclDocument.DefinirChaîne("identifiant", "JohnDoe")
+	```
+- **Paramètres (DefinirEntier)** :
+	- `sNomDuchamp` : Nom du champ (`chaine`).
+	- `nValeurDuchamp` : Valeur du champ (`entier`).
+- **Exemple** :
+	```WLangage
+	gclDocument.DefinirEntier("age", 18)
+	```
+- **Paramètres (DefinirBooleen)** :
+	- `sNomDuchamp` : Nom du champ (`chaine`).
+	- `bValeurDuchamp` : Valeur du champ (`booléen`).
+- **Exemple** :
+	```WLangage
+	gclDocument.DefinirBooleen("estActif", vrai)
+	```
+- **Paramètres (DefinirReel)** :
+	- `sNomDuchamp` : Nom du champ (`chaine`).
+	- `rValeurDuchamp` : Valeur du champ (`Réel`).
+- **Exemple** :
+	```WLangage
+	gclDocument.DefinirReel("taille", 1.88)
+	```
+- **Paramètres (DefinirTableau)** :
+	- `sNomDuchamp` : Nom du champ (`chaine`).
+	- `tabValeurDuchamp` : Valeur du champ (`tableau dynamique`).
+- **Exemple** :
+	```WLangage
+	gtabTableauFormation  est un tableau de chaînes = ["developer", "typescript", "firebase"]
+	gclDocument.DefinirTableau("tetechnologies", gtabTableauFormation)
+	```
+- **Paramètres (DefinirObjet)** :
+	- `sNomDuchamp` : Nom du champ (`chaine`).
+	- `jsonValeurDuchamp` : Valeur du champ (`JSON`).
+- **Exemple** :
+	```WLangage
+	jsonDonnéesAdresse est json
+	jsonDonnéesAdresse.estResidentiel = Vrai
+	jsonDonnéesAdresse.ville = "Paris"
+	jsonDonnéesAdresse.codePostal = "75000"
+	gclDocument.DefinirObjet("adresse", jsonDonnéesAdresse)
+	```
+- **Valeur de retour (Executer)** :
+	- Retourne un objet de type JSON.
+- **Exemple** :
+	```WLangage
+		jsonfirestoreDocument est json  = gclDocument.Executer()
+	```
+##### Exemple complete
+```WLangage
+	gtabTableauFormation est un tableau de chaînes = ["developer", "typescript", "firebase"]
+
+	jsonDonnéesAdresse est json
+	jsonDonnéesAdresse.estResidentiel = Vrai
+	jsonDonnéesAdresse.ville = "Paris"
+	jsonDonnéesAdresse.codePostal = "75000"
+
+	gclDocument.DefinirChaîne("nom", "Jhon")
+	gclDocument.DefinirChaîne("prenoms", "Deo")
+	gclDocument.DefinirEntier("age", 25)
+	gclDocument.DefinirReel("taille", 1.88)
+	gclDocument.DefinirTableau("techno", gtabTableauFormation)
+	gclDocument.DefinirBooleen("estActif", Vrai)
+	gclDocument.DefinirObjet("adresse", jsonDonnéesAdresse)
+
+	jsonfirestoreDocument est json  = gclDocument.Executer()
+	info(jsonfirestoreDocument)
+```
+##### Exemple complete
+Le code ci-dessus produit le document suivant au format Firestore :
+```json
+{
+	"fields":
+	{
+		"nom": {"stringValue":"Jhon"},
+		"prenoms":{"stringValue":"Deo"},
+		"age":{"integerValue":25},
+		"taille":{"doubleValue":1.88},
+		"techno":
+		{
+			"arrayValue":
+			{
+				"values":
+				[
+					{
+						"stringValue":"developer"
+					},
+					{
+						"stringValue":"typescript"
+					},
+					{
+						"stringValue":"firebase"
+					}
+				]
+			}
+		},
+		"estActif":{"booleanValue":true	},
+		"adresse":
+		{
+			"mapValue":
+			{
+				"fields":
+				{
+					"estResidentiel":{"booleanValue":true},
+					"ville":{"stringValue":"Paris"},
+					"codePostal":{"stringValue":"75000"}
+				}
+			}
+		}
+	}
+}
+```
+### Créer un document
+Ajoute un nouveau document dans une collection donnée.
+```WLangage
+gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").Creer(jsonfirestoreDocument)
+```
+#### Paramètres :
+- `sCollectionID` : Nom de la collection Firestore (`chaine`).
+- `jsonDonnees` : Données du document à ajouter (`json`).
+
+### Modifier un document
+Modifie un document existant dans Firestore.
+
+### Afficher un document
+Récupère les détails d'un document spécifique.
+```WLangage
+gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").fiicher("6PBA9QuFmM6zEKSgVqRo")
+```
+#### Paramètres :
+- `sCollectionID` : Nom de la collection Firestore (`chaine`).
+- `sDocumentID` : Données du document à ajouter (`chaine`).
+
+### Supprimer un document
+Supprime un document existant dans Firestore.
+```WLangage
+gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").supprimer("uGemEu6yiMMgAiKu359w")
+```
+#### Paramètres : Identiques à `Afficher un document`
 
 ## III - Storage
 

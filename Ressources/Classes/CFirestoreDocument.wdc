@@ -119,13 +119,13 @@ class :
       {"m_jsonDocumentTemp.[%CONST_DONNEES_UTILISATEUR%].[%sNomDuchamp%].[%EnumBoolean..Valeur%]", indVariable} =  bValeurDuchamp
      type : 458752
    -
-     name : ConstruitDocument
+     name : Executer
      procedure_id : 1682172770975574810
      type_code : 12
      code : |1-
       // Résumé : <indiquez ici ce que fait la procédure>
       // Syntaxe :
-      //[ <Résultat> = ] ConstruitDocument ()
+      //[ <Résultat> = ] Executer ()
       //
       // Paramètres :
       //	Aucun
@@ -135,7 +135,7 @@ class :
       // Exemple :
       // Indiquez ici un exemple d'utilisation.
       //
-      procédure ConstruitDocument():json
+      procédure Executer():json
       
       renvoyer m_jsonDocumentTemp
      type : 458752
