@@ -240,21 +240,21 @@ gclFiretoreDB est CFiretore	= gclInstanceFirebase.Firetore()
 
 ### Fonctionnalités
 #### Fonctionnalités générales
-| Méthode | description |
-| --- | :-: | --- |
-| Creer | Ajoute un nouveau document dans une collection Firestore.
-| Modifier | Modifie un document existant dans Firestore.
-| Afficher | Récupère les données d'un document Firestore.
-| Supprimer | Supprime un document spécifique de Firestore.
-| Lister | Initialise une requête pour lister les documents d'une collection avec des options avancées.
+| Méthode   | Description                                                                               |
+|-----------|-------------------------------------------------------------------------------------------|
+| Creer     | Ajoute un nouveau document dans une collection Firestore.                                 |
+| Modifier  | Modifie un document existant dans Firestore.                                              |
+| Afficher  | Récupère les données d'un document Firestore.                                             |
+| Supprimer | Supprime un document spécifique de Firestore.                                             |
+| Lister    | Initialise une requête pour lister les documents d'une collection avec des options avancées. |
 
 #### Fonctionnalités avancées : accessibles via `CGenerateurRequeteFirestore` après un appel à `Lister`
-| Méthode | description |
-| --- | :-: | --- |
-| TrierPar | Trie les résultats retournés selon un champ spécifique.
-| Filtrer | Ajoute un filtre pour restreindre les documents retournés.
-| Limiter | Limite le nombre de documents retournés par la requête.
-| Executer | Exécute la requête construite et retourne les résultats.
+| Méthode   | Description                                                                 |
+|-----------|-----------------------------------------------------------------------------|
+| TrierPar  | Trie les résultats retournés selon un champ spécifique.                     |
+| Filtrer   | Ajoute un filtre pour restreindre les documents retournés.                  |
+| Limiter   | Limite le nombre de documents retournés par la requête.                     |
+| Executer  | Exécute la requête construite et retourne les résultats.                    |
 
 
 ## III - Storage
