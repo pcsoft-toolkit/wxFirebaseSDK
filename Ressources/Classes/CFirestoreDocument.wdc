@@ -1,0 +1,273 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CFirestoreDocument
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1758445100cf106d
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      
+      CONSTANT CONST_DONNEES_UTILISATEUR = "fields"
+      
+      ETypesFirestore est une Enumération
+      	EnumChaine		= "stringValue"
+      	EnumEntier		= "integerValue"
+      	EnumReel		= "doubleValue"
+      	EnumBoolean		= "booleanValue"
+      	EnumTableau		= "arrayValue"
+      	EnumObjet		= "mapValue"
+      FIN
+      
+      CFirestoreDocument est une Classe
+      	prive
+      		m_jsonDocumentTemp est json 
+      	
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1682169575519555693
+     type_code : 27
+     code : |1-
+      procédure Constructeur()
+      
+      //{"m_jsonDocumentTemp.", indVariable} =  ""
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1682169575519621229
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : DefinirChaîne
+     procedure_id : 1682170043671165540
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //DefinirChaîne (<sNomDuchamp> est chaîne, <sValeurDuchamp> est chaîne)
+      //
+      // Paramètres :
+      //	sNomDuchamp (chaîne ANSI) : <indiquez ici le rôle de NomDuchamp>
+      //	sValeurDuchamp (chaîne ANSI) : <indiquez ici le rôle de valeurDuchamp>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure DefinirChaîne(local sNomDuchamp est une chaîne , sValeurDuchamp est chaîne)
+      
+      {"m_jsonDocumentTemp.[%CONST_DONNEES_UTILISATEUR%].[%sNomDuchamp%].[%EnumChaine..Valeur%]", indVariable} =  sValeurDuchamp
+     type : 458752
+   -
+     name : DefinirEntier
+     procedure_id : 1682171319276487917
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //DefinirEntier (<sNomDuchamp> est chaîne, <nValeurDuchamp> est entier)
+      //
+      // Paramètres :
+      //	sNomDuchamp (chaîne ANSI) : <indiquez ici le rôle de NomDuchamp>
+      //	nValeurDuchamp (entier) : <indiquez ici le rôle de valeurDuchamp>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure DefinirEntier(local sNomDuchamp est une chaîne , local nValeurDuchamp est un entier)
+      
+      {"m_jsonDocumentTemp.[%CONST_DONNEES_UTILISATEUR%].[%sNomDuchamp%].[%EnumEntier..Valeur%]", indVariable} =  nValeurDuchamp
+      
+     type : 458752
+   -
+     name : DefinirBooleen
+     procedure_id : 1682171555499743525
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //DefinirBooleen (<sNomDuchamp> est chaîne, <bValeurDuchamp> est booléen)
+      //
+      // Paramètres :
+      //	sNomDuchamp (chaîne ANSI) : <indiquez ici le rôle de NomDuchamp>
+      //	bValeurDuchamp (booléen) : <indiquez ici le rôle de valeurDuchamp>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure DefinirBooleen(local sNomDuchamp est une chaîne , bValeurDuchamp est un booléen)
+      
+      {"m_jsonDocumentTemp.[%CONST_DONNEES_UTILISATEUR%].[%sNomDuchamp%].[%EnumBoolean..Valeur%]", indVariable} =  bValeurDuchamp
+     type : 458752
+   -
+     name : ConstruitDocument
+     procedure_id : 1682172770975574810
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] ConstruitDocument ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	JSON : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure ConstruitDocument():json
+      
+      renvoyer m_jsonDocumentTemp
+     type : 458752
+   -
+     name : DefinirReel
+     procedure_id : 1682192192817818848
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //DefinirReel (<sNomDuchamp> est chaîne, <rValeurDuchamp> est réel)
+      //
+      // Paramètres :
+      //	sNomDuchamp (chaîne ANSI) : <indiquez ici le rôle de NomDuchamp>
+      //	rValeurDuchamp (réel) : <indiquez ici le rôle de valeurDuchamp>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure DefinirReel(local sNomDuchamp est une chaîne , local rValeurDuchamp est un reel)
+      
+      {"m_jsonDocumentTemp.[%CONST_DONNEES_UTILISATEUR%].[%sNomDuchamp%].[%EnumReel..Valeur%]", indVariable} =  rValeurDuchamp
+      
+     type : 458752
+   -
+     name : DefinirTableau
+     procedure_id : 1682193807725569917
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //DefinirTableau (<sNomDuchamp> est chaîne, <tabValeurDuchamp>)
+      //
+      // Paramètres :
+      //	sNomDuchamp (chaîne ANSI) : <indiquez ici le rôle de sNomDuchamp>
+      //	tabValeurDuchamp : <indiquez ici le rôle de tabValeurDuchamp>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure DefinirTableau(LOCAL sNomDuchamp est une chaîne, tabValeurDuchamp est un tableau dynamique)
+      
+      pour TOUT ÉLÉMENT Valeur, nClé DE tabValeurDuchamp	
+      
+       {"m_jsonDocumentTemp.[%CONST_DONNEES_UTILISATEUR%].[%sNomDuchamp%].[%EnumTableau..Valeur%].values[[%nClé%]].[%ObtenirValeurEnum(TypeVar(Valeur))%]", indVariable} =  Valeur
+      
+      FIN
+      
+      
+      
+      
+     type : 458752
+   -
+     name : DefinirObjet
+     procedure_id : 1682202298875990643
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //DefinirObjet (<sNomDuchamp> est chaîne, <jsonValeurDuchamp> est JSON)
+      //
+      // Paramètres :
+      //	sNomDuchamp (chaîne ANSI) : <indiquez ici le rôle de sNomDuchamp>
+      //	jsonValeurDuchamp (JSON) : <indiquez ici le rôle de tabValeurDuchamp>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure DefinirObjet(LOCAL sNomDuchamp est une chaîne, jsonValeurDuchamp est un json)
+      
+      pour tout UnMembre de jsonValeurDuchamp..Membre
+      	
+      	si UnMembre..Membre..Occurrence = 0 ALORS
+      		Definition est un Définition = RécupèreDéfinition(UnMembre..Valeur)
+      			
+      		{"m_jsonDocumentTemp.[%CONST_DONNEES_UTILISATEUR%].[%sNomDuchamp%].[%EnumObjet..Valeur%].[%CONST_DONNEES_UTILISATEUR%].[%UnMembre..Nom%].[%ObtenirValeurEnum(Definition..Type)%]", indVariable} =  UnMembre..Valeur
+      	FIN
+      FIN
+      
+      
+     type : 458752
+   -
+     name : ObtenirValeurEnum
+     procedure_id : 1682208157213925769
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] ObtenirValeurEnum (<nTypeDefinition> est entier)
+      //
+      // Paramètres :
+      //	nTypeDefinition (entier) : <indiquez ici le rôle de nTypeDefinition>
+      // Valeur de retour :
+      // 	chaîne ANSI : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure global ObtenirValeurEnum(local nTypeDefinition est un entier):chaîne
+      
+      sValeurEnum est une chaîne
+      
+      SELON nTypeDefinition
+      	CAS wlBooléen
+      		sValeurEnum = EnumBoolean..Valeur
+      	CAS wlChaîne, wlChaîneAnsi, wlChaîneUnicode
+      		sValeurEnum = EnumChaine..Valeur
+      	CAS wlEntier
+      		sValeurEnum = EnumEntier..Valeur
+      	CAS wlRéel
+      		sValeurEnum = EnumReel..Valeur
+      	CAS wlTableau
+      		sValeurEnum = EnumTableau..Valeur
+      		
+      FIN	
+      
+      RENVOYER sValeurEnum
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1758443b00c9bc23
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

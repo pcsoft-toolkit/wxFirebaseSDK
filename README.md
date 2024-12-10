@@ -217,7 +217,44 @@ FIN
 ```
 
 ## II - Firestore
+Firestore est une base de données NoSQL flexible et évolutive.
 
+#### Configuration de la Sécurité
+Avant de commencer, configure tes règles de sécurité Firestore pour protéger tes données.
+```WLangage
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+   match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+### Initialisation de Firestore
+```WLangage
+gclFiretoreDB est CFiretore	= gclInstanceFirebase.Firetore()
+```
+
+### Fonctionnalités
+#### Fonctionnalités générales
+| Méthode | description |
+| --- | :-: | --- |
+| Creer | Ajoute un nouveau document dans une collection Firestore.
+| Modifier | Modifie un document existant dans Firestore.
+| Afficher | Récupère les données d'un document Firestore.
+| Supprimer | Supprime un document spécifique de Firestore.
+| Lister | Initialise une requête pour lister les documents d'une collection avec des options avancées.
+
+#### Fonctionnalités avancées : accessibles via `CGenerateurRequeteFirestore` après un appel à `Lister`
+| Méthode | description |
+| --- | :-: | --- |
+| TrierPar | Trie les résultats retournés selon un champ spécifique.
+| Filtrer | Ajoute un filtre pour restreindre les documents retournés.
+| Limiter | Limite le nombre de documents retournés par la requête.
+| Executer | Exécute la requête construite et retourne les résultats.
 
 
 ## III - Storage

@@ -16,11 +16,27 @@ class :
    -
      code : |1+
       
+      constant CONST_DONNEES_UTILISATEUR = "fields"
+      
+      ETypesFirestore est une Enumération
+      	EnumChaine		= "stringValue"
+      	EnumEntier		= "integerValue"
+      	EnumReel		= "doubleValue"
+      	EnumBoolean		= "booleanValue"
+      	EnumTableau		= "arrayValue"
+      	EnumObjet		= "mapValue"
+      FIN
+      
+      
       CCollection est une Classe
       	prive
       	m_sUrl			est une chaîne
       	m_sCollectionID	est une chaîne
       	m_stHttpOption	est STHttpOption
+      	jsonDonneesConstruites est un JSON
+      	m_HttpClientReponse est un restRéponse
+      	
+      	
       fin
      type : 131072
   procedures :
@@ -47,32 +63,46 @@ class :
      name : Afficher
      procedure_id : 1671061608965674578
      type_code : 12
-     code : |1+
-      procédure Afficher(sDocumentId est une chaîne)
+     code : |1-
+      procédure Afficher(sDocumentId est une chaîne):CFireStoreReponse
       
       m_sUrl+= "/"+sDocumentId
       
       m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
       
-      res est un httpRéponse = CHttpClient.Envoie(m_sUrl)
+      m_HttpClientReponse = CHttpClient.Envoie(m_sUrl)
       
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CFireStoreReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER new CFireStoreReponse(m_HttpClientReponse)
      type : 458752
    -
      name : Creer
      procedure_id : 1671061608965740349
      type_code : 12
      code : |1+
-      procédure Creer()
+      procédure Creer(jsonDonnees est json):CFireStoreReponse
       
-      info("créer un document")
+      m_stHttpOption.eMethode = eHTTPPost
+      m_stHttpOption.bufContenu = jsonDonnees
+      //m_stHttpOption.bufContenu = _TransformerDonneesJSON(jsonDonnees)
       
+       m_HttpClientReponse = CHttpClient.Envoie(m_sUrl, m_stHttpOption)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CFireStoreReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      renvoyer new CFireStoreReponse(m_HttpClientReponse)
      type : 458752
    -
-     name : MettreAJour
+     name : Modifier
      procedure_id : 1671061608965805979
      type_code : 12
      code : |1-
-      procédure MettreAJour()
+      procédure Modifier()
       
       info("modifier un document")
      type : 458752
@@ -93,6 +123,68 @@ class :
       procédure Lister():CGenerateurRequeteFirestore
       
       renvoyer new CGenerateurRequeteFirestore(m_sCollectionID)
+     type : 458752
+   -
+     name : _ParcoursMembres
+     procedure_id : 1681421284831580435
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //_ParcoursMembres (<MembreEnfant>, <sNomMembreParent> est chaîne, <eTypeParent> est CCollection.ETypesFirestore)
+      //
+      // Paramètres :
+      //	MembreEnfant : <indiquez ici le rôle de NoeudEnfant>
+      //	sNomMembreParent (chaîne ANSI) : <indiquez ici le rôle de NomMembreParent>
+      //	eTypeParent (CCollection.ETypesFirestore) : <indiquez ici le rôle de eTypeParent>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure prive _ParcoursMembres(local MembreEnfant, local sNomMembreParent est une chaîne,eTypeParent est ETypesFirestore) 
+      
+      POUR TOUT UnMembreEnfant DE MembreEnfant..Membre
+      	Definition est un Définition  = RécupèreDéfinition(UnMembreEnfant..Valeur)
+      	
+      	SI UnMembreEnfant..Membre..Occurrence = 0 ALORS	
+      		SI Definition.Type = wlTableau ALORS
+      			_ConstruitDonnéeTableau(UnMembreEnfant..Nom, CFirestoreDocument.ObtenirValeurEnum(Definition.Type), UnMembreEnfant..Valeur)
+      		SINON
+      		 {"jsonDonneesConstruites.[%CONST_DONNEES_UTILISATEUR%].[%sNomMembreParent%].[%eTypeParent..Valeur%].[%CONST_DONNEES_UTILISATEUR%].[%UnMembreEnfant..Nom%].[%CFirestoreDocument.ObtenirValeurEnum(Definition.Type)%]", indVariable} = UnMembreEnfant..Valeur
+      		fin
+      	SINON
+      		_ParcoursMembres(UnMembreEnfant, UnMembreEnfant..Nom,EnumObjet)
+      	FIN
+      FIN
+      
+      
+     type : 458752
+   -
+     name : _ConstruitDonnéeTableau
+     procedure_id : 1681494187621274598
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //_ConstruitDonnéeTableau ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure privée _ConstruitDonnéeTableau(LOCAL sNomMembre est chaine, local sTypeParent est une chaîne, tabValeurCle)
+      
+      POUR TOUT ÉLÉMENT Valeur, Clé DE tabValeurCle
+      	
+      	{"jsonDonneesConstruites.[%CONST_DONNEES_UTILISATEUR%].[%sNomMembre%].[%sTypeParent%].values[[%Clé%]].[%CFirestoreDocument.ObtenirValeurEnum(TypeVar(Valeur..FormatJSON))%]", indVariable} = Valeur
+      	
+      FIN	
      type : 458752
   procedure_templates : []
   property_templates : []
