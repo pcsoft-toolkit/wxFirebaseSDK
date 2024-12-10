@@ -282,7 +282,7 @@ La classe `CFirestoreDocument` est conçue pour simplifier la construction de do
 #### Description des méthodes
 ##### Declaration
 ```WLangage
-	gclDocument est un CFirestoreDocument
+gclDocument est un CFirestoreDocument
 ```
 - **Paramètres (DefinirChaîne)** :
 	- `sNomDuchamp` : Nom du champ (`chaine`).
@@ -335,27 +335,27 @@ La classe `CFirestoreDocument` est conçue pour simplifier la construction de do
 	- Retourne un objet de type JSON.
 - **Exemple** :
 	```WLangage
-		jsonfirestoreDocument est json  = gclDocument.Executer()
+	jsonfirestoreDocument est json  = gclDocument.Executer()
 	```
 ##### Exemple complete
 ```WLangage
-	gtabTableauFormation est un tableau de chaînes = ["developer", "typescript", "firebase"]
+gtabTableauFormation est un tableau de chaînes = ["developer", "typescript", "firebase"]
 
-	jsonDonnéesAdresse est json
-	jsonDonnéesAdresse.estResidentiel = Vrai
-	jsonDonnéesAdresse.ville = "Paris"
-	jsonDonnéesAdresse.codePostal = "75000"
+jsonDonnéesAdresse est json
+jsonDonnéesAdresse.estResidentiel = Vrai
+jsonDonnéesAdresse.ville = "Paris"
+jsonDonnéesAdresse.codePostal = "75000"
 
-	gclDocument.DefinirChaîne("nom", "Jhon")
-	gclDocument.DefinirChaîne("prenoms", "Deo")
-	gclDocument.DefinirEntier("age", 25)
-	gclDocument.DefinirReel("taille", 1.88)
-	gclDocument.DefinirTableau("techno", gtabTableauFormation)
-	gclDocument.DefinirBooleen("estActif", Vrai)
-	gclDocument.DefinirObjet("adresse", jsonDonnéesAdresse)
+gclDocument.DefinirChaîne("nom", "Jhon")
+gclDocument.DefinirChaîne("prenoms", "Deo")
+gclDocument.DefinirEntier("age", 25)
+gclDocument.DefinirReel("taille", 1.88)
+gclDocument.DefinirTableau("techno", gtabTableauFormation)
+gclDocument.DefinirBooleen("estActif", Vrai)
+gclDocument.DefinirObjet("adresse", jsonDonnéesAdresse)
 
-	jsonfirestoreDocument est json  = gclDocument.Executer()
-	info(jsonfirestoreDocument)
+jsonfirestoreDocument est json  = gclDocument.Executer()
+info(jsonfirestoreDocument)
 ```
 ##### Exemple complete
 Le code ci-dessus produit le document suivant au format Firestore :
