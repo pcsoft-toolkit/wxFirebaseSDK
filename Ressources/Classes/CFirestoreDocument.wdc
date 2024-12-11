@@ -1,7 +1,7 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : CFirestoreDocument
+ name : CFireStoreDocument
  major_version : 25
  minor_version : 0
  type : 4
@@ -27,7 +27,7 @@ class :
       	EnumObjet		= "mapValue"
       FIN
       
-      CFirestoreDocument est une Classe
+      CFireStoreDocument est une Classe
       	prive
       		m_jsonDocumentTemp est json 
       	

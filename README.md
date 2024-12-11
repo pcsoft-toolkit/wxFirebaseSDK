@@ -239,10 +239,10 @@ service cloud.firestore {
 ### Initialisation de Firestore
 Pour initialiser Firestore, utilise le code suivant :
 ```WLangage
-gclFiretoreDB est CFiretore	= gclInstanceFirebase.Firetore()
+gclFireStoreDB est CFireStore = gclInstanceFirebase.FireStore()
 ```
 
-### Fonctionnalités de **CFiretore**
+### Fonctionnalités de **CFirestore**
 `CFirestore` expose la méthode `Collection`, qui à son tour expose les méthodes presentes dans le tableau des fonctionnalités générales suivantes :
 
 #### Fonctionnalités générales
@@ -284,75 +284,79 @@ La classe `CFirestoreDocument` est conçue pour simplifier la construction de do
 ```WLangage
 gclDocument est un CFirestoreDocument
 ```
-- **Paramètres (DefinirChaîne)** :
-	- `sNomDuchamp` : Nom du champ (`chaine`).
+> [!NOTE]
+>  Pour toutes les méthodes suivantes, le paramètre `sNomDuchamp` est le nom du champ et est de type `chaîne`.
+
+###### Méthode DefinirChaîne
+```WLangage
+gclDocument.DefinirChaîne("identifiant", "JohnDoe")
+```
+- **Paramètres**
 	- `sValeurDuchamp` : Valeur du champ (`chaine`).
-- **Exemple** :
-	```WLangage
-	gclDocument.DefinirChaîne("identifiant", "JohnDoe")
-	```
-- **Paramètres (DefinirEntier)** :
-	- `sNomDuchamp` : Nom du champ (`chaine`).
+
+###### Méthode DefinirEntier
+```WLangage
+gclDocument.DefinirEntier("age", 18)
+```
+- **Paramètres**
 	- `nValeurDuchamp` : Valeur du champ (`entier`).
-- **Exemple** :
-	```WLangage
-	gclDocument.DefinirEntier("age", 18)
-	```
-- **Paramètres (DefinirBooleen)** :
-	- `sNomDuchamp` : Nom du champ (`chaine`).
+
+###### Méthode DefinirBooleen
+```WLangage
+gclDocument.DefinirBooleen("estActif", vrai)
+```
+- **Paramètres**
 	- `bValeurDuchamp` : Valeur du champ (`booléen`).
-- **Exemple** :
-	```WLangage
-	gclDocument.DefinirBooleen("estActif", vrai)
-	```
-- **Paramètres (DefinirReel)** :
-	- `sNomDuchamp` : Nom du champ (`chaine`).
+
+###### Méthode DefinirReel
+```WLangage
+gclDocument.DefinirReel("taille", 1.88)
+```
+- **Paramètres** :
 	- `rValeurDuchamp` : Valeur du champ (`Réel`).
-- **Exemple** :
-	```WLangage
-	gclDocument.DefinirReel("taille", 1.88)
-	```
-- **Paramètres (DefinirTableau)** :
-	- `sNomDuchamp` : Nom du champ (`chaine`).
+
+###### Méthode DefinirTableau
+```WLangage
+gtabTableau  est un tableau de chaînes = ["windev", "webdev", "windev mobile"]
+gclDocument.DefinirTableau("tetechnologies", gtabTableau)
+```
+- **Paramètres ()** :
 	- `tabValeurDuchamp` : Valeur du champ (`tableau dynamique`).
-- **Exemple** :
-	```WLangage
-	gtabTableauFormation  est un tableau de chaînes = ["developer", "typescript", "firebase"]
-	gclDocument.DefinirTableau("tetechnologies", gtabTableauFormation)
-	```
-- **Paramètres (DefinirObjet)** :
-	- `sNomDuchamp` : Nom du champ (`chaine`).
+
+###### Méthode DefinirObjet
+```WLangage
+jsonAdresse est json
+jsonAdresse.estResidentiel = Vrai
+jsonAdresse.ville          = "Paris"
+jsonAdresse.codePostal     = "75000"
+gclDocument.DefinirObjet("adresse", jsonAdresse)
+```
+- **Paramètres** :
 	- `jsonValeurDuchamp` : Valeur du champ (`JSON`).
-- **Exemple** :
-	```WLangage
-	jsonDonnéesAdresse est json
-	jsonDonnéesAdresse.estResidentiel = Vrai
-	jsonDonnéesAdresse.ville = "Paris"
-	jsonDonnéesAdresse.codePostal = "75000"
-	gclDocument.DefinirObjet("adresse", jsonDonnéesAdresse)
-	```
-- **Valeur de retour (Executer)** :
+
+###### Méthode Executer
+```WLangage
+jsonfirestoreDocument est json  = gclDocument.Executer()
+```
+- **Valeur de retour** :
 	- Retourne un objet de type JSON.
-- **Exemple** :
-	```WLangage
-	jsonfirestoreDocument est json  = gclDocument.Executer()
-	```
+
 ##### Exemple complete
 ```WLangage
-gtabTableauFormation est un tableau de chaînes = ["developer", "typescript", "firebase"]
+gtabTableau est un tableau de chaînes = ["windev", "webdev", "windev mobile"]
 
-jsonDonnéesAdresse est json
-jsonDonnéesAdresse.estResidentiel = Vrai
-jsonDonnéesAdresse.ville = "Paris"
-jsonDonnéesAdresse.codePostal = "75000"
+jsonAdresse est json
+jsonAdresse.estResidentiel = Vrai
+jsonAdresse.ville          = "Paris"
+jsonAdresse.codePostal     = "75000"
 
-gclDocument.DefinirChaîne("nom", "Jhon")
+gclDocument.DefinirChaîne("nom", "John")
 gclDocument.DefinirChaîne("prenoms", "Deo")
 gclDocument.DefinirEntier("age", 25)
 gclDocument.DefinirReel("taille", 1.88)
 gclDocument.DefinirTableau("techno", gtabTableauFormation)
 gclDocument.DefinirBooleen("estActif", Vrai)
-gclDocument.DefinirObjet("adresse", jsonDonnéesAdresse)
+gclDocument.DefinirObjet("adresse", jsonAdresse)
 
 jsonfirestoreDocument est json  = gclDocument.Executer()
 info(jsonfirestoreDocument)
@@ -363,7 +367,7 @@ Le code ci-dessus produit le document suivant au format Firestore :
 {
 	"fields":
 	{
-		"nom": {"stringValue":"Jhon"},
+		"nom": {"stringValue":"John"},
 		"prenoms":{"stringValue":"Deo"},
 		"age":{"integerValue":25},
 		"taille":{"doubleValue":1.88},
@@ -374,13 +378,13 @@ Le code ci-dessus produit le document suivant au format Firestore :
 				"values":
 				[
 					{
-						"stringValue":"developer"
+						"stringValue":"windev"
 					},
 					{
-						"stringValue":"typescript"
+						"stringValue":"webdev"
 					},
 					{
-						"stringValue":"firebase"
+						"stringValue":"windev mobile"
 					}
 				]
 			}
@@ -410,24 +414,26 @@ gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").C
 - `sCollectionID` : Nom de la collection Firestore (`chaine`).
 - `jsonDonnees` : Données du document à ajouter (`json`).
 
+> [!NOTE]
+>  Le paramètre `sCollectionID` est identique pour toutes les méthodes ci-dessous.
+
 ### Modifier un document
 Modifie un document existant dans Firestore.
 
 ### Afficher un document
 Récupère les détails d'un document spécifique.
 ```WLangage
-gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").fiicher("6PBA9QuFmM6zEKSgVqRo")
+gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").Afficher("6PBA9QuFmM6zEKSgVqRo")
 ```
 #### Paramètres :
-- `sCollectionID` : Nom de la collection Firestore (`chaine`).
 - `sDocumentID` : Données du document à ajouter (`chaine`).
 
 ### Supprimer un document
 Supprime un document existant dans Firestore.
 ```WLangage
-gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").supprimer("uGemEu6yiMMgAiKu359w")
+gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").Supprimer("uGemEu6yiMMgAiKu359w")
 ```
-#### Paramètres : Identiques à `Afficher un document`
+#### Paramètres : Identiques à la méthode `Afficher`.
 
 ## III - Storage
 

@@ -20,7 +20,7 @@ class :
       prive
       	mg_clAuth		est CAuth
       	mg_clStorage	est CStorage
-      	mg_clFiretore	est CFiretore
+      	mg_clFireStore	est CFireStore
       fin
      type : 131072
   procedures :
@@ -33,7 +33,7 @@ class :
       
       Constructeur mg_clAuth(stUneConfig.sApiKey)
       Constructeur mg_clStorage(stUneConfig.sProjetId)
-      Constructeur mg_clFiretore(stUneConfig.sProjetId)
+      Constructeur mg_clFireStore(stUneConfig.sProjetId)
       
        
      type : 589824
@@ -45,25 +45,25 @@ class :
       procédure Destructeur()
      type : 655360
    -
-     name : Firetore
+     name : FireStore
      procedure_id : 1671106547226229794
      type_code : 12
      code : |1+
       // Résumé : <indiquez ici ce que fait la procédure>
       // Syntaxe :
-      //[ <Résultat> = ] Firetore ()
+      //[ <Résultat> = ] FireStore ()
       //
       // Paramètres :
       //	Aucun
       // Valeur de retour :
-      // 	CFiretore : // 	Aucune
+      // 	CFireStore : // 	Aucune
       //
       // Exemple :
       // Indiquez ici un exemple d'utilisation.
       //
-      procédure Firetore():CFiretore
+      procédure FireStore():CFirestore
       
-      renvoyer mg_clFiretore
+      renvoyer mg_clFireStore
      type : 458752
    -
      name : Auth

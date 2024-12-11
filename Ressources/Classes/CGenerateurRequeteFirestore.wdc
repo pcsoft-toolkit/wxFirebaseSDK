@@ -1,7 +1,7 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : CGenerateurRequeteFirestore
+ name : CGenerateurRequeteFireStore
  major_version : 25
  minor_version : 0
  type : 4
@@ -27,7 +27,7 @@ class :
       	sValeur est une chaine
       fin
       
-      CGenerateurRequeteFirestore est une Classe
+      CGenerateurRequeteFireStore est une Classe
       	prive
       		m_sIDCollection est une string
       		m_nValeurLimite est un entier
