@@ -256,7 +256,7 @@ gclFireStoreDB est CFireStore = gclInstanceFirebase.FireStore()
 | Lister    | Initialise une requête pour lister les documents d'une collection avec des options avancées. |
 
 #### Fonctionnalités avancées
-Les fonctionnalités avancées sont accessibles via `CGenerateurRequeteFirestore` après un appel à `Lister` :
+L'accès aux fonctionnalités avancées nécessite un appel préalable à la méthode `Lister` :
 
 | Méthode   | Description                                                                 |
 |-----------|-----------------------------------------------------------------------------|
@@ -265,144 +265,112 @@ Les fonctionnalités avancées sont accessibles via `CGenerateurRequeteFirestore
 | Limiter   | Limite le nombre de documents retournés par la requête.                     |
 | Executer  | Exécute la requête construite et retourne les résultats.                    |
 
-### Fonctionnalités de **CFirestoreDocument**
-La classe `CFirestoreDocument` est conçue pour simplifier la construction de documents Firestore au format requis par l'API REST. Elle fournit des méthodes pour définir des champs de différents types et génère un document formaté prêt à être envoyé à Firestore.
+> [!IMPORTANT]
+> Toutes les methodes precedement cité retourne une intance de `CFireStoreReponse`
 
-#### Méthodes disponibles
-| Méthode          | Description                                      |                     
-|------------------|--------------------------------------------------|
-| DefinirChaîne    | Définit un champ de type chaîne de caractères.   |
-| DefinirEntier    | Définit un champ de type entier.                 |
-| DefinirBooleen   | Définit un champ de type booléen.                |
-| DefinirReel      | Définit un champ de type réel.                   |
-| DefinirTableau   | Définit un champ de type tableau.                |
-| DefinirObjet     | Définit un champ de type objet (`JSON`).         |
-| Executer         | Génère le document Firestore prêt à être envoyé à l'API REST.         |
-
-#### Description des méthodes
-##### Declaration
+### Gestion de **CFireStoreReponse**
+La classe `CFireStoreReponse` encapsule les réponses de Firestore et de WinDev afin de fournir aux développeurs un ensemble de méthodes simples et cohérentes.
 ```WLangage
-gclDocument est un CFirestoreDocument
+gclFireStoreReponse est CFireStoreReponse = gclFiretoreDB.Collection("utilisateurs").Creer(gJsonfirestoreDocument)
 ```
-> [!NOTE]
->  Pour toutes les méthodes suivantes, le paramètre `sNomDuchamp` est le nom du champ et est de type `chaîne`.
+#### Description des Méthodes
+Voici un aperçu des méthodes principales de MoovMoneyApiResponse :
 
-###### Méthode DefinirChaîne
+	- `errType` : Retourne une instance de ETypeErreur : errFirebase pour une erreur liée à Firestore, errWindev pour une erreur liée à WinDev, ou errAucune si aucune erreur n'est survenue.
+	- `Données` : Retourne le résultat d'un document Firestore au format JSON.
+	- `errArgumentInvalide` : Erreur survenant lorsque les arguments passés à la méthode sont invalides ou mal formatés.
+	- `errAutorisationRefusee` : Erreur indiquant que l'utilisateur ou le client n'a pas les permissions nécessaires pour effectuer l'action demandée.
+	- `errIndisponible` : Erreur signalant que le service Firestore est temporairement indisponible.
+	- `errNonAuthentifie` : Erreur retournée lorsque l'utilisateur n'est pas authentifié ou que l'authentification a expiré.
+	- `errQuotaEpuisee` : Erreur déclenchée lorsque le quota d'utilisation des services Firestore est atteint.
+	- `errServeurIndisponible` : Erreur survenant lorsque le serveur Firestore ne répond pas ou est inaccessible.
+	- `errWindevMessage` : Contient le message d'erreur détaillé lorsqu'une erreur liée à WinDev est rencontrée.
+
+###### Exemple d'utilisation
 ```WLangage
-gclDocument.DefinirChaîne("identifiant", "JohnDoe")
+SELON gclFireStoreReponse.errType
+	CAS errAucune : Info(gclFireStoreReponse.Données)
+
+	CAS errFirebase
+		SI gclFireStoreReponse.errQuotaEpuisee        ALORS Info("Votre quota est épuisé.")
+		SI gclFireStoreReponse.errArgumentInvalide    ALORS Info("Un ou plusieurs arguments fournis sont invalides.")
+		SI gclFireStoreReponse.errIndisponible        ALORS Info("Le service Firestore est actuellement indisponible.")
+		SI gclFireStoreReponse.errNonAuthentifie      ALORS Info("La requête n'est pas authentifiée.")
+		SI gclFireStoreReponse.errServeurIndisponible ALORS Info("Le serveur Cloud Firestore est inaccessible.")
+		SI gclFireStoreReponse.errAutorisationRefusee ALORS Info("Vous n'êtes pas autorisé à effectuer cette opération.")
+		
+	CAS errWindev : Info(gclFireStoreReponse.errWindevMessage)		
+FIN
 ```
-- **Paramètres**
-	- `sValeurDuchamp` : Valeur du champ (`chaine`).
 
-###### Méthode DefinirEntier
-```WLangage
-gclDocument.DefinirEntier("age", 18)
-```
-- **Paramètres**
-	- `nValeurDuchamp` : Valeur du champ (`entier`).
+### Exemple de JSON pour les Méthodes Creer et Modifier
+Le code ci-dessous montre un exemple de document JSON qui peut être utilisé dans les méthodes `Creer` et `Modifier` :
 
-###### Méthode DefinirBooleen
-```WLangage
-gclDocument.DefinirBooleen("estActif", vrai)
-```
-- **Paramètres**
-	- `bValeurDuchamp` : Valeur du champ (`booléen`).
-
-###### Méthode DefinirReel
-```WLangage
-gclDocument.DefinirReel("taille", 1.88)
-```
-- **Paramètres** :
-	- `rValeurDuchamp` : Valeur du champ (`Réel`).
-
-###### Méthode DefinirTableau
-```WLangage
-gtabTableau  est un tableau de chaînes = ["windev", "webdev", "windev mobile"]
-gclDocument.DefinirTableau("tetechnologies", gtabTableau)
-```
-- **Paramètres ()** :
-	- `tabValeurDuchamp` : Valeur du champ (`tableau dynamique`).
-
-###### Méthode DefinirObjet
-```WLangage
-jsonAdresse est json
-jsonAdresse.estResidentiel = Vrai
-jsonAdresse.ville          = "Paris"
-jsonAdresse.codePostal     = "75000"
-gclDocument.DefinirObjet("adresse", jsonAdresse)
-```
-- **Paramètres** :
-	- `jsonValeurDuchamp` : Valeur du champ (`JSON`).
-
-###### Méthode Executer
-```WLangage
-jsonfirestoreDocument est json  = gclDocument.Executer()
-```
-- **Valeur de retour** :
-	- Retourne un objet de type JSON.
-
-##### Exemple complete
-```WLangage
-gtabTableau est un tableau de chaînes = ["windev", "webdev", "windev mobile"]
-
-jsonAdresse est json
-jsonAdresse.estResidentiel = Vrai
-jsonAdresse.ville          = "Paris"
-jsonAdresse.codePostal     = "75000"
-
-gclDocument.DefinirChaîne("nom", "John")
-gclDocument.DefinirChaîne("prenoms", "Deo")
-gclDocument.DefinirEntier("age", 25)
-gclDocument.DefinirReel("taille", 1.88)
-gclDocument.DefinirTableau("techno", gtabTableauFormation)
-gclDocument.DefinirBooleen("estActif", Vrai)
-gclDocument.DefinirObjet("adresse", jsonAdresse)
-
-jsonfirestoreDocument est json  = gclDocument.Executer()
-info(jsonfirestoreDocument)
-```
-##### Exemple complete
-Le code ci-dessus produit le document suivant au format Firestore :
 ```json
-{
-	"fields":
+jsonfirestoreDocument est chaîne=
 	{
-		"nom": {"stringValue":"John"},
-		"prenoms":{"stringValue":"Deo"},
-		"age":{"integerValue":25},
-		"taille":{"doubleValue":1.88},
-		"techno":
-		{
-			"arrayValue":
-			{
-				"values":
-				[
-					{
-						"stringValue":"windev"
-					},
-					{
-						"stringValue":"webdev"
-					},
-					{
-						"stringValue":"windev mobile"
-					}
-				]
-			}
-		},
-		"estActif":{"booleanValue":true	},
-		"adresse":
-		{
-			"mapValue":
-			{
-				"fields":
-				{
-					"estResidentiel":{"booleanValue":true},
-					"ville":{"stringValue":"Paris"},
-					"codePostal":{"stringValue":"75000"}
-				}
-			}
-		}
-	}
+  "nomEnseignant": "Dr. Alice Johnson",
+  "anneesExperience": 12,
+  "estTitulaire": true,
+  "cours": [
+    {
+      "nomCours": "Introduction à la Programmation",
+      "coefficient": 4,
+      "etudiants": [
+        {
+          "nom": "Jean Dupont",
+          "age": 20
+        },
+        {
+          "nom": "Marie Curie",
+          "age": 22
+        }
+      ],
+      "projets": [
+        {
+          "titre": "Développement d'une Application Web",
+          "description": "Créer une application web simple en utilisant React.",
+          "scoreMaximal": 100
+        },
+        {
+          "titre": "Implémentation de Structures de Données",
+          "description": "Implémenter des structures de données clés comme la liste chaînée et l'arbre binaire.",
+          "scoreMaximal": 100
+        }
+      ]
+    },
+    {
+      "nomCours": "Systèmes de Gestion de Bases de Données",
+      "coefficient": 3,
+      "etudiants": [
+        {
+          "nom": "Alice Martin",
+          "age": 21
+        },
+        {
+          "nom": "Robert Blanc",
+          "age": 23
+        }
+      ],
+      "projets": [
+        {
+          "titre": "Optimisation des Requêtes SQL",
+          "description": "Optimiser des requêtes SQL complexes pour de meilleures performances.",
+          "scoreMaximal": 100
+        }
+      ]
+    }
+  ],
+  "departements": {
+    "informatique": {
+      "nombreEnseignants": 20,
+      "responsable": "Pr. David King"
+    },
+    "mathematiques": {
+      "nombreEnseignants": 15,
+      "responsable": "Pr. Susan Clark"
+    }
+  }
 }
 ```
 ### Créer un document
@@ -419,6 +387,12 @@ gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").C
 
 ### Modifier un document
 Modifie un document existant dans Firestore.
+```WLangage
+gclDbReponse est CFireStoreReponse = gclFirestoreDB.Collection("utilisateurs").Modifier("6PBA9QuFmM6zEKSgVqRo",jsonfirestoreDocument)
+```
+#### Paramètres :
+- `sDocumentID` : Données du document à ajouter (`chaine`).
+-`jsonDonnees` : Identiques à la méthode `Creer`.
 
 ### Afficher un document
 Récupère les détails d'un document spécifique.
