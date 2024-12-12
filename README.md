@@ -274,17 +274,16 @@ La classe `CFireStoreReponse` encapsule les réponses de Firestore et de WinDev 
 gclFireStoreReponse est CFireStoreReponse = gclFiretoreDB.Collection("utilisateurs").Creer(gJsonfirestoreDocument)
 ```
 #### Description des Méthodes
-Voici un aperçu des méthodes principales de MoovMoneyApiResponse :
-
-	- `errType` : Retourne une instance de ETypeErreur : errFirebase pour une erreur liée à Firestore, errWindev pour une erreur liée à WinDev, ou errAucune si aucune erreur n'est survenue.
-	- `Données` : Retourne le résultat d'un document Firestore au format JSON.
-	- `errArgumentInvalide` : Erreur survenant lorsque les arguments passés à la méthode sont invalides ou mal formatés.
-	- `errAutorisationRefusee` : Erreur indiquant que l'utilisateur ou le client n'a pas les permissions nécessaires pour effectuer l'action demandée.
-	- `errIndisponible` : Erreur signalant que le service Firestore est temporairement indisponible.
-	- `errNonAuthentifie` : Erreur retournée lorsque l'utilisateur n'est pas authentifié ou que l'authentification a expiré.
-	- `errQuotaEpuisee` : Erreur déclenchée lorsque le quota d'utilisation des services Firestore est atteint.
-	- `errServeurIndisponible` : Erreur survenant lorsque le serveur Firestore ne répond pas ou est inaccessible.
-	- `errWindevMessage` : Contient le message d'erreur détaillé lorsqu'une erreur liée à WinDev est rencontrée.
+Voici un aperçu des méthodes principales de `CFireStoreReponse` :
+- `errType` : Retourne une instance de ETypeErreur : errFirebase pour une erreur liée à Firestore, errWindev pour une erreur liée à WinDev, ou errAucune si aucune erreur n'est survenue.
+- `Données` : Retourne le résultat d'un document Firestore au format JSON.
+- `errArgumentInvalide` : Erreur survenant lorsque les arguments passés à la méthode sont invalides ou mal formatés.
+- `errAutorisationRefusee` : Erreur indiquant que l'utilisateur ou le client n'a pas les permissions nécessaires pour effectuer l'action demandée.
+- `errIndisponible` : Erreur signalant que le service Firestore est temporairement indisponible.
+- `errNonAuthentifie` : Erreur retournée lorsque l'utilisateur n'est pas authentifié ou que l'authentification a expiré.
+- `errQuotaEpuisee` : Erreur déclenchée lorsque le quota d'utilisation des services Firestore est atteint.
+- `errServeurIndisponible` : Erreur survenant lorsque le serveur Firestore ne répond pas ou est inaccessible.
+- `errWindevMessage` : Contient le message d'erreur détaillé lorsqu'une erreur liée à WinDev est rencontrée.
 
 ###### Exemple d'utilisation
 ```WLangage
