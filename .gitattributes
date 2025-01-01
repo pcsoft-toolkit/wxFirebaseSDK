@@ -1,4 +1,4 @@
-# Indiquer à GitHub que les fichiers avec les extensions .wpd, .wwp et .wpp sont du WLangage
+# Indiquer à GitHub que les fichiers avec les extensions .wdp, .wwp et .wpp sont du WLangage
 *.wdp linguist-language=WLangage
 *.wwp linguist-language=WLangage
 *.wpp linguist-language=WLangage
