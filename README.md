@@ -235,6 +235,7 @@ service cloud.firestore {
 ```
 > [!NOTE]
 >Cette règle permet uniquement aux utilisateurs authentifiés de lire et d'écrire des données dans Firestore.
+>Lien vers la documentation https://firebase.google.com/docs/firestore/security/get-started?hl=fr
 
 ### Initialisation de Firestore
 Pour initialiser Firestore, utilise le code suivant :

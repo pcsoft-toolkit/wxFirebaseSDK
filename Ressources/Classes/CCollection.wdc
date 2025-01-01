@@ -146,7 +146,7 @@ class :
      code : |1-
       procédure Lister():CGenerateurRequeteFirestore
       
-      renvoyer new CGenerateurRequeteFirestore(m_sCollectionID)
+      renvoyer new CGenerateurRequeteFirestore(m_sUrl)
      type : 458752
    -
      name : _GénèreDocumentFirestore
