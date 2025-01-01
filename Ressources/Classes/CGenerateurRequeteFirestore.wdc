@@ -17,22 +17,24 @@ class :
      code : |1+
       
       STTri est une structure
-      	sChamp est une chaine
-      	eDirection est une EDirectionTriFirestore
+      	sChamp		est une chaine
+      	eDirection	est une EDirectionTriFirestore
       fin
       
       STFiltre est une structure
-      	sChamp est une chaine
-      	eOperateur est une EOperateurFirestore
-      	sValeur est une chaine
+      	sChamp		est une chaine
+      	eOperateur	est une EOperateurFirestore
+      	sValeur		est une chaine
       fin
       
       CGenerateurRequeteFireStore est une Classe
-      	prive
-      		m_sIDCollection est une string
-      		m_nValeurLimite est un entier
-      		m_tabListeChampsTrier est un tableau de STTri
-      		m_tabListeDesFiltres est un tableau de STFiltre
+      prive
+      	m_sUrl      			est une string
+      	m_nValeurLimite			est un entier	= 0
+      	m_tabListeChampsTrier	est un tableau de STTri
+      	m_tabListeDesFiltres	est un tableau de STFiltre
+      	m_stHttpOption	        est STHttpOption
+      	m_HttpClientReponse     est un restRéponse
       fin
      type : 131072
   procedures :
@@ -41,9 +43,9 @@ class :
      procedure_id : 1671482541528833905
      type_code : 27
      code : |1-
-      procédure Constructeur(sIDCollection est une string)
+      procédure Constructeur(local sUrl est une string)
       
-      m_sIDCollection = sIDCollection
+      :m_sUrl = sUrl
      type : 589824
    -
      name : Destructeur
@@ -62,7 +64,7 @@ class :
       
       m_tabListeChampsTrier.Ajoute([sChamp, eDirection])
       
-      RENVOYER This
+      RENVOYER objet
      type : 458752
    -
      name : Filtrer
@@ -73,7 +75,7 @@ class :
       
       m_tabListeDesFiltres.Ajoute([sChamp, eOp, sValeur])
       
-      renvoyer this
+      renvoyer objet
       
      type : 458752
    -
@@ -85,18 +87,35 @@ class :
       
       m_nValeurLimite = nValeurDeLaLimite
       
-      RENVOYER This
+      RENVOYER objet
      type : 458752
    -
      name : Executer
      procedure_id : 1671485676855231671
      type_code : 12
-     code : |1-
-      procédure Executer()
+     code : |1+
+      procédure Executer():CFireStoreReponse
       
-      sUrlGenerateur est une chaîne = "https://firestore.googleapis.com/v1/projects/[%m_sIDCollection%]/databases/(default)/documents:runQuery"
       
-      renvoyer _ConstruireRequete()
+      //                                   https://firestore.googleapis.com/v1/projects/liberetondressing-96cd1/databases/(default)/documents/users
+      //renvoyer _ConstruireRequete()
+      
+      si :m_nValeurLimite = 0 _et_ :m_tabListeChampsTrier..Vide _et_ :m_tabListeDesFiltres..Vide ALORS
+      	
+      	m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
+      	
+      	m_HttpClientReponse							= CHttpClient.Envoie(m_sUrl, m_stHttpOption)
+      	
+      	SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      		RENVOYER  new CFireStoreReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      	FIN
+      	
+      	RENVOYER new CFireStoreReponse(m_HttpClientReponse)
+      	
+      sinon
+      	_ConstruireRequete()
+      FIN
+      
      type : 458752
    -
      name : _ConstruireRequete
@@ -105,6 +124,7 @@ class :
      code : |1-
       procédure prive _ConstruireRequete():chaine
       
+      //sUrlGenerateur est une chaîne = "https://firestore.googleapis.com/v1/projects/[%m_sIDCollection%]/databases/(default)/documents:runQuery"
       
       renvoyer ""
      type : 458752
