@@ -47,6 +47,7 @@ procedure_set :
       FIN
       
       EMethodeAutorisée est une énumération
+      	eHTTPGet		= 1
       	eHTTPPost		= 2
       	eHTTPPut		= 3
       	eHTTPPatch		= 4
