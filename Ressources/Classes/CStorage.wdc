@@ -17,7 +17,7 @@ class :
      code : |1+
       CStorage est une Classe
       	CONSTANT
-      		CONST_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/%1.appspot.com/o/"
+      		CONST_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/%1.firebasestorage.app/o/"
       	FIN
       	prive
       		m_sStorageUrl est une chaîne
