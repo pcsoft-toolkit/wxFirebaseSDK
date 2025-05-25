@@ -43,27 +43,32 @@ class :
      type_code : 12
      code : |1-
       // Traitement automatique des erreurs :   exécuter le bloc de code CAS ERREUR
-      //
       procédure publique globale Envoie(sUrl est une chaîne, stHttpClientOption est STHttpOption = null):httpRéponse
       
       wxFirebaseRequête	est une httpRequête
       wxFirebaseRéponse	est une httpRéponse
       
-      wxFirebaseRequête.URL			= URLEncode(sUrl)
-      wxFirebaseRequête.Méthode		= stHttpClientOption.bufContenu   = "" ? httpGet      sinon stHttpClientOption.eMethode..Valeur
-      wxFirebaseRequête.ContentType	= stHttpClientOption.sContentType = "" ? typeMimeJSON sinon stHttpClientOption.sContentType
-      wxFirebaseRequête.Contenu		= stHttpClientOption.bufContenu   = "" ? ""           sinon stHttpClientOption.bufContenu
+      SI stHttpClientOption.eMethode DANS (eHTTPGet,Null) ALORS
+      	stHttpClientOption.eMethode		= eHTTPGet
+      	stHttpClientOption.bufContenu	= ""
+      FIN
       
-      si stHttpClientOption.taEntête..Occurrence <> 0 ALORS
-      	
+      wxFirebaseRequête.URL			= URLEncode(sUrl)
+      wxFirebaseRequête.Méthode		= stHttpClientOption.eMethode // stHttpClientOption.bufContenu   = "" ? httpGet    sinon stHttpClientOption.eMethode..Valeur
+      wxFirebaseRequête.ContentType	= stHttpClientOption.sContentType  DANS ("",Null) ? typeMimeJSON SINON stHttpClientOption.sContentType
+      wxFirebaseRequête.Contenu		= stHttpClientOption.bufContenu DANS ("",Null) ? "" SINON stHttpClientOption.bufContenu
+      
+      
+      SI stHttpClientOption.taEntête..Occurrence <> 0 ALORS
       	POUR TOUT ÉLÉMENT sEntêteValeur, sEntêteClé DE stHttpClientOption.taEntête
       		wxFirebaseRequête.Entête[sEntêteClé] = sEntêteValeur
-      	FIN	
+      	FIN
       FIN
       
       wxFirebaseRéponse = wxFirebaseRequête.Envoie()
       
-      renvoyer wxFirebaseRéponse 
+      RENVOYER wxFirebaseRéponse
+      
       
       CAS ERREUR:
       ErreurPropage()
