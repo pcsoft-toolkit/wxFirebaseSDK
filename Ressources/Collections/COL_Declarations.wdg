@@ -27,16 +27,16 @@ procedure_set :
       FIN
       
       EOperateurFirestore est une Enumération
-      	EGAL					= "EQUAL"
-      	DIFFERENT				= "NOT_EQUAL"
-      	SUPERIEUR				= "GREATER_THAN"
-      	SUPERIEUR_OU_EGAL		= "GREATER_THAN_OR_EQUAL"
-      	INFERIEUR				= "LESS_THAN"
-      	INFERIEUR_OU_EGAL		= "LESS_THAN_OR_EQUAL"
-      	CONTIENTS				= "ARRAY_CONTAINS"
-      	CONTIENT_AU_MOINS_UN	= "ARRAY_CONTAINS_ANY"
-      	EST_DANS				= "IN"
-      	PAS_DANS 				= "NOT_IN"
+      	EQUAL					= "EQUAL"
+      	NOT_EQUAL				= "NOT_EQUAL"
+      	GREATER_THAN			= "GREATER_THAN"
+      	GREATER_THAN_OR_EQUAL	= "GREATER_THAN_OR_EQUAL"
+      	LESS_THAN				= "LESS_THAN"
+      	LESS_THAN_OR_EQUAL		= "LESS_THAN_OR_EQUAL"
+      	ARRAY_CONTAINS			= "ARRAY_CONTAINS"
+      	ARRAY_CONTAINS_ANY		= "ARRAY_CONTAINS_ANY"
+      	IN_LIST                 = "IN"
+      	NOT_IN					= "NOT_IN"
       FIN
       
       STProviderOauthOptions est une structure
