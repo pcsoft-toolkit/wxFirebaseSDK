@@ -15,20 +15,6 @@ class :
   p_codes :
    -
      code : |1+
-      
-      constant CONST_FIELDS = "fields"
-      constant CONST_VALUES = "values"
-      
-      ETypesFirestore est une Enumération
-      	EnumChaine		= "stringValue"
-      	EnumEntier		= "integerValue"
-      	EnumReel		= "doubleValue"
-      	EnumBoolean		= "booleanValue"
-      	EnumTableau		= "arrayValue"
-      	EnumObjet		= "mapValue"
-      FIN
-      
-      
       CCollection est une Classe
       	prive
       	m_sUrl			est une chaîne
@@ -36,8 +22,8 @@ class :
       	m_stHttpOption	est STHttpOption
       	jsonDonneesConstruites est un JSON
       	m_HttpClientReponse est un restRéponse
-      	
-      	
+      		
+      		
       fin
      type : 131072
   procedures :

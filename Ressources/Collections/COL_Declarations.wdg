@@ -14,18 +14,20 @@ procedure_set :
   type_code : 31
   p_codes :
    -
-     code : |1+
-      ETypeErreur est une énumération
-      	errAucune
-      	errFirebase
-      	errWindev	
+     code : |1-
+      ETypeErreur est une Enumération
+      	errAucune	= "errAucune"
+      	errFirebase	= "errFirebase"
+      	errWindev	= "errWindev"
       FIN
       
       EDirectionTriFirestore est une Enumération
-      	Croissant		= "ASCENDING"	
-      	Décroissant		= "DESCENDING"
+      	ASCENDING		= "ASCENDING"
+      	DESCENDING		= "DESCENDING"
       FIN
       
+      // Operators
+      // https://firebase.google.com/docs/firestore/reference/rest/v1beta1/StructuredQuery#operator_1
       EOperateurFirestore est une Enumération
       	EQUAL					= "EQUAL"
       	NOT_EQUAL				= "NOT_EQUAL"
@@ -35,46 +37,117 @@ procedure_set :
       	LESS_THAN_OR_EQUAL		= "LESS_THAN_OR_EQUAL"
       	ARRAY_CONTAINS			= "ARRAY_CONTAINS"
       	ARRAY_CONTAINS_ANY		= "ARRAY_CONTAINS_ANY"
-      	IN_LIST                 = "IN"
+      	IN_						= "IN"
       	NOT_IN					= "NOT_IN"
       FIN
       
-      STProviderOauthOptions est une structure
+      CONSTANT CONST_FIELDS = "fields"
+      CONSTANT CONST_VALUES = "values"
+      
+      ETypesFirestore est une Enumération
+      	EnumChaine		= "stringValue"
+      	EnumEntier		= "integerValue"
+      	EnumReel		= "doubleValue"
+      	EnumBoolean		= "booleanValue"
+      	EnumTableau		= "arrayValue"
+      	EnumObjet		= "mapValue"
+      FIN
+      
+      EMethodeAutorisée est une Enumération
+      	eHTTPGet		= 1
+      	eHTTPPost		= 2
+      	eHTTPPut		= 3
+      	eHTTPDelete		= 4
+      	eHTTPPatch		= 6
+      FIN
+      
+      STProviderOauthOptions est une Structure
       	sClientID		est une chaîne
       	sClientSecret	est une chaîne
       	sScope			est une chaîne
       	sURLRedirection	est une chaîne
       FIN
       
-      EMethodeAutorisée est une énumération
-      	eHTTPGet		= 1
-      	eHTTPPost		= 2
-      	eHTTPPut		= 3
-      	eHTTPPatch		= 4
-      	eHTTPDelete		= 5
-      fin
+      STHttpOption est une Structure
+      	eMethode		est EMethodeAutorisée
+      	bufContenu		est un Buffer
+      	sContentType	est une chaîne
+      	taEntête		est un tableau associatif de chaînes
+      FIN
       
-      STHttpOption est une structure
-      	eMethode est EMethodeAutorisée
-      	bufContenu est un buffer
-      	sContentType est une chaîne
-      	taEntête est un tableau associatif de chaînes
-      fin
+      STAuthPayload est une Structure
+      	sEmail				est une chaîne
+      	sMdp				est une chaîne
+      	sNomAffichage		est une chaîne
+      	sNuméroTéléphone	est une chaîne
+      	sPhotoURL			est une chaîne
+      	bVerifieEmail		est un booléen
+      FIN
       
-      STAuthPayload est une structure
-      	sEmail est une chaîne
-      	sMdp est une chaîne
-      	sNomAffichage est une chaîne
-      	sNuméroTéléphone est une chaîne
-      	sPhotoURL est une chaîne
-      	bVerifieEmail est un booléen 
-      fin
-      
-      STFirebaseConfig est une structure
-      	sApiKey			est une chaîne
+      STFirebaseConfig est une Structure
+      	sAPIKey			est une chaîne
       	sProjetId		est une chaîne
       	sStorageBucket	est une chaîne
-      fin
+      FIN
+      
+      STIntegerValue	is Structure
+      	integerValue is numeric
+      END
+      
+      STStringValue is Structure
+      	stringValue is string
+      END
+      
+      STDoubleValue est Structure
+      	doubleValue est un numérique
+      FIN
+      
+      STMapFields is Structure
+      	fields	est un JSON
+      FIN
+      
+      STMapValue is Structure
+      	mapValue	est un STMapFields
+      FIN
+      
+      STBooleanValue is Structure
+      	booleanValue is boolean
+      END
+      
+      STBufferValue is Structure
+      	bufferValue is Buffer
+      END
+      
+      STFieldPath is Structure
+      	fieldPath est une chaîne ANSI
+      END
+      
+      stfieldsToken is Structure
+      	div_uuid	is STStringValue
+      	div_token	is STStringValue
+      	div_type	is STStringValue
+      END
+      
+      stDocTokens is Structure
+      	name		is string
+      	fields		is stfieldsToken
+      	createTime	is string
+      	updateTime	is string
+      END
+      
+      stListaTokens is Structure
+      	documents is array of stDocTokens
+      END
+      
+      // Method: projects.databases.documents.list
+      // https://cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.documents/list
+      STUpdQueryParams est une Structure
+      	pageSize	est un entier
+      	pageToken	est une chaîne
+      	orderBy		est une chaîne
+      	mask		est une chaîne
+      	showMissing	est un booléen
+      FIN
      type : 720896
    -
      code : |1-
