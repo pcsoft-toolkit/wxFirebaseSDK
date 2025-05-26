@@ -15,7 +15,7 @@ class :
   p_codes :
    -
      code : |1+
-      CCollection est une Classe
+      CCollection est une Classe hérite de CGenerateurRequeteFireStore
       	prive
       	m_sUrl			est une chaîne
       	m_sCollectionID	est une chaîne
@@ -34,6 +34,8 @@ class :
      code : |1-
       procédure Constructeur(sUrl est une chaîne)
       
+      Constructeur CGenerateurRequeteFireStore()
+      
       m_sCollectionID = ExtraitChaîne(sUrl, rangDernier, "/")
       
       m_sUrl = sUrl
@@ -51,12 +53,13 @@ class :
      procedure_id : 1671061608965674578
      type_code : 12
      code : |1-
-      procédure Afficher(sDocumentID est une chaîne):CFireStoreReponse
+      procédure Afficher(sDocumentID est une chaîne <utile> = ""):CFireStoreReponse
       
-      m_sUrl+= "/"+sDocumentID
+      m_sUrl+= ["/"]+"[%sDocumentID%]"
       
+      m_stHttpOption.eMethode						= eHTTPGet
       m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
-      
+      m_stHttpOption.bufContenu					= ""
       m_HttpClientReponse							= CHttpClient.Envoie(m_sUrl, m_stHttpOption)
       
       SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
@@ -70,11 +73,11 @@ class :
      procedure_id : 1671061608965740349
      type_code : 12
      code : |1+
-      procédure Creer(local JsonDonnees est Json):CFireStoreReponse
+      procédure Creer(LOCAL JsonDonnees est JSON, LOCAL sNomNoeudEnfant est chaîne <utile> = ""):CFireStoreReponse
       
       m_stHttpOption.eMethode						= eHTTPPost
       m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
-      m_stHttpOption.bufContenu					= _GénèreDocumentFirestore(JsonDonnees)
+      m_stHttpOption.bufContenu					= _GénèreDocumentFirestore(JsonDonnees,sNomNoeudEnfant)
       
       m_HttpClientReponse							= CHttpClient.Envoie(m_sUrl, m_stHttpOption)
       
@@ -89,12 +92,43 @@ class :
      procedure_id : 1671061608965805979
      type_code : 12
      code : |1-
-      procédure Modifier(local sDocumentID est une chaîne, local JsonDonnees est json):CFireStoreReponse
+      procédure Modifier(LOCAL sDocumentID est une chaîne, LOCAL jContent est JSON, LOCAL sNomNoeudEnfant est chaîne,stQueryParams est une STUpdQueryParams):CFireStoreReponse
       
-      m_sUrl+= "/"+sDocumentID
+      SI jContent..Type PAS DANS ( wlVariantObjet,wlVariantTableau) ALORS RENVOYER  new CFireStoreReponse(m_HttpClientReponse, ErreurInfo(errMessage))
       
-      m_stHttpOption.eMethode						= eHTTPPut
-      m_stHttpOption.bufContenu					= _GénèreDocumentFirestore(JsonDonnees)
+      // Masks
+      sUpdateMask			est une chaîne	= ""
+      sMask				est une chaîne	= ""
+      sFilters			est une chaîne	= ""
+      sFields				est une chaîne	= ""
+      taFields			est un tableau de chaîne
+      
+      // Vérifier qu'on un masque à formater
+      sFields = stQueryParams.mask
+      
+      SI sFields DANS ("",Null) ALORS
+      	POUR TOUT field DE jContent..Membre
+      		sUpdateMask	= sUpdateMask+ ["&"]+"updateMask.fieldPaths=[%field..Nom%]"
+      		sMask		= sMask+ ["&"]+"mask.fieldPaths=[%field..Nom%]"
+      	FIN
+      SINON
+      	sFields.VersTableau(taFields,",")
+      	POUR TOUT Rub DE taFields
+      		sUpdateMask	= sUpdateMask+ ["&"]+"updateMask.fieldPaths=[%Rub%]"
+      		sMask		= sMask+ ["&"]+"mask.fieldPaths=[%Rub%]"
+      	FIN
+      FIN
+      
+      sFilters = sFilters+(sUpdateMask <> "" ? "?"+sUpdateMask SINON "")
+      
+      SI sMask <> "" ALORS
+      	sFilters = sFilters+(sUpdateMask <> "" ? "&"+sMask SINON "?"+sMask)
+      FIN
+      
+      m_sUrl+= ["/"]+"[%sDocumentID%]"+"[%sFilters%]"
+      
+      m_stHttpOption.eMethode						= eHTTPPatch
+      m_stHttpOption.bufContenu					= _GénèreDocumentFirestore(jContent,sNomNoeudEnfant)
       m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
       
       m_HttpClientReponse							= CHttpClient.Envoie(m_sUrl, m_stHttpOption)
@@ -112,9 +146,11 @@ class :
      code : |1-
       procédure Supprimer(local sDocumentID est une chaîne):CFireStoreReponse
       
-      m_sUrl+= "/"+sDocumentID
+      m_sUrl+= ["/"]+"[%sDocumentID%]"
       
-      m_stHttpOption.eMethode = eHTTPDelete
+      VariableRAZ(m_stHttpOption)
+      
+      m_stHttpOption.eMethode 					= eHTTPDelete
       m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
       
       m_HttpClientReponse							= CHttpClient.Envoie(m_sUrl, m_stHttpOption)
@@ -130,9 +166,49 @@ class :
      procedure_id : 1671101964494141146
      type_code : 12
      code : |1-
-      procédure Lister():CGenerateurRequeteFirestore
+      procédure Lister(_sColName est une chaîne):CFireStoreReponse
       
-      renvoyer new CGenerateurRequeteFirestore(m_sUrl)
+      	PROCÉDURE INTERNE piPayload()
+      	// Url
+      	m_sUrl = ChaîneConstruit( CFireStore.CONST_FIRESTORE_BASE_URL , sPojetID)+[":runQuery"]
+      	
+      	// Select
+      	Selectionner("usrid")
+      	Selectionner("Email")
+      	Selectionner("prds")
+      	
+      	// Where
+      	Filtrer("usrid",NOT_EQUAL,0)
+      	Filtrer("usrid",GREATER_THAN_OR_EQUAL,0)
+      	
+      	// Order By
+      	TrierPar("usrid",DESCENDING)
+      	//TrierPar("__name__",Croissant)
+      	
+      	// Limit
+      	Limiter(1)
+      	FIN
+      	
+      // Payload
+      piPayload()
+      //trace(_ConstruireRequete(_sColName))
+      
+      // Options
+      m_stHttpOption.eMethode						= eHTTPPost
+      m_stHttpOption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
+      m_stHttpOption.bufContenu					= _ConstruireRequete(_sColName)
+      
+      // Execute
+      m_HttpClientReponse							= CHttpClient.Envoie(m_sUrl, m_stHttpOption)
+      
+      Trace(m_HttpClientReponse.CodeEtat)
+      Trace(m_HttpClientReponse.Contenu)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CFireStoreReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER new CFireStoreReponse(m_HttpClientReponse)
      type : 458752
    -
      name : _GénèreDocumentFirestore
@@ -141,13 +217,13 @@ class :
      code : |1-
       // Résumé : <indiquez ici ce que fait la procédure>
       // Syntaxe :
-      //_GénèreDocumentFirestore (<vNoeudRacine> est MembreVariant [, <sNomNoeudEnfant> est chaîne])
+      //[ <Résultat> = ] _GénèreDocumentFirestore (<vNoeudRacine> est MembreVariant [, <sNomNoeudEnfant> est chaîne])
       //
       // Paramètres :
       //	vNoeudRacine (MembreVariant) : <indiquez ici le rôle de NoeudEnfant>
       //	sNomNoeudEnfant (chaîne ANSI - valeur par défaut="") : <indiquez ici le rôle de NomMembreParent>
       // Valeur de retour :
-      // 	Aucune
+      // 	JSON : // 	Aucune
       //
       // Exemple :
       // Indiquez ici un exemple d'utilisation.
@@ -155,16 +231,13 @@ class :
       //	eTypeParent (CCollection.ETypesFirestore) : <indiquez ici le rôle de eTypeParent>
       procédure prive _GénèreDocumentFirestore(LOCAL vNoeudRacine est membrevariant, local sNomNoeudEnfant est chaine = "") 
       
-      vNoeudEnfant est membrevariant
-      
       SELON vNoeudRacine..Type
       
       	CAS wlVariantObjet
+      		
       		POUR TOUT vNoeudEnfant DE vNoeudRacine..Membre
-      			
-      			SI vNoeudEnfant..Type <> 0 ALORS								     
-      				_GénèreDocumentFirestore(vNoeudEnfant, sNomNoeudEnfant = "" ? vNoeudEnfant..Nom SINON...
-      				"[%sNomNoeudEnfant%].[%EnumObjet..Valeur%].[%CONST_FIELDS%].[%vNoeudEnfant..Nom%]")
+      			SI vNoeudEnfant <> Null ET vNoeudEnfant..Type <> 0 ALORS
+      				_GénèreDocumentFirestore(vNoeudEnfant, sNomNoeudEnfant = "" ? vNoeudEnfant..Nom SINON "[%sNomNoeudEnfant%].[%EnumObjet..Valeur%].[%CONST_FIELDS%].[%vNoeudEnfant..Nom%]")
       			FIN
       		FIN
       		
@@ -172,18 +245,16 @@ class :
       		
       		POUR TOUT vElémentTableau, nIndice de vNoeudRacine..Valeur
       			
-      			// Transformation Variant -> MembreVariant
-      			vElément est un MembreVariant = vElémentTableau
-      			
-      			SI vElément <> Null _OU_ vElément..Type <> 0 ALORS
-      				_GénèreDocumentFirestore(vElément, sNomNoeudEnfant + ".[%EnumTableau..Valeur%].[%CONST_VALUES%][[%nIndice%]]") 
+      			SI vElémentTableau <> Null ET vElémentTableau..Type <> 0 ALORS
+      				_GénèreDocumentFirestore(vElémentTableau, sNomNoeudEnfant + ".[%EnumTableau..Valeur%].[%CONST_VALUES%][[%nIndice%]]")
       			FIN
       			
       		FIN
       		
       	AUTRE CAS
-      		{"jsonDonneesConstruites.[%CONST_FIELDS%].[%sNomNoeudEnfant%].[%_ObtenirValeurEnum(vNoeudRacine..Type)%]",indVariable} = vNoeudRacine..Valeur
-      		
+      		SI sNomNoeudEnfant <> Null ALORS
+      			{"jsonDonneesConstruites.[%CONST_FIELDS%].[%sNomNoeudEnfant%].[%_ObtenirValeurEnum(vNoeudRacine..Type)%]",indVariable} = vNoeudRacine..Valeur
+      		FIN
       FIN
       
       procédure interne _ObtenirValeurEnum(LOCAL nTypeDefinition est un entier):chaîne

@@ -34,11 +34,11 @@ class :
       FIN
       
       CStorageReponse est une Classe
-      	prive
-      		m_sUrl est une chaîne
-      		m_eErreurType					est une ETypeErreur	
-      		m_bAutorisationRefusée est une booleen = Faux
-      		m_stStorageMetaData est STFirebaseStorageReponse
+      prive
+      	m_sUrl					est une chaîne
+      	m_eErreurType			est une ETypeErreur	
+      	m_bAutorisationRefusée	est une booleen	= Faux
+      	m_stStorageMetaData		est STFirebaseStorageReponse
       fin
      type : 131072
   procedures :
@@ -46,7 +46,7 @@ class :
      name : Constructeur
      procedure_id : 1669615506366759248
      type_code : 27
-     code : |1+
+     code : |1-
       procédure Constructeur(oResultat est un httpRéponse = Null, sUrl est une chaîne = "")
       
       m_sUrl = sUrl
@@ -64,16 +64,12 @@ class :
       		
       	CAS 400 
       		m_eErreurType = errFirebase
-      		info(oResultat.Contenu)
       		
       	CAS 403
-      		m_eErreurType = errFirebase
+      		m_eErreurType          = errFirebase
       		m_bAutorisationRefusée = Vrai
       		
       FIN
-      
-      
-      
      type : 589824
    -
      name : Destructeur
