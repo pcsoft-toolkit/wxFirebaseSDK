@@ -52,6 +52,7 @@ class :
       
       stoption est STHttpOption
       
+      stoption.eMethode					= eHTTPPost
       stoption.sContentType				= "application/octet-stream"
       stoption.bufContenu					= fChargeBuffer(sChemainFichier)
       stoption.taEntête["Authorization"]	= "Bearer "+CAuth.ExposeToken
