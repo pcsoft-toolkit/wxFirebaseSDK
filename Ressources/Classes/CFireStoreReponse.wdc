@@ -101,7 +101,7 @@ class :
       		
       		{"m_jsonDocumentTemp.[%sNomMembreParent%]", indVariable} = UnMembreEnfant..Valeur
       		
-      		SI sNoeudTableau = CCollection.EnumTableau..Valeur ALORS 
+      		SI sNoeudTableau = EnumTableau..Valeur ALORS 
       			{"m_jsonDocumentTemp.[%sNomMembreParent%]", indVariable} = _ConstruireTableauDepuisNœud(UnMembreEnfant..Valeur)
       		fin
       	SINON
@@ -109,12 +109,12 @@ class :
       		sNomMembreParentTemp	est une chaîne	= UnMembreEnfant..Nom
       		sTypeTableau			est une chaîne	= ""
       		
-      		SI UnMembreEnfant..Nom = CCollection.EnumTableau..Valeur ALORS
+      		SI UnMembreEnfant..Nom = EnumTableau..Valeur ALORS
       			sNomMembreParentTemp	= sNomMembreParent
-      			sTypeTableau			= CCollection.EnumTableau..Valeur
+      			sTypeTableau			= EnumTableau..Valeur
       		FIN
       		
-      		SI UnMembreEnfant..Nom = CCollection.EnumObjet..Valeur ALORS
+      		SI UnMembreEnfant..Nom = EnumObjet..Valeur ALORS
       			_ConstruireObjetDepuisNœud(sNomMembreParent, UnMembreEnfant)
       		SINON
       			_ParcoursMembresEnfant(sNomMembreParentTemp, UnMembreEnfant, sTypeTableau)
