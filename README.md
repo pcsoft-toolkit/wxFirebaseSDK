@@ -461,8 +461,8 @@ Les contributions sont les bienvenues ! Pour signaler un bug ou proposer des fon
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/fabnguess"><img src="https://avatars.githubusercontent.com/u/72697416?v=4?s=100" width="100px;" alt="Kouadio Fabrice Nguessan"/><br /><sub><b>Kouadio Fabrice Nguessan</b></sub></a><br /><a href="https://github.com/NodeSecure/i18n/commits?author=fabnguess" title="Code">💻</a> <a href="https://github.com/fabnguess/wxFirebaseSDK/commits?author=fabnguess" title="Documentation">📖</a> </td>
-    </tr>
-       <tr>
+    
+    
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mrani24"><img src="https://avatars.githubusercontent.com/u/163332562?v=4" width="100px;" alt="Madara"/><br /><sub><b>Madara</b></sub></a><br /><a href="https://github.com/NodeSecure/i18n/commits?author=mrani24" title="Code">💻</a> <a href="https://github.com/fabnguess/wxFirebaseSDK/commits?author=mrani24" title="Documentation">📖</a> </td>
     </tr>
   
