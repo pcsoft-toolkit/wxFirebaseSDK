@@ -27,6 +27,18 @@ class :
      procedure_id : 1771684042648818091
      type_code : 27
      code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Constructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       PROCEDURE Constructeur()
       
      type : 589824
@@ -35,6 +47,18 @@ class :
      procedure_id : 1771684042648883627
      type_code : 28
      code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       PROCEDURE Destructeur()
       
      type : 655360

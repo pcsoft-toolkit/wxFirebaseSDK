@@ -99,15 +99,20 @@ class :
       //
       procédure publique signInWithEmailAndPassword(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
       
+      SI PAS _validerParametresInscription(sEmail, sMdp) ALORS
+      	RENVOYER new CAuthReponse(Null, "Paramètres d'inscription invalides")
+      FIN
+      
       VariableRAZ(m_stOption)
       
+      m_stOption.eMethode							= eHTTPPost
       m_stOption.sContentType						= "application/json"
       m_stOption.bufContenu						= [
-      {
-          "email": "[%sEmail%]",
-          "password": "[%sMdp%]",
-          "returnSecureToken": true
-        }
+      	{
+      	"email": "[%sEmail%]",
+      	"password": "[%sMdp%]",
+      	"returnSecureToken": true
+      	}
       ]
       
       m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("signInWithPassword"), m_stOption)
@@ -151,7 +156,7 @@ class :
      code : |1-
       // Résumé : <indiquez ici ce que fait la procédure>
       // Syntaxe :
-      // [ <Résultat> = ] signUpWithEmailPassword (<stAuthPayload> est STAuthPayload)
+      //[ <Résultat> = ] signUpWithEmailPassword (<stAuthPayload> est STAuthPayload)
       //
       // Paramètres :
       //	stAuthPayload (STAuthPayload) : <indiquez ici le rôle de stAuthPayload>
@@ -161,24 +166,19 @@ class :
       // Exemple :
       // Indiquez ici un exemple d'utilisation.
       //
-      procédure signUpWithEmailPassword(stAuthPayload est STAuthPayload):CAuthReponse
+      procédure signUpWithEmailPassword(local stAuthPayload est STAuthPayload):CAuthReponse
+      
+      SI PAS _ValiderParametresInscription(stAuthPayload.sEmail, stAuthPayload.sMdp) ALORS
+      	RENVOYER new CAuthReponse(Null, "Paramètres d'inscription invalides")
+      FIN
       
       VariableRAZ(m_stOption)
       
       m_stOption.eMethode							= eHTTPPost
       m_stOption.sContentType						= "application/json"
-      m_stOption.bufContenu						= [
-      	{
-      	"email": "[%stAuthPayload.sEmail%]",
-      	"password": "[%stAuthPayload.sMdp%]",
-      	"displayName": "[%stAuthPayload.sNomAffichage%]",
-      	"phoneNumber": "[%stAuthPayload.sNuméroTéléphone%]",
-      	"photoUrl": "[%stAuthPayload.sPhotoURL%]",
-      	"returnSecureToken": true
-      	}
-      ]
+      m_stOption.bufContenu						= _construirePayloadInscription(stAuthPayload)
       
-      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("signUp"), m_stOption)
+      m_HttpClientReponse							= CHttpClient.Envoie(ConstruitURL("signUp"), m_stOption)
       
       SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
       	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
@@ -363,6 +363,77 @@ class :
       vJsonResultat est un Variant = JSONVersVariant(oRestReponse.Contenu)
       
       m_sIDToken = vJsonResultat.idToken
+     type : 458752
+   -
+     name : _construirePayloadInscription
+     procedure_id : 1771723693789573569
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] _construirePayloadInscription (<stAuth> est STAuthPayload)
+      //
+      // Paramètres :
+      //	stAuth (STAuthPayload) : <indiquez ici le rôle de stAuth>
+      // Valeur de retour :
+      // 	JSON : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE PRIVÉE _construirePayloadInscription(local stAuth est STAuthPayload):json
+      
+      jsonData est json
+      
+      jsonData.email				= stAuth.sEmail
+      jsonData.password			= stAuth.sMdp
+      jsonData.displayName		= stAuth.sNomAffichage
+      jsonData.phoneNumber		= stAuth.sNuméroTéléphone
+      jsonData.photoUrl			= stAuth.sPhotoURL
+      jsonData.returnSecureToken	= true
+      
+      renvoyer jsonData
+     type : 458752
+   -
+     name : _validerParametresInscription
+     procedure_id : 1771727318742029445
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] _validerParametresInscription (<sEmail> est chaîne, <sMdp> est chaîne)
+      //
+      // Paramètres :
+      //	sEmail (chaîne ANSI) : <indiquez ici le rôle de stAuthPayload>
+      //	sMdp (chaîne ANSI) : <indiquez ici le rôle de sMdp>
+      // Valeur de retour :
+      // 	booléen : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE PRIVÉE _validerParametresInscription(local sEmail est une chaîne, local sMdp est une chaîne):booléen
+      
+      bSucces est un booléen = Vrai
+      
+      SI sEmail = "" ALORS
+      	bSucces = Faux
+      FIN
+      
+      SI sMdp = "" ALORS
+      	bSucces = Faux
+      FIN
+      
+      SI EmailVérifieAdresse(sEmail) <> emailAdresseValide ALORS
+      	bSucces = Faux
+      FIN
+      
+      SI Taille(sMdp) < 6 ALORS
+      	bSucces = Faux
+      FIN
+      
+      
+      RENVOYER bSucces
      type : 458752
   properties :
    -
