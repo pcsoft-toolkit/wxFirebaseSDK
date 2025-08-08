@@ -42,11 +42,11 @@ class :
       
      type : 655360
    -
-     name : TéléchargerFichier
+     name : downloadFile
      procedure_id : 1669606912135461174
      type_code : 12
      code : |1+
-      procédure TéléchargerFichier(sChemainFichier est une chaîne)
+      procédure downloadFile(sChemainFichier est une chaîne)
       
       m_sStorageUrl += fExtraitChemin(sChemainFichier,fExtension+fFichier)
       

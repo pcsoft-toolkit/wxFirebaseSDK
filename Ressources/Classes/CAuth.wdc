@@ -58,11 +58,11 @@ class :
       procédure Destructeur()
      type : 655360
    -
-     name : SeConnecter
+     name : signInWithEmailAndPassword
      procedure_id : 1482560201626089801
      type_code : 12
      code : |1-
-      procédure publique SeConnecter(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
+      procédure publique signInWithEmailAndPassword(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
       
       VariableRAZ(m_stOption)
       
@@ -98,11 +98,11 @@ class :
       renvoyer clProviderInstance.Connexion(sUrl)
      type : 458752
    -
-     name : CréerUtilisateur
+     name : signUpWithEmailPassword
      procedure_id : 1658862634828101156
      type_code : 12
      code : |1-
-      procédure CréerUtilisateur(stAuthPayload est STAuthPayload):CAuthReponse
+      procédure signUpWithEmailPassword(stAuthPayload est STAuthPayload):CAuthReponse
       
       VariableRAZ(m_stOption)
       
@@ -133,11 +133,11 @@ class :
       RENVOYER _RecupereInfoUtilisateur()
      type : 458752
    -
-     name : RéinitialiserMotDePasse
+     name : sendPasswordResetWithEmail
      procedure_id : 1658863120159452365
      type_code : 12
      code : |1-
-      procédure RéinitialiserMotDePasse(sEmail est une chaîne):CAuthReponse
+      procédure sendPasswordResetWithEmail(sEmail est une chaîne):CAuthReponse
       
       VariableRAZ(m_stOption)
       
@@ -158,11 +158,11 @@ class :
       RENVOYER  new CAuthReponse(m_HttpClientReponse)
      type : 458752
    -
-     name : SupprimerUtilisateur
+     name : deleteAccount
      procedure_id : 1658864004922921638
      type_code : 12
      code : |1-
-      procédure SupprimerUtilisateur()
+      procédure deleteAccount()
       
       VariableRAZ(m_stOption)
       
@@ -203,11 +203,11 @@ class :
       
      type : 458752
    -
-     name : ConnexionAnonyme
+     name : signInAnonymously
      procedure_id : 1658864576153704522
      type_code : 12
      code : |1-
-      procédure ConnexionAnonyme()
+      procédure signInAnonymously()
       
       VariableRAZ(m_stOption)
       
