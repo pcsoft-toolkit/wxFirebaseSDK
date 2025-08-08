@@ -97,7 +97,7 @@ gstInfoUtilisateur.sNuméroTéléphone = "+2250000000000"
 gstInfoUtilisateur.sPhotoURL        = "https://lorempicture.point-sys.com/400/300/"
 gstInfoUtilisateur.bVerifieEmail    = Faux
 
-gclAuthReponse  = gclAuth.CréerUtilisateur(gstInfoUtilisateur)
+gclAuthReponse  = gclAuth.signUpWithEmailPassword(gstInfoUtilisateur)
 ```
 #### Paramètres :
 - `sEmail` : L'adresse e-mail de l'utilisateur (`chaine`).
@@ -110,11 +110,11 @@ gclAuthReponse  = gclAuth.CréerUtilisateur(gstInfoUtilisateur)
 ### Connexion anonyme
 Cette méthode créera un nouvel utilisateur dans la base de données du service d'authentification Firebase à chaque fois qu'elle est invoquée
 ```WLangage
-gclAuthReponse  = gclAuth.ConnexionAnonyme()
+gclAuthReponse  = gclAuth.signInAnonymously()
 ```
 ### Connexion par e-mail et mot de passe
 ```WLangage
-gclAuthReponse  = gclAuth.SeConnecter("wx@firebase.com", "test1234")
+gclAuthReponse  = gclAuth.signInWithEmailAndPassword("wx@firebase.com", "test1234")
 ```
 #### Paramètres :
 - `sEmail` : L'adresse e-mail de l'utilisateur (`chaine`).
@@ -122,14 +122,14 @@ gclAuthReponse  = gclAuth.SeConnecter("wx@firebase.com", "test1234")
 
 ### Demande de réinitialisation de mot de passe
 ```WLangage
-gclAuthReponse  = gclAuth.RéinitialiserMotDePasse("wx@firebase.com")
+gclAuthReponse  = gclAuth.sendPasswordResetWithEmail("wx@firebase.com")
 ```
 #### Paramètres :
 - `sEmail` : L'adresse e-mail de l'utilisateur (`chaine`).
 
 ### Supprimer un utilisateur
 ```WLangage
-gclAuthReponse  = gclAuth.SupprimerUtilisateur()
+gclAuthReponse  = gclAuth.deleteAccount()
 ```
 ### Connexion via providers
 Les `Providers` sont des fournisseurs d'authentification autres que Firebase, par exemple Facebook, Github, Google ou Twitter. Vous pouvez trouver les fournisseurs d'authentification actuellement pris en charge par `Firebase` dans la [documentation officielle de Firebase](https://firebase.google.com/docs/projects/provisioning/configure-oauth?hl=fr#add-idp).
@@ -150,7 +150,7 @@ stOptionProvider.sURLRedirection = "http://localhost:5000/auth/facebook/callback
 
 gclProvider est CFacebookProvider(stOptionProvider)
 
-gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
+gclAuthReponse  est CAuthReponse = gclAuth.signInWithProvider(gclProvider)
 ```
 ##### Paramètres :
 - `sClientID` : L'identifiant client de l'application Facebook (`chaine`).
@@ -170,7 +170,7 @@ stOptionProvider.sURLRedirection = "http://localhost:5000/auth/github/callback"
 
 gclProvider est CGithubProvider(stOptionProvider)
 
-gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
+gclAuthReponse  est CAuthReponse = gclAuth.signInWithProvider(gclProvider)
 ```
 ##### Paramètres :
 - `sClientID` : L'identifiant client de l'application Github (`chaine`).
@@ -189,7 +189,7 @@ stOptionProvider.sURLRedirection = "http://localhost:5000/auth/github/callback"
 
 gclProvider est CGoogleProvider(stOptionProvider)
 
-gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
+gclAuthReponse  est CAuthReponse = gclAuth.signInWithProvider(gclProvider)
 ```
 ##### Paramètres :
 - `sClientID` : L'identifiant client de l'application Google (`chaine`).
@@ -199,7 +199,7 @@ gclAuthReponse  est CAuthReponse = gclAuth.SeConnecterProvider(gclProvider)
 
 ### Exemple d'utilisation de CAuthReponse
 ```WLangage
-gclAuthReponse est CAuthReponse = gclAuth.SeConnecter("wx@firebase.com", "test1234")
+gclAuthReponse est CAuthReponse = gclAuth.sendPasswordResetWithEmail("wx@firebase.com", "test1234")
 
 SELON gclAuthReponse.errType
 	CAS errAucune

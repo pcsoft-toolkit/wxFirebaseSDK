@@ -87,13 +87,13 @@ class :
       RENVOYER _RecupereInfoUtilisateur()
      type : 458752
    -
-     name : SeConnecterProvider
+     name : signInWithProvider
      procedure_id : 1658860710682631666
      type_code : 12
      code : |1-
-      procédure SeConnecterProvider(clProviderInstance	est IAuthProviderService):CAuthReponse
+      procédure signInWithProvider(clProviderInstance est IAuthProviderService):CAuthReponse
       
-      sUrl				est une chaîne	= ConstruitURL("signInWithIdp")
+      sUrl est une chaîne	= ConstruitURL("signInWithIdp")
       
       renvoyer clProviderInstance.Connexion(sUrl)
      type : 458752
