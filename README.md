@@ -422,7 +422,7 @@ gclStorage est CStorage = gclInstanceFirebase.Storage()
 ```WLangage
 sCheminFichier est chaine = "C:/chemin_vers_le_fichier/image.png"
 
-gclStorageReponse est CStorageReponse  = gclStorage.TéléchargerFichier(sCheminFichier)
+gclStorageReponse est CStorageReponse  = gclStorage.downloadFile(sCheminFichier)
 
 // Gestion de CStorageReponse 
  SELON gclStorageReponse.errType
