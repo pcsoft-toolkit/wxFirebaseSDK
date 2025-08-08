@@ -13,9 +13,9 @@
     <a href="https://pcsoft.fr/" target="_blank">PCSoft</a>, facilitant l'intégration des services Firebase dans vos projets Windev, WebDev, et Windev Mobile.
 </p>
 
-- Authentification
-- Firestore
-- Storage
+<p align="center">
+- Authentification | - Firestore | - Storage
+</p>
 
 ## Prérequis
 
