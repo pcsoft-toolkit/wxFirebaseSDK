@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-- Authentification | - Firestore | - Storage
+Authentification | Firestore | Storage
 </p>
 
 ## Prérequis
