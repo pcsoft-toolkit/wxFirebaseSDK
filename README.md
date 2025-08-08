@@ -25,36 +25,40 @@
 
 Pour que le composant puisse accéder à un projet Firebase, vous devez au préalable le configurer en générant un fichier de clé privée dans la console Firebase.
 
-### Étapes pour générer le fichier de clé privée :
+### Étape 1 : Générer une clé privée Firebase
 
-1. Ouvrez [cette page de la console Firebase](https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk) et sélectionnez le projet pour lequel vous souhaitez générer un fichier de clé privée.
-2. Cliquez sur **Générer une nouvelle clé privée**, puis confirmez en cliquant sur **Générer la clé**.
+- Ouvrez [cette page de la console Firebase](https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk) et sélectionnez le projet pour lequel vous souhaitez générer un fichier de clé privée.
+- Cliquez sur **Générer une nouvelle clé privée**, puis confirmez en cliquant sur **Générer la clé**.
 
-Une fois le fichier de clé privée obtenu, initialisez la configuration Firebase dans votre projet avec le code suivant :
+### Étape 2 : Configuration du fichier INI
+Créez un fichier `firebaseConfig.INI` dans le répertoire de votre exécutable avec la structure suivante :
+```ini
+[FIREBASECONFIG]
+API_KEY=votre_api_key_web_ici
+PROJET_ID=votre_projet_id_ici
+STORAGE_BUCKET=votre_storage_bucket_ici
+```
+#### Paramètres :
+- `API_KEY` : La clé API Web de votre projet Firebase (`chaine`).
+- `PROJET_ID` : L'dentifiant du projet Firebase (`chaine`).
+- `STORAGE_BUCKET` : L'URL du bucket de stockage du projet Firebase (`chaine`).
 
+### Étape 3 : Initialisation dans votre code
+
+#### Initialisation standard
 ```WLangage
-sAPIKey		est une chaîne	= INILit("FIREBASECONFIG", "API_KEY"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
-sStorageBucket	est une chaîne	= INILit("FIREBASECONFIG", "STORAGE_BUCKET", "", fRepExe() + fSep() + "firebaseConfig.INI")
-sPojetID	est une chaîne	= INILit("FIREBASECONFIG", "PROJET_ID"	   , "", fRepExe() + fSep() + "firebaseConfig.INI")
-
-// Approche 1 : Initialisation par tableau
-gstFirebaseConfig est STFirebaseConfig	= [sAPIKey, sPojetID, sStorageBucket]
-
-// Approche 2 : Initialisation explicite par membres 
-gstFirebaseConfig.sApiKey        = sAPIKey
-gstFirebaseConfig.sProjetId      = sPojetID
-gstFirebaseConfig.sStorageBucket = sStorageBucket
-
-// Création de l'instance Firebase
-gclInstanceFirebase est CFireBase(gstFirebaseConfig)
+// Initialisation avec le fichier de configuration par défaut (`firebaseConfig.INI`)
+gclInstanceFirebase est CFireBase = CFirebaseApp.initializeApp()
 ```
 > [!NOTE]
->  Dans cette documentation, nous partirons du principe que tous vos paramètres de configuration sont stockés dans un fichier `.INI`.
+>  Si aucun chemin n'est spécifié, le composant recherche automatiquement le fichier `firebaseConfig.INI` dans le répertoire de l'exécutable.
 
-#### Paramètres :
-- `sApiKey` : La clé API Web de votre projet Firebase (`chaine`).
-- `sProjetId` : L'dentifiant du projet Firebase (`chaine`).
-- `sStorageBucket` : L'URL du bucket de stockage du projet Firebase (`chaine`).
+#### Initialisation avec fichier personnalisé
+```WLangage
+// Initialisation avec un fichier de configuration personnalisé
+sCheminConfig est chaîne = "C:\MonApp\config\firebase-prod.ini"
+gclInstanceFirebase est CFireBase = CFirebaseApp.initializeApp(sCheminConfig)
+```
 
 ## I - Authentification
 

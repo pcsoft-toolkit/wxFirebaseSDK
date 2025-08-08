@@ -48,6 +48,19 @@ class :
      procedure_id : 1660013153487415928
      type_code : 27
      code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Constructeur ( [<oResultat> est httpRéponse [, <sExceptionMessage> est chaîne]])
+      //
+      // Paramètres :
+      // 	oResultat (httpRéponse - valeur par défaut=0) : <indiquez ici le rôle de oResultat>
+      //	sExceptionMessage (chaîne ANSI) : <indiquez ici le rôle de sExceptionMessage>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure Constructeur(oResultat est un httpRéponse = null, sExceptionMessage est une chaîne = "")
       
       si oResultat = Null ALORS retour
@@ -96,6 +109,18 @@ class :
      procedure_id : 1660013153487481464
      type_code : 28
      code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure Destructeur()
       
      type : 655360

@@ -15,6 +15,27 @@ procedure_set :
   p_codes :
    -
      code : |1-
+      
+      gtaGlobalCache est un tableau associatif de variants
+      
+      CONSTANT 
+      	CONST_API_KEY			= "API_KEY"
+      	CONST_STORAGE_BUCKET	= "STORAGE_BUCKET"
+      	CONST_PROJET_ID			= "PROJET_ID"
+      	
+      	CONST_FIELDS			= "fields"
+      	CONST_VALUES			= "values"
+      fin
+      
+      
+      
+      
+      STFirebaseConfig est une Structure
+      	sAPIKey			est une chaîne
+      	sProjetId		est une chaîne
+      	sStorageBucket	est une chaîne
+      FIN
+      
       ETypeErreur est une Enumération
       	errAucune	= "errAucune"
       	errFirebase	= "errFirebase"
@@ -41,8 +62,7 @@ procedure_set :
       	NOT_IN					= "NOT_IN"
       FIN
       
-      CONSTANT CONST_FIELDS = "fields"
-      CONSTANT CONST_VALUES = "values"
+      
       
       ETypesFirestore est une Enumération
       	EnumChaine		= "stringValue"
@@ -84,11 +104,7 @@ procedure_set :
       	bVerifieEmail		est un booléen
       FIN
       
-      STFirebaseConfig est une Structure
-      	sAPIKey			est une chaîne
-      	sProjetId		est une chaîne
-      	sStorageBucket	est une chaîne
-      FIN
+      
       
       STIntegerValue	is Structure
       	integerValue is numeric

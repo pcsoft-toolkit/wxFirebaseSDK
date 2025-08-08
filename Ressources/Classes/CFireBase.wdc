@@ -16,11 +16,6 @@ class :
    -
      code : |1+
       CFireBase est une Classe
-      
-      prive
-      	mg_clAuth		est CAuth
-      	mg_clStorage	est CStorage
-      	mg_clFireStore	est CFireStore
       fin
      type : 131072
   procedures :
@@ -29,11 +24,25 @@ class :
      procedure_id : 1482533246419678273
      type_code : 27
      code : |1-
-      procédure Constructeur(stUneConfig est STFirebaseConfig)
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //Constructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      //	stUneConfig (STFirebaseConfig) : <indiquez ici le rôle de stUneConfig>
+      procédure Constructeur()
+      //procédure prive Constructeur(stUneConfig est STFirebaseConfig)
       
-      Constructeur mg_clAuth(stUneConfig.sApiKey)
-      Constructeur mg_clStorage(stUneConfig.sProjetId)
-      Constructeur mg_clFireStore(stUneConfig.sProjetId)
+      //Constructeur mg_clAuth(stUneConfig.sApiKey)
+      //Constructeur mg_clStorage(stUneConfig.sProjetId)
+      //Constructeur mg_clFireStore(stUneConfig.sProjetId)
       
        
      type : 589824
@@ -42,6 +51,18 @@ class :
      procedure_id : 1482533246419743809
      type_code : 28
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure Destructeur()
      type : 655360
    -
@@ -63,25 +84,49 @@ class :
       //
       procédure FireStore():CFirestore
       
-      renvoyer mg_clFireStore
+      renvoyer new CFireStore
      type : 458752
    -
      name : Auth
      procedure_id : 1671149660120278880
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] Auth ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CAuth : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure Auth():CAuth
       
-      RENVOYER mg_clAuth
+      RENVOYER new CAuth
      type : 458752
    -
      name : Storage
      procedure_id : 1671149831919010517
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] Storage ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CStorage : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure Storage():CStorage
       
-      RENVOYER mg_clStorage
+      RENVOYER new CStorage
      type : 458752
   procedure_templates : []
   property_templates : []

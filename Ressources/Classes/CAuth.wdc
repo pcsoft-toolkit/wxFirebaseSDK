@@ -32,7 +32,6 @@ class :
       
       CAuth est une Classe
        	prive
-       		m_sFirebaseAPI est une chaîne
        		m_HttpClientReponse est un restRéponse
        		m_stOption est STHttpOption
        		
@@ -46,15 +45,38 @@ class :
      procedure_id : 1481890113716577333
      type_code : 27
      code : |1+
-      procédure Constructeur(sFirebaApiKey est une chaîne = "")
-      
-      m_sFirebaseAPI = sFirebaApiKey
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //Constructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      //	sFirebaApiKey (chaîne ANSI) : <indiquez ici le rôle de sFirebaApiKey>
+      procédure Constructeur()
      type : 589824
    -
      name : Destructeur
      procedure_id : 1481890113716642869
      type_code : 28
      code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure Destructeur()
      type : 655360
    -
@@ -62,6 +84,19 @@ class :
      procedure_id : 1482560201626089801
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] signInWithEmailAndPassword (<sEmail> est chaîne, <sMdp> est chaîne)
+      //
+      // Paramètres :
+      //	sEmail (chaîne ANSI) : <indiquez ici le rôle de sEmail>
+      //	sMdp (chaîne ANSI) : <indiquez ici le rôle de sMdp>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure publique signInWithEmailAndPassword(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
       
       VariableRAZ(m_stOption)
@@ -91,6 +126,18 @@ class :
      procedure_id : 1658860710682631666
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] signInWithProvider (<clProviderInstance> est CAuth.IAuthProviderService)
+      //
+      // Paramètres :
+      //	clProviderInstance (CAuth.IAuthProviderService) : <indiquez ici le rôle de clProviderInstance>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure signInWithProvider(clProviderInstance est IAuthProviderService):CAuthReponse
       
       sUrl est une chaîne	= ConstruitURL("signInWithIdp")
@@ -102,20 +149,33 @@ class :
      procedure_id : 1658862634828101156
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] signUpWithEmailPassword (<stAuthPayload> est STAuthPayload)
+      //
+      // Paramètres :
+      //	stAuthPayload (STAuthPayload) : <indiquez ici le rôle de stAuthPayload>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure signUpWithEmailPassword(stAuthPayload est STAuthPayload):CAuthReponse
       
       VariableRAZ(m_stOption)
       
+      m_stOption.eMethode							= eHTTPPost
       m_stOption.sContentType						= "application/json"
       m_stOption.bufContenu						= [
-      {
-          "email": "[%stAuthPayload.sEmail%]",
-          "password": "[%stAuthPayload.sMdp%]",
-          "displayName": "[%stAuthPayload.sNomAffichage%]",
-          "phoneNumber": "[%stAuthPayload.sNuméroTéléphone%]",
-          "photoUrl": "[%stAuthPayload.sPhotoURL%]",
-          "returnSecureToken": true
-        }
+      	{
+      	"email": "[%stAuthPayload.sEmail%]",
+      	"password": "[%stAuthPayload.sMdp%]",
+      	"displayName": "[%stAuthPayload.sNomAffichage%]",
+      	"phoneNumber": "[%stAuthPayload.sNuméroTéléphone%]",
+      	"photoUrl": "[%stAuthPayload.sPhotoURL%]",
+      	"returnSecureToken": true
+      	}
       ]
       
       m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("signUp"), m_stOption)
@@ -137,6 +197,18 @@ class :
      procedure_id : 1658863120159452365
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] sendPasswordResetWithEmail (<sEmail> est chaîne)
+      //
+      // Paramètres :
+      //	sEmail (chaîne ANSI) : <indiquez ici le rôle de sEmail>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure sendPasswordResetWithEmail(sEmail est une chaîne):CAuthReponse
       
       VariableRAZ(m_stOption)
@@ -162,6 +234,18 @@ class :
      procedure_id : 1658864004922921638
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] deleteAccount ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure deleteAccount()
       
       VariableRAZ(m_stOption)
@@ -207,6 +291,18 @@ class :
      procedure_id : 1658864576153704522
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] signInAnonymously ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       procédure signInAnonymously()
       
       VariableRAZ(m_stOption)
@@ -229,7 +325,7 @@ class :
      code : |1+
       procédure privée ConstruitURL(AuthUri est une chaîne):chaine
       
-      renvoyer ChaîneConstruit(CONST_AUTH_BASE_URL, AuthUri, m_sFirebaseAPI)
+      renvoyer ChaîneConstruit(CONST_AUTH_BASE_URL, AuthUri, COL_Declarations.gtaGlobalCache[CONST_API_KEY])
      type : 458752
    -
      name : _EnvoyerEmailVerification

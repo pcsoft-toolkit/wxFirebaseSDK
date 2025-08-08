@@ -1,0 +1,102 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CFirebaseApp
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x18964940004e91ab
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CFirebaseApp est une Classe
+      prive
+      	global
+      	mg_pclInstance      est CFireBase dynamique
+      FIN
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1771684042648818091
+     type_code : 27
+     code : |1+
+      PROCEDURE Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1771684042648883627
+     type_code : 28
+     code : |1+
+      PROCEDURE Destructeur()
+      
+     type : 655360
+   -
+     name : initializeApp
+     procedure_id : 1771684390541315806
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] initializeApp ( [<sCheminConfig> est chaîne])
+      //
+      // Paramètres :
+      //	sCheminConfig (chaîne ANSI - valeur par défaut="") : <indiquez ici le rôle de sCheminFichierConfig>
+      // Valeur de retour :
+      // 	CFireBase : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE PUBLIQUE GLOBALE initializeApp(local sCheminConfig est une chaîne = ""):CFireBase
+      
+      sCheminFichierConfig est chaîne = sCheminConfig
+      
+      SI sCheminConfig = "" ALORS
+      	sCheminFichierConfig = fRepExe() + fSep() + "firebaseConfig.INI"
+      FIN
+      
+      SI pas fFichierExiste(sCheminFichierConfig) ALORS 
+      	FinProgramme("Fichier de configuration Firebase introuvable : " + sCheminFichierConfig)
+      FIN
+      
+      si mg_pclInstance = null	
+      	_ChargerConfiguration()
+      	
+      	mg_pclInstance =  allouer un CFireBase	
+      fin
+      
+      	procédure interne _ChargerConfiguration()
+      	tabConfigKeys est un tableau de chaînes = [CONST_API_KEY, CONST_STORAGE_BUCKET, CONST_PROJET_ID]
+      	
+      	POUR TOUT sUneKey DE tabConfigKeys
+      		sValeurConfig est chaîne	= INILit("FIREBASECONFIG", sUneKey, "", sCheminFichierConfig)
+      		SI sValeurConfig = "" ALORS
+      			FinProgramme("Configuration Firebase incomplète : paramètre '" + sUneKey + "' manquant")
+      		FIN
+      		
+      		COL_Declarations.gtaGlobalCache[sUneKey] = sValeurConfig
+      	FIN	
+      	
+      	fin
+      
+      renvoyer mg_pclInstance
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x189649230048214d
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
