@@ -1,15 +1,21 @@
-<p align="center"> <img src="Ressources/Images/Logo-wdFirebase.webp" alt="Logo wxFirebase" height="120"/> </p> 
+<h1 align="center">wxFirebaseSDK</h1>
 
-<h1 align="center"> wxFirebaseSDK </h1> 
+<div align="center">
 
-<p align="center"> 
-    Une bibliothèque destinée aux développeurs utilisant les produits 
-    <a href="https://pcsoft.fr/" target="_blank">PCSoft</a>, facilitant l'intégration des services Firebase dans vos projets Windev, WebDev, et Windev Mobile. Ce SDK se concentre sur l'interaction via les API REST de Firebase, sans nécessiter l'utilisation du SDK Firebase natif. Les services supportés incluent :
+[![WinDev](https://img.shields.io/badge/WinDev-25+-blue.svg)](#)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](#)
+[![Firebase](https://img.shields.io/badge/Firebase-REST_API-orange.svg)](#)
+
+</div>
+
+<p align="center">
+    Un composant destiné aux développeurs utilisant les produits 
+    <a href="https://pcsoft.fr/" target="_blank">PCSoft</a>, facilitant l'intégration des services Firebase dans vos projets Windev, WebDev, et Windev Mobile.
 </p>
 
-- 🔒 Authentification
-- 📂 Firestore
-- 🗄️ Storage
+- Authentification
+- Firestore
+- Storage
 
 ## Prérequis
 
