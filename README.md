@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-    🚀 <a href="/Ressources/Exemple/" target="_blank"><strong>Voir la démo en ligne</strong></a>
+    <a href="/Ressources/Exemple/" target="_blank"><strong>Télécharger la démo </strong></a>
 </p>
 
 ## Prérequis
