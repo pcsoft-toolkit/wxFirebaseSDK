@@ -19,7 +19,7 @@
 
 ## Prérequis
 
-- **Windev version 25 ou supérieure** ([lien de téléchargeent officiel](https://pcsoft.fr/st/telec/index.html))
+- **Windev version 25 ou supérieure** ([lien de téléchargement officiel](https://pcsoft.fr/st/telec/index.html))
 - **Un projet Firebase** : vous pouvez en créer un nouveau via la [console Firebase](https://console.firebase.google.com/u/0/) si vous n'en avez pas déjà un.
 
 ## Installation
@@ -51,15 +51,22 @@ STORAGE_BUCKET=votre_storage_bucket_ici
 
 ### Étape 3 : Initialisation dans votre code
 
-#### Initialisation standard
 ```WLangage
-gclInstanceFirebase est CFireBase = CFirebaseApp.initializeApp()
+// Initialisation avec configuration par défaut
+gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp()
+
+// Initialisation avec un chemin personnalisé vers le fichier INI
+sCheminConfig est chaîne = "C:\MonApp\config\firebase-prod.ini"
+gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp(sCheminConfig)
+
+// Vérification des erreurs
+SI gclConfigResponse.hasError() ALORS
+	Erreur(gclConfigResponse.getMessage())
+	RETOUR
+FIN
+
+// Récupération de l'instance Firebase
+gclFirebase est CFireBase = gclConfigResponse.getInstance()
 ```
 > [!NOTE]
 >  Si aucun chemin n'est spécifié, le composant recherche automatiquement le fichier `firebaseConfig.INI` dans le répertoire de l'exécutable.
-
-#### Initialisation avec fichier personnalisé
-```WLangage
-sCheminConfig est chaîne = "C:\MonApp\config\firebase-prod.ini"
-gclInstanceFirebase est CFireBase = CFirebaseApp.initializeApp(sCheminConfig)
-```
