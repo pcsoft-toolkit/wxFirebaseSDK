@@ -29,7 +29,7 @@ class :
       
       CAuthReponse est une Classe
       	prive 
-      	m_eErreurType					est une ETypeErreur
+      	m_eErreurType					est une EErrorType
       	m_bErreurWindevMessage			est une booleen	= faux
       	m_bErrEmailNotFound				est une booleen	= faux
       	m_bErrEmailExist				est une booleen	= faux
@@ -224,7 +224,7 @@ class :
      p_codes :
       -
         code : |1-
-         procédure publique errType():ETypeErreur 
+         procédure publique errType():EErrorType 
          
          renvoyer m_eErreurType
         type : 1966080

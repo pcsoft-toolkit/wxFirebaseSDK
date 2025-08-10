@@ -36,8 +36,8 @@ procedure_set :
       	sStorageBucket	est une chaîne
       FIN
       
-      ETypeErreur est une Enumération
-      	errAucune	= "errAucune"
+      EErrorType est une Enumération
+      	errNone	= "errNone"
       	errFirebase	= "errFirebase"
       	errWindev	= "errWindev"
       FIN

@@ -1,0 +1,142 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CConfigResponse
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x18988f340041d2ea
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CConfigResponse est une Classe herite CFirebaseReponse
+      PRIVÉ
+      GLOBAL
+      	mg_pclInstance      est CFireBase dynamique
+      FIN
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1772323906875740906
+     type_code : 27
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Constructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1772323906875806442
+     type_code : 28
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE Destructeur()
+      
+     type : 655360
+   -
+     name : setError
+     procedure_id : 1772326062949432469
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //setError (<eType> est COL_Declarations.EErrorType, <sErrorMessage> est chaîne)
+      //
+      // Paramètres :
+      //	eType (COL_Declarations.EErrorType) : <indiquez ici le rôle de eType>
+      //	sErrorMessage (chaîne ANSI) : <indiquez ici le rôle de sErrorMessage>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE setError(local eType est EErrorType,local sErrorMessage est chaîne) <UI>
+      
+      errorType	= eType
+      sMessage	= sErrorMessage
+     type : 458752
+   -
+     name : setSuccess
+     procedure_id : 1772329417318951249
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //setSuccess (<clInstance> est CFireBase)
+      //
+      // Paramètres :
+      //	clInstance (CFireBase) : <indiquez ici le rôle de clPclInstance>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE setSuccess(local clInstance est CFireBase) <UI>
+      
+      errorType				= errNone
+      mg_pclInstance			= clInstance
+      
+     type : 458752
+   -
+     name : getInstance
+     procedure_id : 1772333295675126023
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] getInstance ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CFireBase : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCÉDURE getInstance() : CFireBase
+      
+      RENVOYER mg_pclInstance
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x18988f24003b96cb
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

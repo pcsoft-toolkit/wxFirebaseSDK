@@ -28,7 +28,7 @@ class :
       
       CFireStoreReponse est une Classe
       PRIVÉ 
-      	m_eErreurType					est une ETypeErreur
+      	m_eErreurType					est une EErrorType
       	m_sbErreurWindevMessage			est une chaîne
       	m_jsonDonneesDocument			est un json
       	m_bErrArgumentInvalide			est un booléen  = faux
@@ -214,7 +214,7 @@ class :
      p_codes :
       -
         code : |1-
-         procédure publique errType():ETypeErreur 
+         procédure publique errType():EErrorType 
          
          RENVOYER m_eErreurType
         type : 1966080

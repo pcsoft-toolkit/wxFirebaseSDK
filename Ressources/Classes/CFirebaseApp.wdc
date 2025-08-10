@@ -15,10 +15,13 @@ class :
   p_codes :
    -
      code : |1+
+      constant
+      	CONST_INI_SECTION = "FIREBASECONFIG"
+      	CONST_FICHIER_CONFIG = "firebaseConfig.INI"
+      fin
+      
       CFirebaseApp est une Classe
-      prive
-      	global
-      	mg_pclInstance      est CFireBase dynamique
+      
       FIN
      type : 131072
   procedures :
@@ -79,39 +82,45 @@ class :
       // Exemple :
       // Indiquez ici un exemple d'utilisation.
       //
-      PROCEDURE PUBLIQUE GLOBALE initializeApp(local sCheminConfig est une chaîne = ""):CFireBase
+      PROCEDURE PUBLIQUE GLOBALE initializeApp(local sCheminConfig est une chaîne = ""):CConfigResponse
+      
+      gclResponse est CConfigResponse = allouer un CConfigResponse
       
       sCheminFichierConfig est chaîne = sCheminConfig
       
       SI sCheminConfig = "" ALORS
-      	sCheminFichierConfig = fRepExe() + fSep() + "firebaseConfig.INI"
+      	sCheminFichierConfig = fRepExe() + fSep() + CONST_FICHIER_CONFIG
       FIN
       
       SI pas fFichierExiste(sCheminFichierConfig) ALORS 
-      	FinProgramme("Fichier de configuration Firebase introuvable : " + sCheminFichierConfig)
+      	gclResponse.setError(errWindev,"Fichier de configuration Firebase introuvable : " + sCheminFichierConfig)
       FIN
       
-      si mg_pclInstance = null	
-      	_ChargerConfiguration()
-      	
-      	mg_pclInstance =  allouer un CFireBase	
+      si _loadConfiguration()	 ALORS
+      	gclResponse.setSuccess(new CFireBase)
       fin
       
-      	procédure interne _ChargerConfiguration()
+      	procédure interne _loadConfiguration():booléen
       	tabConfigKeys est un tableau de chaînes = [CONST_API_KEY, CONST_STORAGE_BUCKET, CONST_PROJET_ID]
       	
+      	bSucces est un booléen = Vrai
+      	
       	POUR TOUT sUneKey DE tabConfigKeys
-      		sValeurConfig est chaîne	= INILit("FIREBASECONFIG", sUneKey, "", sCheminFichierConfig)
+      		sValeurConfig est chaîne	= INILit(CONST_INI_SECTION, sUneKey, "", sCheminFichierConfig)
       		SI sValeurConfig = "" ALORS
-      			FinProgramme("Configuration Firebase incomplète : paramètre '" + sUneKey + "' manquant")
+      			bSucces = Faux
+      			gclResponse.setError(errWindev,"Configuration Firebase incomplète : paramètre '" + sUneKey + "' manquant")
       		FIN
       		
       		COL_Declarations.gtaGlobalCache[sUneKey] = sValeurConfig
       	FIN	
       	
+      	renvoyer bSucces
+      	
       	fin
       
-      renvoyer mg_pclInstance
+      
+      renvoyer gclResponse
      type : 458752
   procedure_templates : []
   property_templates : []
