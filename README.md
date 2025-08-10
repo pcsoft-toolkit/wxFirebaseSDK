@@ -17,6 +17,10 @@
     <strong>Authentification</strong> | <strong>Firestore</strong> | <strong>Storage</strong>
 </p>
 
+<p align="center">
+    🚀 <a href="/Ressources/Exemple/" target="_blank"><strong>Voir la démo en ligne</strong></a>
+</p>
+
 ## Prérequis
 
 - **Windev version 25 ou supérieure** ([lien de téléchargement officiel](https://pcsoft.fr/st/telec/index.html))

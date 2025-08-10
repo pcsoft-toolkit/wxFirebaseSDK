@@ -15,10 +15,10 @@ class :
   p_codes :
    -
      code : |1+
-      constant
-      	CONST_INI_SECTION = "FIREBASECONFIG"
-      	CONST_FICHIER_CONFIG = "firebaseConfig.INI"
-      fin
+      CONSTANT
+      	CONST_INI_SECTION		= "FIREBASECONFIG"
+      	CONST_FICHIER_CONFIG	= "firebaseConfig.INI"
+      FIN
       
       CFirebaseApp est une Classe
       
@@ -67,21 +67,9 @@ class :
      type : 655360
    -
      name : initializeApp
-     procedure_id : 1771684390541315806
+     procedure_id : 1772418318843133591
      type_code : 12
      code : |1-
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      //[ <Résultat> = ] initializeApp ( [<sCheminConfig> est chaîne])
-      //
-      // Paramètres :
-      //	sCheminConfig (chaîne ANSI - valeur par défaut="") : <indiquez ici le rôle de sCheminFichierConfig>
-      // Valeur de retour :
-      // 	CFireBase : // 	Aucune
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
       PROCEDURE PUBLIQUE GLOBALE initializeApp(local sCheminConfig est une chaîne = ""):CConfigResponse
       
       gclResponse est CConfigResponse = allouer un CConfigResponse
@@ -109,7 +97,7 @@ class :
       		sValeurConfig est chaîne	= INILit(CONST_INI_SECTION, sUneKey, "", sCheminFichierConfig)
       		SI sValeurConfig = "" ALORS
       			bSucces = Faux
-      			gclResponse.setError(errWindev,"Configuration Firebase incomplète : paramètre '" + sUneKey + "' manquant")
+      			gclResponse.setError(errWindev, "Configuration Firebase incomplète : paramètre [%sUneKey%] manquant")
       		FIN
       		
       		COL_Declarations.gtaGlobalCache[sUneKey] = sValeurConfig

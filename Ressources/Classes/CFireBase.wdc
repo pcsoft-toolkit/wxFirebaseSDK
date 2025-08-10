@@ -16,6 +16,7 @@ class :
    -
      code : |1+
       CFireBase est une Classe
+      	
       fin
      type : 131072
   procedures :
@@ -38,11 +39,6 @@ class :
       //
       //	stUneConfig (STFirebaseConfig) : <indiquez ici le rôle de stUneConfig>
       procédure Constructeur()
-      //procédure prive Constructeur(stUneConfig est STFirebaseConfig)
-      
-      //Constructeur mg_clAuth(stUneConfig.sApiKey)
-      //Constructeur mg_clStorage(stUneConfig.sProjetId)
-      //Constructeur mg_clFireStore(stUneConfig.sProjetId)
       
        
      type : 589824
@@ -65,69 +61,6 @@ class :
       //
       procédure Destructeur()
      type : 655360
-   -
-     name : FireStore
-     procedure_id : 1671106547226229794
-     type_code : 12
-     code : |1+
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      //[ <Résultat> = ] FireStore ()
-      //
-      // Paramètres :
-      //	Aucun
-      // Valeur de retour :
-      // 	CFireStore : // 	Aucune
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
-      procédure FireStore():CFirestore
-      
-      renvoyer new CFireStore
-     type : 458752
-   -
-     name : Auth
-     procedure_id : 1671149660120278880
-     type_code : 12
-     code : |1-
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      // [ <Résultat> = ] Auth ()
-      //
-      // Paramètres :
-      //	Aucun
-      // Valeur de retour :
-      // 	CAuth : <indiquez ici les valeurs possibles ainsi que leur interprétation>
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
-      procédure Auth():CAuth
-      
-      RENVOYER new CAuth
-     type : 458752
-   -
-     name : Storage
-     procedure_id : 1671149831919010517
-     type_code : 12
-     code : |1-
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      // [ <Résultat> = ] Storage ()
-      //
-      // Paramètres :
-      //	Aucun
-      // Valeur de retour :
-      // 	CStorage : <indiquez ici les valeurs possibles ainsi que leur interprétation>
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
-      procédure Storage():CStorage
-      
-      RENVOYER new CStorage
-     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :
