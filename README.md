@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-Authentification | Firestore | Storage
+    <strong>Authentification</strong> | <strong>Firestore</strong> | <strong>Storage</strong>
 </p>
 
 ## Prérequis
@@ -46,7 +46,7 @@ STORAGE_BUCKET=votre_storage_bucket_ici
 ```
 #### Paramètres :
 - `API_KEY` : La clé API Web de votre projet Firebase (`chaine`).
-- `PROJET_ID` : L'dentifiant du projet Firebase (`chaine`).
+- `PROJET_ID` : L'identifiant du projet Firebase (`chaine`).
 - `STORAGE_BUCKET` : L'URL du bucket de stockage du projet Firebase (`chaine`).
 
 ### Étape 3 : Initialisation dans votre code
