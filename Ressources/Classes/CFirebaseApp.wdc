@@ -18,10 +18,13 @@ class :
       CONSTANT
       	CONST_INI_SECTION		= "FIREBASECONFIG"
       	CONST_FICHIER_CONFIG	= "firebaseConfig.INI"
-      FIN
+      FIN	
       
       CFirebaseApp est une Classe
-      
+      prive 
+      	global
+      	m_sCheminFichierConfig est chaîne
+      	m_gclResponse est CConfigResponse
       FIN
      type : 131072
   procedures :
@@ -30,19 +33,7 @@ class :
      procedure_id : 1771684042648818091
      type_code : 27
      code : |1+
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      // Constructeur ()
-      //
-      // Paramètres :
-      //	Aucun
-      // Valeur de retour :
-      // 	Aucune
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
-      PROCEDURE Constructeur()
+      PROCEDURE prive Constructeur()
       
      type : 589824
    -
@@ -50,18 +41,6 @@ class :
      procedure_id : 1771684042648883627
      type_code : 28
      code : |1+
-      // Résumé : <indiquez ici ce que fait la procédure>
-      // Syntaxe :
-      // Destructeur ()
-      //
-      // Paramètres :
-      //	Aucun
-      // Valeur de retour :
-      // 	Aucune
-      //
-      // Exemple :
-      // Indiquez ici un exemple d'utilisation.
-      //
       PROCEDURE Destructeur()
       
      type : 655360
@@ -72,43 +51,45 @@ class :
      code : |1-
       PROCEDURE PUBLIQUE GLOBALE initializeApp(local sCheminConfig est une chaîne = ""):CConfigResponse
       
-      gclResponse est CConfigResponse = allouer un CConfigResponse
-      
-      sCheminFichierConfig est chaîne = sCheminConfig
+      m_sCheminFichierConfig = sCheminConfig
       
       SI sCheminConfig = "" ALORS
-      	sCheminFichierConfig = fRepExe() + fSep() + CONST_FICHIER_CONFIG
+      	m_sCheminFichierConfig = fRepExe() + fSep() + CONST_FICHIER_CONFIG
       FIN
       
-      SI pas fFichierExiste(sCheminFichierConfig) ALORS 
-      	gclResponse.setError(errWindev,"Fichier de configuration Firebase introuvable : " + sCheminFichierConfig)
+      SI pas fFichierExiste(m_sCheminFichierConfig) ALORS 
+      	m_gclResponse.setError(errWindev,"Fichier de configuration Firebase introuvable : " + m_sCheminFichierConfig)
       FIN
       
       si _loadConfiguration()	 ALORS
-      	gclResponse.setSuccess(new CFireBase)
+      	m_gclResponse.setSuccess(new CFireBase)
       fin
       
-      	procédure interne _loadConfiguration():booléen
-      	tabConfigKeys est un tableau de chaînes = [CONST_API_KEY, CONST_STORAGE_BUCKET, CONST_PROJET_ID]
-      	
-      	bSucces est un booléen = Vrai
-      	
-      	POUR TOUT sUneKey DE tabConfigKeys
-      		sValeurConfig est chaîne	= INILit(CONST_INI_SECTION, sUneKey, "", sCheminFichierConfig)
-      		SI sValeurConfig = "" ALORS
-      			bSucces = Faux
-      			gclResponse.setError(errWindev, "Configuration Firebase incomplète : paramètre [%sUneKey%] manquant")
-      		FIN
-      		
-      		COL_Declarations.gtaGlobalCache[sUneKey] = sValeurConfig
-      	FIN	
-      	
-      	renvoyer bSucces
-      	
-      	fin
+      renvoyer m_gclResponse
+     type : 458752
+   -
+     name : _loadConfiguration
+     procedure_id : 1772421578723808720
+     type_code : 12
+     code : |1-
+      PROCEDURE PRIVÉE global _loadConfiguration():booléen
       
+      tabConfigKeys	est un tableau de chaînes	= [CONST_API_KEY, CONST_STORAGE_BUCKET, CONST_PROJET_ID]
       
-      renvoyer gclResponse
+      bSucces			est un booléen				= Vrai
+      
+      POUR TOUT sUneKey DE tabConfigKeys
+      	sValeurConfig est chaîne	= INILit(CONST_INI_SECTION, sUneKey, "", m_sCheminFichierConfig)
+      	
+      	SI sValeurConfig = "" ALORS
+      		bSucces = Faux
+      		m_gclResponse.setError(errWindev, "Configuration Firebase incomplète : paramètre [%sUneKey%] manquant")
+      	FIN
+      	
+      	COL_Declarations.gtaGlobalCache[sUneKey] = sValeurConfig
+      FIN	
+      
+      RENVOYER bSucces
      type : 458752
   procedure_templates : []
   property_templates : []
