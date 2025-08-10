@@ -2,9 +2,9 @@
 
 <div align="center">
 
-[![WinDev](https://img.shields.io/badge/WinDev-25+-blue.svg)](#)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](#)
-[![Firebase](https://img.shields.io/badge/Firebase-REST_API-orange.svg)](#)
+[![WinDev](https://img.shields.io/badge/WinDev-25+-blue.svg)](https://pcsoft.fr/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Firebase](https://img.shields.io/badge/Firebase-REST_API-orange.svg)](https://firebase.google.com/docs/reference/rest)
 
 </div>
 
@@ -24,7 +24,7 @@
 
 ## Installation
 
-1. Téléchargez la dernière version de `wxFirebase` dans la [page de Releases de ce projet](https://github.com/fabnguess/wxFirebaseSDK/releases).
+1. Téléchargez la dernière version de `wxFirebase` dans la [page de Releases de ce projet](https://github.com/pcsoft-toolkit/wxFirebaseSDK/releases).
 2. Ajoutez le composant à votre projet WINDEV® en suivant la [documentation officielle](https://doc.pcsoft.fr/?2014006).
 
 ## Configuration Firebase

@@ -15,7 +15,7 @@ class :
   p_codes :
    -
      code : |1+
-      CFirebaseReponse est une Classe,abstraite
+      CFirebaseReponse est une Classe
       protege
       	errorType	est EErrorType
       	sMessage	est chaîne
