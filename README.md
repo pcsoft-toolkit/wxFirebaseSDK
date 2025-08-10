@@ -2,9 +2,9 @@
 
 <div align="center">
 
-[![WinDev](https://img.shields.io/badge/WinDev-25+-blue.svg)](https://pcsoft.fr/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Firebase](https://img.shields.io/badge/Firebase-REST_API-orange.svg)](https://firebase.google.com/docs/reference/rest)
+[![WinDev](https://img.shields.io/badge/WinDev-25+-blue.svg?style=for-the-badge)](https://pcsoft.fr/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![Firebase](https://img.shields.io/badge/Firebase-REST_API-orange.svg?style=for-the-badge)](https://firebase.google.com/docs/reference/rest)
 
 </div>
 
