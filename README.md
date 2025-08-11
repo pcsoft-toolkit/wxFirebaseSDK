@@ -89,12 +89,12 @@ gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp()
 ```
 #### Initialisation avec chemin personnalisé
 ```WLangage
-// Initialisation avec un chemin personnalisé vers le fichier INI
+// Initialisation avec un chemin personnalisé vers le fichier `INI`
 sCheminConfig est chaîne = "C:\MonApp\config\firebase-prod.ini"
 gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp(sCheminConfig)
 ```
 > [!NOTE]
-> Si aucun chemin n'est spécifié, le composant recherche automatiquement le fichier `firebaseConfig.INI` dans le répertoire de l'exécutable.
+> Si aucun chemin n’est précisé, `wxFirebaseSDK` recherche par défaut le fichier `firebaseConfig.ini` dans le répertoire de l’exécutable.
 
 #### Gestion de la réponse
 `CConfigResponse` est une classe de réponse qui hérite de **CFirebaseResponse**.
