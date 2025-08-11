@@ -252,3 +252,14 @@ Chacune des méthodes du service d'authentification documentées ci-dessus renve
 | `hasError()` | Retourne `Vrai` si erreur |
 | `getMessage()`  | Retourne le message d’erreur |
 | `getUser()` | Données de l’utilisateur connecté |
+
+##### Exemple d'utilisation de CAuthReponse
+```WLangage
+gclAuthReponse est CAuthReponse = gclAuth.signInWithEmailAndPassword("wx@firebase.com", "test1234")
+
+SI gclAuthReponse.hasError() ALORS
+	Info(gclAuthReponse.getMessage())
+SINON
+	Info(gclAuthReponse.getUser())
+FIN
+```
