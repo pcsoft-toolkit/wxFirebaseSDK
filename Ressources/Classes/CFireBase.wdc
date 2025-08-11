@@ -46,7 +46,7 @@ class :
      name : Destructeur
      procedure_id : 1482533246419743809
      type_code : 28
-     code : |1-
+     code : |1+
       // Résumé : <indiquez ici ce que fait la procédure>
       // Syntaxe :
       // Destructeur ()
@@ -60,6 +60,7 @@ class :
       // Indiquez ici un exemple d'utilisation.
       //
       procédure Destructeur()
+      
      type : 655360
   procedure_templates : []
   property_templates : []

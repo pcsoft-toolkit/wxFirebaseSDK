@@ -86,31 +86,34 @@ STORAGE_BUCKET=votre_storage_bucket_ici
 ```WLangage
 // Initialisation avec configuration par défaut
 gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp()
-
-// Vérification des erreurs
-SI gclConfigResponse.hasError() ALORS
-	Erreur(gclConfigResponse.getMessage())
-	RETOUR
-FIN
-
-// Récupération de l'instance Firebase
-gclFirebase est CFirebase = gclConfigResponse.getInstance()
 ```
-
 #### Initialisation avec chemin personnalisé
 ```WLangage
 // Initialisation avec un chemin personnalisé vers le fichier INI
 sCheminConfig est chaîne = "C:\MonApp\config\firebase-prod.ini"
 gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp(sCheminConfig)
-
-// Vérification des erreurs
-SI gclConfigResponse.hasError() ALORS
-	Erreur(gclConfigResponse.getMessage())
-	RETOUR
-FIN
-
-// Récupération de l'instance Firebase
-gclFirebase est CFirebase = gclConfigResponse.getInstance()
 ```
 > [!NOTE]
->  Si aucun chemin n'est spécifié, le composant recherche automatiquement le fichier `firebaseConfig.INI` dans le répertoire de l'exécutable.
+> Si aucun chemin n'est spécifié, le composant recherche automatiquement le fichier `firebaseConfig.INI` dans le répertoire de l'exécutable.
+
+#### Gestion de la réponse
+`CConfigResponse` est une classe de réponse qui hérite de **CFirebaseResponse**.
+Elle est retournée par la méthode `CFirebaseApp.initializeApp()` et permet de savoir si l’initialisation a réussi ou non, ainsi que de récupérer l’instance Firebase prête à l’emploi.
+
+| Méthode | Description |
+| --- | --- |
+| `hasError()` | Retourne `Vrai` si une erreur est survenue lors de l’initialisation |
+| `getMessage()`  | Retourne le message de succès ou d’erreur |
+| `getInstance()` | Retourne l’instance de `CFirebase` initialisée |
+
+##### Exemple d’utilisation
+```WLangage
+gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp()
+
+SI gclConfigResponse.hasError() ALORS
+	Erreur(gclConfigResponse.getMessage())
+    RETOUR
+FIN
+
+gclFirebase est CFirebase = gclConfigResponse.getInstance()
+```
