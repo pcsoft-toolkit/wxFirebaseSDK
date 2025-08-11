@@ -17,7 +17,7 @@ class :
      code : |1+
       CFirebaseReponse est une Classe
       protege
-      	m_eErrorType	est EErrorType
+      	m_bHasErr	est un booléen
       	m_sMessage		est chaîne
       	m_bufData		est Buffer
       FIN
@@ -58,7 +58,7 @@ class :
       //
       PROCEDURE hasError():booléen
       
-      renvoyer m_eErrorType <> errNone 
+      renvoyer m_bHasErr
      type : 458752
    -
      name : getMessage

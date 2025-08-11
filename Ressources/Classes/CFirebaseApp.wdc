@@ -41,6 +41,18 @@ class :
      procedure_id : 1771684042648883627
      type_code : 28
      code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       PROCEDURE Destructeur()
       
      type : 655360
@@ -49,6 +61,18 @@ class :
      procedure_id : 1772418318843133591
      type_code : 12
      code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] initializeApp ( [<sConfigPath> est chaîne])
+      //
+      // Paramètres :
+      //	sConfigPath (chaîne ANSI) : <indiquez ici le rôle de sConfigPath>
+      // Valeur de retour :
+      // 	CConfigResponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
       PROCEDURE PUBLIQUE GLOBALE initializeApp(local sConfigPath est une chaîne = ""):CConfigResponse
       
       m_sConfigFilePath = sConfigPath
@@ -58,7 +82,7 @@ class :
       FIN
       
       SI pas fFichierExiste(m_sConfigFilePath) ALORS 
-      	m_gclResponse.setError(errWindev,"Fichier de configuration Firebase introuvable : " + m_sConfigFilePath)
+      	m_gclResponse.setError("Fichier de configuration Firebase introuvable : " + m_sConfigFilePath)
       FIN
       
       si _loadConfiguration()	 ALORS
@@ -83,7 +107,7 @@ class :
       	
       	SI sValeurConfig = "" ALORS
       		bSucces = Faux
-      		m_gclResponse.setError(errWindev, "Configuration Firebase incomplète : paramètre [%sOneKey%] manquant")
+      		m_gclResponse.setError("Configuration Firebase incomplète : paramètre [%sOneKey%] manquant")
       	FIN
       	
       	COL_Declarations.gtaGlobalCache[sOneKey] = sValeurConfig

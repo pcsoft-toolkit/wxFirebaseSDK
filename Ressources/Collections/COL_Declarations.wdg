@@ -36,12 +36,6 @@ procedure_set :
       	sStorageBucket	est une chaîne
       FIN
       
-      EErrorType est une Enumération
-      	errNone	= "errNone"
-      	errFirebase	= "errFirebase"
-      	errWindev	= "errWindev"
-      FIN
-      
       EDirectionTriFirestore est une Enumération
       	ASCENDING		= "ASCENDING"
       	DESCENDING		= "DESCENDING"
@@ -94,17 +88,6 @@ procedure_set :
       	sContentType	est une chaîne
       	taEntête		est un tableau associatif de chaînes
       FIN
-      
-      STAuthPayload est une Structure
-      	sEmail				est une chaîne
-      	sMdp				est une chaîne
-      	sNomAffichage		est une chaîne
-      	sNuméroTéléphone	est une chaîne
-      	sPhotoURL			est une chaîne
-      	bVerifieEmail		est un booléen
-      FIN
-      
-      
       
       STIntegerValue	is Structure
       	integerValue is numeric

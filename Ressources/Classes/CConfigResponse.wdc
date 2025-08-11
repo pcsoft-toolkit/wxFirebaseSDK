@@ -69,10 +69,9 @@ class :
      code : |1-
       // Résumé : <indiquez ici ce que fait la procédure>
       // Syntaxe :
-      //setError (<eErreurType> est COL_Declarations.EErrorType, <sErrorMessage> est chaîne)
+      //setError (<sErrorMessage> est chaîne)
       //
       // Paramètres :
-      //	eErreurType (COL_Declarations.EErrorType) : <indiquez ici le rôle de eType>
       //	sErrorMessage (chaîne ANSI) : <indiquez ici le rôle de sErrorMessage>
       // Valeur de retour :
       // 	Aucune
@@ -80,9 +79,10 @@ class :
       // Exemple :
       // Indiquez ici un exemple d'utilisation.
       //
-      PROCEDURE setError(local eErreurType est EErrorType,local sErrorMessage est chaîne) <UI>
+      //	eErreurType (COL_Declarations.EErrorType) : <indiquez ici le rôle de eType>
+      PROCEDURE setError(local sErrorMessage est chaîne) <UI>
       
-      m_eErrorType = eErreurType
+      m_bHasErr = Vrai
       m_sMessage	 = sErrorMessage
      type : 458752
    -
@@ -104,7 +104,7 @@ class :
       //
       PROCEDURE setSuccess(local clInstance est CFireBase) <UI>
       
-      m_eErrorType			= errNone
+      m_bHasErr = Faux
       mg_pclInstance			= clInstance
       
      type : 458752

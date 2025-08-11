@@ -1,0 +1,493 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CAuth
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1490bb35003c6435
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      // URL de la documentation https://firebase.google.com/docs/reference/rest/auth?hl=fr	
+      CONSTANT
+      	CONST_AUTH_BASE_URL	= "https://identitytoolkit.googleapis.com/v1/accounts:%1?key=%2"
+      FIN	
+      
+      IAuthProviderService est une Interface
+      	procédure Connexion(sUrl est une chaîne):CAuthReponse
+      FIN
+      
+      STAuthPayload is Structure
+      	sEmail				est une chaîne
+      	sPassword			est une chaîne
+      	sDisplayName		est une chaîne
+      	sPhoneNumber		est une chaîne
+      	sPhotoURL			est une chaîne
+      	bEmailVerified		est un booléen
+      END
+      
+      EProvider est une énumération
+      	Google		= "google.com"
+      	Facebook	= "facebook.com"
+      	GitHub		= "github.com"
+      fin
+      
+      CAuth est une Classe
+       	prive
+       		m_HttpClientReponse est un restRéponse
+       		m_stOption est STHttpOption
+       		
+       		global prive
+       		m_sIDToken  est une chaîne
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1481890113716577333
+     type_code : 27
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //Constructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      //	sFirebaApiKey (chaîne ANSI) : <indiquez ici le rôle de sFirebaApiKey>
+      procédure Constructeur()
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1481890113716642869
+     type_code : 28
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Destructeur()
+     type : 655360
+   -
+     name : signInWithEmailAndPassword
+     procedure_id : 1482560201626089801
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] signInWithEmailAndPassword (<sEmail> est chaîne, <sMdp> est chaîne)
+      //
+      // Paramètres :
+      //	sEmail (chaîne ANSI) : <indiquez ici le rôle de sEmail>
+      //	sMdp (chaîne ANSI) : <indiquez ici le rôle de sMdp>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure publique signInWithEmailAndPassword(sEmail est une chaîne, sMdp est une chaîne):CAuthReponse
+      
+      SI PAS _validateAuthPayload(sEmail, sMdp) ALORS
+      	RENVOYER new CAuthReponse(Null, "Paramètres d'inscription invalides")
+      FIN
+      
+      VariableRAZ(m_stOption)
+      
+      jsData est Json 
+      jsData.email = sEmail
+      jsData.password = sMdp
+      jsData.returnSecureToken = true
+      
+      m_stOption.eMethode							= eHTTPPost
+      m_stOption.sContentType						= "application/json"
+      m_stOption.bufContenu						= jsData
+      
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("signInWithPassword"), m_stOption)
+      
+      
+      si ErreurDétectée() _ou_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      _setTokenID(m_HttpClientReponse)
+      
+      RENVOYER _getUserData()
+     type : 458752
+   -
+     name : signInWithProvider
+     procedure_id : 1658860710682631666
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] signInWithProvider (<clProviderInstance> est CAuth.IAuthProviderService)
+      //
+      // Paramètres :
+      //	clProviderInstance (CAuth.IAuthProviderService) : <indiquez ici le rôle de clProviderInstance>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure signInWithProvider(clProviderInstance est IAuthProviderService):CAuthReponse
+      
+      sUrl est une chaîne	= ConstruitURL("signInWithIdp")
+      
+      renvoyer clProviderInstance.Connexion(sUrl)
+     type : 458752
+   -
+     name : signUpWithEmailPassword
+     procedure_id : 1658862634828101156
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] signUpWithEmailPassword (<stAuthPayload> est STAuthPayload)
+      //
+      // Paramètres :
+      //	stAuthPayload (STAuthPayload) : <indiquez ici le rôle de stAuthPayload>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure signUpWithEmailPassword(local stAuthPayload est STAuthPayload):CAuthReponse
+      
+      SI PAS _validateAuthPayload(stAuthPayload.sEmail, stAuthPayload.sPassword) ALORS
+      	RENVOYER new CAuthReponse(Null, "Paramètres d'inscription invalides")
+      FIN
+      
+      VariableRAZ(m_stOption)
+      
+      m_stOption.eMethode							= eHTTPPost
+      m_stOption.sContentType						= "application/json"
+      m_stOption.bufContenu						= _buildPayloadRegistration(stAuthPayload)
+      
+      m_HttpClientReponse							= CHttpClient.Envoie(ConstruitURL("signUp"), m_stOption)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      si stAuthPayload.bEmailVerified ALORS RENVOYER _sendEmailVerification()
+      
+      _setTokenID(m_HttpClientReponse)
+      
+      RENVOYER _getUserData()
+     type : 458752
+   -
+     name : sendPasswordResetWithEmail
+     procedure_id : 1658863120159452365
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] sendPasswordResetWithEmail (<sEmail> est chaîne)
+      //
+      // Paramètres :
+      //	sEmail (chaîne ANSI) : <indiquez ici le rôle de sEmail>
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure sendPasswordResetWithEmail(sEmail est une chaîne):CAuthReponse
+      
+      VariableRAZ(m_stOption)
+      
+      jsData est Json 
+      jsData.email			= sEmail
+      jsData.requestType		= "PASSWORD_RESET"
+      
+      
+      m_stOption.eMethode	    = eHTTPPost
+      m_stOption.sContentType	= "application/json"
+      m_stOption.bufContenu	= jsData
+      
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("sendOobCode"), m_stOption)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	renvoyer new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER  new CAuthReponse(m_HttpClientReponse)
+     type : 458752
+   -
+     name : deleteAccount
+     procedure_id : 1658864004922921638
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // [ <Résultat> = ] deleteAccount ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CAuthReponse : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure deleteAccount()
+      
+      VariableRAZ(m_stOption)
+      
+      m_stOption.eMethode					    = eHTTPPost
+      m_stOption.sContentType					= "application/json"
+      m_stOption.bufContenu					= [
+      	{"idToken":"[%_getTokenID()%]"}
+      ]
+      
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("delete"), m_stOption)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER  new CAuthReponse(m_HttpClientReponse)
+     type : 458752
+   -
+     name : _getUserData
+     procedure_id : 1658864288390829190
+     type_code : 12
+     code : |1+
+      procédure prive _getUserData():CAuthReponse
+      
+      VariableRAZ(m_stOption)
+      
+      m_stOption.eMethode			= eHTTPPost
+      m_stOption.sContentType		= "application/json"
+      m_stOption.bufContenu		= [
+      	{"idToken":"[%_getTokenID()%]"}
+      ]
+      
+      m_HttpClientReponse	= CHttpClient.Envoie(ConstruitURL("lookup"), m_stOption)
+      
+      SI ErreurDétectée() ALORS
+      	RENVOYER  NEW CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      RENVOYER  NEW CAuthReponse(m_HttpClientReponse)
+      
+     type : 458752
+   -
+     name : signInAnonymously
+     procedure_id : 1658864576153704522
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] signInAnonymously ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Type indéterminé : <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure signInAnonymously()
+      
+      VariableRAZ(m_stOption)
+      
+      m_stOption.eMethode		= eHTTPPost
+      m_stOption.sContentType	= "application/json"
+      
+      m_HttpClientReponse     = CHttpClient.Envoie(ConstruitURL("signUp"), m_stOption)
+      
+      
+      SI ErreurDétectée() _ou_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      _setTokenID(m_HttpClientReponse)
+      
+      RENVOYER _getUserData()
+     type : 458752
+   -
+     name : ConstruitURL
+     procedure_id : 1658870954180182977
+     type_code : 12
+     code : |1+
+      procédure privée ConstruitURL(AuthUri est une chaîne):chaine
+      
+      renvoyer ChaîneConstruit(CONST_AUTH_BASE_URL, AuthUri, COL_Declarations.gtaGlobalCache[CONST_API_KEY])
+     type : 458752
+   -
+     name : _sendEmailVerification
+     procedure_id : 1664307815841109200
+     type_code : 12
+     code : |1+
+      procédure privée _sendEmailVerification():CAuthReponse
+      
+      VariableRAZ(m_stOption)
+      
+      m_stOption.sContentType				= "application/json"
+      m_stOption.bufContenu					= [
+      	{
+      		"requestType": "VERIFY_EMAIL",
+      		"idToken": "[%m_sIDToken%]"
+      	}
+      ]
+      
+      m_HttpClientReponse = CHttpClient.Envoie(ConstruitURL("sendOobCode"), m_stOption)
+      
+      SI ErreurDétectée() _OU_ m_HttpClientReponse.CodeEtat <> 200 ALORS
+      	RENVOYER  new CAuthReponse(m_HttpClientReponse, ErreurInfo(errMessage))
+      FIN
+      
+      renvoyer new CAuthReponse(m_HttpClientReponse)
+      
+     type : 458752
+   -
+     name : _getTokenID
+     procedure_id : 1667373318685306736
+     type_code : 12
+     code : |1-
+      procédure privée _getTokenID() <métier>:chaine
+      
+      renvoyer m_sIDToken
+     type : 458752
+   -
+     name : _buildPayloadRegistration
+     procedure_id : 1771723693789573569
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] _buildPayloadRegistration (<stAuth> est STAuthPayload)
+      //
+      // Paramètres :
+      //	stAuth (STAuthPayload) : <indiquez ici le rôle de stAuth>
+      // Valeur de retour :
+      // 	JSON : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE PRIVÉE _buildPayloadRegistration(local stAuth est STAuthPayload):json
+      
+      jsonData est json
+      
+      jsonData.email				= stAuth.sEmail
+      jsonData.password			= stAuth.sPassword
+      jsonData.displayName		= stAuth.sDisplayName
+      jsonData.phoneNumber		= stAuth.sPhoneNumber
+      jsonData.photoUrl			= stAuth.sPhotoURL
+      jsonData.returnSecureToken	= true
+      
+      renvoyer jsonData
+     type : 458752
+   -
+     name : _validateAuthPayload
+     procedure_id : 1771727318742029445
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] _validateAuthPayload (<sEmail> est chaîne, <sMdp> est chaîne)
+      //
+      // Paramètres :
+      //	sEmail (chaîne ANSI) : <indiquez ici le rôle de stAuthPayload>
+      //	sMdp (chaîne ANSI) : <indiquez ici le rôle de sMdp>
+      // Valeur de retour :
+      // 	booléen : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE PRIVÉE _validateAuthPayload(local sEmail est une chaîne, local sMdp est une chaîne):booléen
+      
+      bSucces est un booléen = Vrai
+      
+      SI sEmail = "" ALORS
+      	bSucces = Faux
+      FIN
+      
+      SI sMdp = "" ALORS
+      	bSucces = Faux
+      FIN
+      
+      SI EmailVérifieAdresse(sEmail) <> emailAdresseValide ALORS
+      	bSucces = Faux
+      FIN
+      
+      SI Taille(sMdp) < 6 ALORS
+      	bSucces = Faux
+      FIN
+      
+      
+      RENVOYER bSucces
+     type : 458752
+   -
+     name : _setTokenID
+     procedure_id : 1772736039061815425
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //_setTokenID (<HttpResponse> est httpRéponse)
+      //
+      // Paramètres :
+      //	HttpResponse (httpRéponse) : <indiquez ici le rôle de HttpResponse>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE PRIVÉE _setTokenID(LOCAL HttpResponse est un httpRéponse) <UI>
+      
+      vJsonResultat est un Variant = JSONVersVariant(HttpResponse.Contenu)
+      
+      m_sIDToken = vJsonResultat.IDToken
+     type : 458752
+  properties :
+   -
+     name : ExposeToken
+     identifier : 0x172e2da20083e744
+     type_code : 103
+     p_codes :
+      -
+        code : |1+
+         procédure publique global ExposeToken():chaîne
+         renvoyer  m_sIDToken
+        type : 1966080
+     template_refs : []
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x1490bb2d003644f5
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

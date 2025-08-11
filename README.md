@@ -103,7 +103,7 @@ Elle est retournée par la méthode `CFirebaseApp.initializeApp()` et permet de 
 | Méthode | Description |
 | --- | --- |
 | `hasError()` | Retourne `Vrai` si une erreur est survenue lors de l’initialisation |
-| `getMessage()`  | Retourne le message de succès ou d’erreur |
+| `getMessage()`  | Retourne le message d’erreur |
 | `getInstance()` | Retourne l’instance de `CFirebase` initialisée |
 
 ##### Exemple d’utilisation
@@ -117,3 +117,138 @@ FIN
 
 gclFirebase est CFirebase = gclConfigResponse.getInstance()
 ```
+
+## I - Authentification
+L’authentification permet aux utilisateurs de s'authentifier via les API REST de Firebase. Cette fonctionnalité peut inclure la connexion par email et mot de passe, l'inscription de nouveaux utilisateurs.
+
+### Initialisation du service d'authentification
+```WLangage
+gclAuth	est CAuth = gclFirebase.Auth()
+```
+#### Créer un utilisateur
+```WLangage
+stUserInfo est CAuth.STAuthPayload
+
+stUserInfo.sEmail		  = "wx@firebase.com"
+stUserInfo.sPassword	  = "test1234"
+stUserInfo.sDisplayName	  = "wxFirebase"
+stUserInfo.sPhoneNumber	  = "+2250000000000"
+stUserInfo.sPhotoURL	  = "https://lorempicture.point-sys.com/400/300/"
+stUserInfo.bEmailVerified = Faux
+
+gclAuthReponse est CAuthReponse = gclAuth.signUpWithEmailPassword(stUserInfo)
+```
+##### Paramètres :
+| Clé | Description | Type |
+| --- | --- | --- |
+| `sEmail` | L'adresse e-mail de l'utilisateur | `chaîne`
+| `sPassword`  | Le mot de passe de l'utilisateur | `chaîne`
+| `sDisplayName` | Le nom d'affichage de l'utilisateur | `chaîne`
+| `sPhoneNumber` | Le numéro de téléphone de l'utilisateur | `chaîne`
+| `sPhotoURL` | L'URL de la photo de profil de l'utilisateur | `chaîne`
+| `bEmailVerified` | Indique si l'adresse e-mail de l'utilisateur doit être vérifiée | `booléen`
+
+#### Connexion anonyme
+Cette méthode créera un nouvel utilisateur dans la base de données du service d'authentification Firebase à chaque fois qu'elle est invoquée
+```WLangage
+gclAuthReponse est CAuthReponse = gclAuth.signInAnonymously()
+```
+#### Connexion par e-mail et mot de passe
+```WLangage
+gclAuthReponse est CAuthReponse = gclAuth.signInWithEmailAndPassword("wx@firebase.com", "test1234")
+```
+##### Paramètres :
+| Clé | Description | Type |
+| --- | --- | --- |
+| `sEmail` | L'adresse e-mail de l'utilisateur | `chaîne`
+| `sMdp`  | Le mot de passe de l'utilisateur | `chaîne`
+
+### Demande de réinitialisation de mot de passe
+```WLangage
+gclAuthReponse est CAuthReponse = gclAuth.sendPasswordResetWithEmail("wx@firebase.com")
+```
+##### Paramètres :
+| Clé | Description | Type |
+| --- | --- | --- |
+| `sEmail` | L'adresse e-mail de l'utilisateur | `chaîne`
+
+#### Supprimer un utilisateur
+```WLangage
+gclAuthReponse est CAuthReponse = gclAuth.deleteAccount()
+```
+#### Connexion via providers
+Les `Providers` sont des fournisseurs d'authentification autres que Firebase, par exemple Facebook, Github, Google ou Twitter. Vous pouvez trouver les fournisseurs d'authentification actuellement pris en charge par `Firebase` dans la [documentation officielle de Firebase](https://firebase.google.com/docs/projects/provisioning/configure-oauth?hl=fr#add-idp).
+A l'heure actuelle le composant prends en compte les fournisseurs suivants : (Facebook, Github, Google)
+
+##### 1. Connexion via Facebook
+```WLangage
+stOptionProvider est STProviderOauthOptions
+
+stOptionProvider.sClientID			=  CONST_CLIENT_ID
+stOptionProvider.sClientSecret		=  CONST_CLIENT_SECRET
+stOptionProvider.sScope				= "email"
+stOptionProvider.sURLRedirection	= "http://localhost:5000/auth/facebook/callback"
+
+gclProvider	est CFacebookProvider(stOptionProvider)
+
+gclAuthReponse est CAuthReponse = gclAuth.signInWithProvider(gclProvider)
+```
+###### Paramètres :
+| Clé | Description | Type |
+| --- | --- | --- |
+| `sClientID` | L'identifiant client de l'application Facebook | `chaîne`
+| `sClientSecret`  | Le secret client de l'application Facebook| `chaîne`
+| `sScope` | La portée des autorisations demandées | `chaîne`
+| `sURLRedirection` | L'URL de redirection après l'authentification | `chaîne`
+| `gclProvider` | Une instance de `CGoogleProvider` initialisée avec les options d'authentification | `STProviderOauthOptions`
+
+##### 2. Connexion via Github
+```WLangage
+stOptionProvider est STProviderOauthOptions
+
+stOptionProvider.sClientID			=  CONST_CLIENT_ID
+stOptionProvider.sClientSecret		=  CONST_CLIENT_SECRET
+stOptionProvider.sScope				= "user"
+stOptionProvider.sURLRedirection	= "http://localhost:5000/auth/github/callback"
+
+gclProvider est CGitHubProvider(stOptionProvider)
+
+gclAuthReponse est CAuthReponse = gclAuth.signInWithProvider(gclProvider)
+```
+###### Paramètres :
+| Clé | Description | Type |
+| --- | --- | --- |
+| `sClientID` | L'identifiant client de l'application Github | `chaîne`
+| `sClientSecret`  | Le secret client de l'application Github | `chaîne`
+| `sScope` | La portée des autorisations demandées | `chaîne`
+| `sURLRedirection` | L'URL de redirection après l'authentification | `chaîne`
+
+##### 3. Connexion via Google
+```WLangage
+stOptionProvider est STProviderOauthOptions
+
+stOptionProvider.sClientID			= CONST_CLIENT_ID
+stOptionProvider.sClientSecret		= CONST_CLIENT_SECRET
+stOptionProvider.sScope				= "email"
+stOptionProvider.sURLRedirection	= "http://localhost:5000/auth/github/callback"
+
+gclProvider est CGoogleProvider(stOptionProvider)
+
+gclAuthReponse est CAuthReponse = gclAuth.signInWithProvider(gclProvider)
+```
+###### Paramètres :
+| Clé | Description | Type |
+| --- | --- | --- |
+| `sClientID` | L'identifiant client de l'application Google | `chaîne`
+| `sClientSecret`  | Le secret client de l'application Google | `chaîne`
+| `sScope` | La portée des autorisations demandées | `chaîne`
+| `sURLRedirection` | L'URL de redirection après l'authentification | `chaîne`
+
+#### Gestion de la réponse
+Chacune des méthodes du service d'authentification documentées ci-dessus renverra une instance de `CAuthReponse` avec les accesseurs suivants :
+
+| Méthode | Description |
+| --- | --- |
+| `hasError()` | Retourne `Vrai` si erreur |
+| `getMessage()`  | Retourne le message d’erreur |
+| `getUser()` | Données de l’utilisateur connecté |

@@ -1,0 +1,142 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CAuthReponse
+ major_version : 25
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x17098d2b0016ea78
+ internal_properties : BQAAAAUAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      constant
+      	CONST_EMAIL_NOT_FOUND			= "EMAIL_NOT_FOUND"
+      	CONST_EMAIL_EXISTS				= "EMAIL_EXISTS"
+      	CONST_INVALID_PASSWORD			= "INVALID_PASSWORD"
+      	CONST_USER_DISABLED				= "USER_DISABLED"
+      	CONST_PASSWORD_LOGIN_DISABLED	= "PASSWORD_LOGIN_DISABLED"
+      	CONST_OPERATION_NOT_ALLOWED		= "OPERATION_NOT_ALLOWED"
+      	CONST_INVALID_ID_TOKEN			= "INVALID_ID_TOKEN"
+      	CONST_INVALID_IDP_RESPONSE		= "INVALID_IDP_RESPONSE"
+      	CONST_ADMIN_ONLY_OPERATION		= "ADMIN_ONLY_OPERATION"
+      fin
+      
+      CAuthReponse est une Classe herite CFirebaseReponse
+      	prive 
+      	m_bufUserData	est un buffer
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1660013153487415928
+     type_code : 27
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Constructeur ( [<oResultat> est httpRéponse [, <sExceptionMessage> est chaîne]])
+      //
+      // Paramètres :
+      // 	oResultat (httpRéponse - valeur par défaut=0) : <indiquez ici le rôle de oResultat>
+      //	sExceptionMessage (chaîne ANSI) : <indiquez ici le rôle de sExceptionMessage>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Constructeur(oResultat est un httpRéponse = null, sExceptionMessage est une chaîne = "")
+      
+      si oResultat = Null ALORS retour
+      
+      selon oResultat.CodeEtat 
+      
+      	cas  0   
+      		m_bHasErr	= Vrai
+      		m_sMessage	= sExceptionMessage
+      		
+      	cas 200
+      		m_bHasErr	= Faux
+      		m_bufUserData	= oResultat.Contenu	
+      		
+      	cas 400 
+      		m_bHasErr = Vrai
+      		vJsonErrResultat est un variant = JSONVersVariant(oResultat.Contenu)
+      		
+      		SELON vJsonErrResultat.error.message
+      			CAS CONST_EMAIL_NOT_FOUND  : m_sMessage = "[%CONST_EMAIL_NOT_FOUND%] : Il n'existe aucun utilisateur correspondant à cet identifiant. L'utilisateur a peut-être été supprimé."				
+      			CAS CONST_EMAIL_EXISTS 	   : m_sMessage = "[%CONST_EMAIL_EXISTS%] : L'adresse e-mail fournie est déjà utilisée par un utilisateur."	
+      			CAS CONST_INVALID_PASSWORD : m_sMessage = "[%CONST_INVALID_PASSWORD%] : La valeur fournie pour la propriété utilisateur password n'est pas valide. Il doit s'agir d'une chaîne d'au moins six caractères."
+      			CAS CONST_USER_DISABLED    : m_sMessage = "[%CONST_USER_DISABLED%] : Le compte utilisateur a été désactivé par un administrateur."
+      			CAS CONST_PASSWORD_LOGIN_DISABLED : m_sMessage = "[%CONST_PASSWORD_LOGIN_DISABLED%] : La connexion par mot de passe est désactivée pour ce projet."
+      			CAS CONST_OPERATION_NOT_ALLOWED : m_sMessage = "[%CONST_OPERATION_NOT_ALLOWED%] : La connexion via le fournisseur actuel est désactivée pour ce projet."
+      			CAS CONST_INVALID_ID_TOKEN : m_sMessage = "[%CONST_INVALID_ID_TOKEN%] : Identifiant de l'utilisateur ne sont plus valides. L'utilisateur doit se reconnecter."
+      			CAS CONST_ADMIN_ONLY_OPERATION : m_sMessage = "[%CONST_ADMIN_ONLY_OPERATION%] : La connexion anonyme est désactivée pour ce projet."
+      			CAS CONST_INVALID_IDP_RESPONSE : m_sMessage = "[%CONST_INVALID_IDP_RESPONSE%] : "
+      			autre cas : m_sMessage = "Erreur Firebase : réponse JSON invalide ou manquante."
+      		FIN	
+      	autres CAS 
+      		m_bHasErr	= Vrai
+      		m_sMessage	= "Erreur HTTP inattendue : "
+      FIN
+      
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1660013153487481464
+     type_code : 28
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Destructeur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : getUser
+     procedure_id : 1772710441050836317
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] getUser ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	buffer : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE getUser() <métier>:buffer
+      
+      renvoyer m_bufUserData
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BQAAAAUAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x17098cea0010efec
+  internal_properties : BQAAAAUAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BQAAAAUAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

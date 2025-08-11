@@ -62,6 +62,27 @@ class :
       procédure Destructeur()
       
      type : 655360
+   -
+     name : Auth
+     procedure_id : 1772721015261339792
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] Auth ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	CAuth : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      PROCEDURE Auth() <métier>:cauth
+      
+      renvoyer new CAuth
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :
