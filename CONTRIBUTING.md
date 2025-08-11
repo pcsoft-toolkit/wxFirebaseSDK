@@ -18,7 +18,7 @@ Si vous appréciez ce projet mais n'avez pas le temps d'y contribuer directement
 - **Forkez le dépôt** et clonez-le sur votre machine locale :
 
 ```bash
-git clone https://github.com/fabnguess/wxFirebaseSDK.git
+git clone https://github.com/pcsoft-toolkit/wxFirebaseSDK.git
 ```
 - **Téléchargez une copie** en ZIP via le bouton Code sur GitHub.
 
