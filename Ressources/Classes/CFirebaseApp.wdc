@@ -23,7 +23,7 @@ class :
       CFirebaseApp est une Classe
       prive 
       	global
-      	m_sCheminFichierConfig est chaîne
+      	m_sConfigFilePath est chaîne
       	m_gclResponse est CConfigResponse
       FIN
      type : 131072
@@ -49,16 +49,16 @@ class :
      procedure_id : 1772418318843133591
      type_code : 12
      code : |1-
-      PROCEDURE PUBLIQUE GLOBALE initializeApp(local sCheminConfig est une chaîne = ""):CConfigResponse
+      PROCEDURE PUBLIQUE GLOBALE initializeApp(local sConfigPath est une chaîne = ""):CConfigResponse
       
-      m_sCheminFichierConfig = sCheminConfig
+      m_sConfigFilePath = sConfigPath
       
-      SI sCheminConfig = "" ALORS
-      	m_sCheminFichierConfig = fRepExe() + fSep() + CONST_FICHIER_CONFIG
+      SI sConfigPath = "" ALORS
+      	m_sConfigFilePath = fRepEnCours() + fSep() + CONST_FICHIER_CONFIG
       FIN
       
-      SI pas fFichierExiste(m_sCheminFichierConfig) ALORS 
-      	m_gclResponse.setError(errWindev,"Fichier de configuration Firebase introuvable : " + m_sCheminFichierConfig)
+      SI pas fFichierExiste(m_sConfigFilePath) ALORS 
+      	m_gclResponse.setError(errWindev,"Fichier de configuration Firebase introuvable : " + m_sConfigFilePath)
       FIN
       
       si _loadConfiguration()	 ALORS
@@ -78,15 +78,15 @@ class :
       
       bSucces			est un booléen				= Vrai
       
-      POUR TOUT sUneKey DE tabConfigKeys
-      	sValeurConfig est chaîne	= INILit(CONST_INI_SECTION, sUneKey, "", m_sCheminFichierConfig)
+      POUR TOUT sOneKey DE tabConfigKeys
+      	sValeurConfig est chaîne	= INILit(CONST_INI_SECTION, sOneKey, "", m_sConfigFilePath)
       	
       	SI sValeurConfig = "" ALORS
       		bSucces = Faux
-      		m_gclResponse.setError(errWindev, "Configuration Firebase incomplète : paramètre [%sUneKey%] manquant")
+      		m_gclResponse.setError(errWindev, "Configuration Firebase incomplète : paramètre [%sOneKey%] manquant")
       	FIN
       	
-      	COL_Declarations.gtaGlobalCache[sUneKey] = sValeurConfig
+      	COL_Declarations.gtaGlobalCache[sOneKey] = sValeurConfig
       FIN	
       
       RENVOYER bSucces

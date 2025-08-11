@@ -17,10 +17,9 @@ class :
      code : |1+
       CFirebaseReponse est une Classe
       protege
-      	errorType	est EErrorType
-      	sMessage	est chaîne
-      	bufData		est Buffer
-      	nErrorCode	est entier
+      	m_eErrorType	est EErrorType
+      	m_sMessage		est chaîne
+      	m_bufData		est Buffer
       FIN
      type : 131072
   procedures :
@@ -59,7 +58,7 @@ class :
       //
       PROCEDURE hasError():booléen
       
-      renvoyer errorType <> errNone 
+      renvoyer m_eErrorType <> errNone 
      type : 458752
    -
      name : getMessage
@@ -80,7 +79,7 @@ class :
       //
       PROCEDURE getMessage() <UI>:chaine
       
-      renvoyer sMessage
+      renvoyer m_sMessage
      type : 458752
   procedure_templates : []
   property_templates : []

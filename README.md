@@ -29,7 +29,7 @@
 ## Installation
 
 1. Téléchargez la dernière version de `wxFirebase` dans la [page de Releases de ce projet](https://github.com/pcsoft-toolkit/wxFirebaseSDK/releases).
-2. Ajoutez le composant à votre projet WINDEV® en suivant la [documentation officielle](https://doc.pcsoft.fr/?2014006).
+2. Ajoutez le composant à votre projet Windev en suivant la [documentation officielle](https://doc.pcsoft.fr/?2014006).
 
 ## Configuration Firebase
 
@@ -37,10 +37,36 @@ Pour que le composant puisse accéder à un projet Firebase, vous devez au préa
 
 ### Étape 1 : Créer un projet Firebase
 
-- Ouvrez [cette page de la console Firebase](https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk) et sélectionnez le projet pour lequel vous souhaitez générer un fichier de clé privée.
-- Cliquez sur **Générer une nouvelle clé privée**, puis confirmez en cliquant sur **Générer la clé**.
+- Allez sur [console.firebase.google.com](https://console.firebase.google.com).
+- Cliquez sur `Créer un projet`
+- Donnez un nom à votre projet (ex: `wxFirebaseWrapper`)
+- **Google Analytics** : Vous pouvez le désactiver
+- Cliquez sur `Créer un projet` et attendez la finalisation
 
-### Étape 2 : Configuration du fichier INI
+### Étape 2 : Ajouter une application Web
+- Dans votre console de projet, cliquez sur l'icône **Web** `</>`
+- **Pseudo de l'application** : Donnez un nom descriptif (ex: `wxFirebaseWrapper`)
+- Cliquez sur **Enregistrer l'application**
+> [!CAUTION]
+>  NE COCHEZ PAS `Configurer Firebase Hosting`
+
+### Étape 3 : Récupérer la configuration
+Firebase vous affiche maintenant un code JavaScript ressemblant à ceci :
+```js
+const firebaseConfig = {
+  apiKey: "AIzaSyBxxxxxxxxxxxxxxxxxxxxxxxx",
+  authDomain: "mon-projet.firebaseapp.com", 
+  projectId: "mon-projet",
+  storageBucket: "mon-projet.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:abcdef123456789"
+};
+```
+> [!NOTE]
+> Pour `wxFirebaseSDK`, copiez uniquement ces 3 valeurs (`apiKey`, `projectId`, `storageBucket`)
+
+## Configuration du projet
+### Étape 1 : Configuration du fichier INI
 Créez un fichier `firebaseConfig.INI` dans le répertoire de votre exécutable avec la structure suivante :
 ```ini
 [FIREBASECONFIG]
@@ -49,16 +75,30 @@ PROJET_ID=votre_projet_id_ici
 STORAGE_BUCKET=votre_storage_bucket_ici
 ```
 #### Paramètres :
-- `API_KEY` : La clé API Web de votre projet Firebase (`chaine`).
-- `PROJET_ID` : L'identifiant du projet Firebase (`chaine`).
-- `STORAGE_BUCKET` : L'URL du bucket de stockage du projet Firebase (`chaine`).
+| Clé | Description | Type |
+| --- | :-: | --- |
+| `API_KEY` | La clé API Web de votre projet Firebase | `chaîne`.
+| `PROJET_ID`  | L'identifiant du projet Firebase | `chaîne`.
+| `STORAGE_BUCKET` | L'URL du bucket de stockage du projet Firebase | `chaîne`.
 
-### Étape 3 : Initialisation dans votre code
-
+### Étape 2 : Initialisation dans votre code
+#### Initialisation standard
 ```WLangage
 // Initialisation avec configuration par défaut
 gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp()
 
+// Vérification des erreurs
+SI gclConfigResponse.hasError() ALORS
+	Erreur(gclConfigResponse.getMessage())
+	RETOUR
+FIN
+
+// Récupération de l'instance Firebase
+gclFirebase est CFireBase = gclConfigResponse.getInstance()
+```
+
+#### Initialisation avec chemin personnalisé
+```WLangage
 // Initialisation avec un chemin personnalisé vers le fichier INI
 sCheminConfig est chaîne = "C:\MonApp\config\firebase-prod.ini"
 gclConfigResponse est CConfigResponse = CFirebaseApp.initializeApp(sCheminConfig)
