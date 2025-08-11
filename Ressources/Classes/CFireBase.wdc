@@ -1,7 +1,7 @@
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
- name : CFireBase
+ name : CFirebase
  major_version : 25
  minor_version : 0
  type : 4
@@ -15,7 +15,7 @@ class :
   p_codes :
    -
      code : |1+
-      CFireBase est une Classe
+      CFirebase est une Classe
       	
       fin
      type : 131072
